@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
     @Inject MainPresenter mainPresenter;
 
+
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
 
     LinearLayoutManager linearLayoutManager;
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
         mainPresenter.bind(this);
         mainPresenter.loadMenu();
 
-
     }
 
     @Override
@@ -48,6 +48,11 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
         mainRecyclerViewAdapter = new MainRecyclerViewAdapter(menuItems, this);
         recyclerView.setAdapter(mainRecyclerViewAdapter);
 
+    }
+
+    @Override
+    public HubClientApplication getHubClientApplication() {
+        return (HubClientApplication) getApplication();
     }
 
     @Override

@@ -1,9 +1,6 @@
 package com.jpiser.hubclient.presentation.features.main;
 
-import com.jpiser.hubclient.presentation.features.main.model.MenuItem;
-
-import java.util.ArrayList;
-import java.util.List;
+import javax.inject.Inject;
 
 /**
  * @author John Piser johnpiser@yahoo.com
@@ -11,22 +8,20 @@ import java.util.List;
 
 public class MainPresenterImpl implements MainPresenter{
 
+    @Inject MainUseCases mainUseCases;
+
     private ViewLayer viewLayer;
 
     @Override
     public void loadMenu() {
-
-        List<MenuItem> menuItems = new ArrayList<>();
-        menuItems.add(MenuItem.PROFILE);
-        menuItems.add(MenuItem.REPOSITORIES);
-        menuItems.add(MenuItem.ISSUES);
-
-        viewLayer.displayMenu(menuItems);
+        viewLayer.displayMenu(mainUseCases.getMenuItems());
     }
 
     @Override
     public void bind(ViewLayer viewLayer) {
 
         this.viewLayer = viewLayer;
+        viewLayer.getHubClientApplication().getAppComponent().inject(this);
+
     }
 }

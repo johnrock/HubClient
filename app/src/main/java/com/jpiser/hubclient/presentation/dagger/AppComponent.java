@@ -1,6 +1,8 @@
 package com.jpiser.hubclient.presentation.dagger;
 
 import com.jpiser.hubclient.presentation.features.main.MainActivity;
+import com.jpiser.hubclient.presentation.features.main.MainPresenterImpl;
+import com.jpiser.hubclient.presentation.features.profile.ProfileActivity;
 
 import javax.inject.Singleton;
 
@@ -14,4 +16,7 @@ import dagger.Component;
 public interface AppComponent {
 
     void inject(MainActivity mainActivity);
+    void inject(MainPresenterImpl mainPresenterImpl);
+
+    void inject(ProfileActivity profileActivity);
 }

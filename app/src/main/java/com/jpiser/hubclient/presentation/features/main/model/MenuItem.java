@@ -1,6 +1,7 @@
 package com.jpiser.hubclient.presentation.features.main.model;
 
 import com.jpiser.hubclient.presentation.features.main.MainActivity;
+import com.jpiser.hubclient.presentation.features.profile.ProfileActivity;
 
 /**
  * @author John Piser johnpiser@yahoo.com
@@ -8,7 +9,7 @@ import com.jpiser.hubclient.presentation.features.main.MainActivity;
 
 public enum MenuItem {
 
-    PROFILE("Profile", MainActivity.class),
+    PROFILE("Profile", ProfileActivity.class),
     REPOSITORIES("Repositories", MainActivity.class),
     ISSUES("Issues", MainActivity.class);
 
