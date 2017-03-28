@@ -1,5 +1,7 @@
 package com.jpiser.hubclient.presentation.dagger;
 
+import com.jpiser.hubclient.data.github.GithubApiHelper;
+import com.jpiser.hubclient.data.retrofit.RetrofitGithubApiHelper;
 import com.jpiser.hubclient.domain.HubApi;
 import com.jpiser.hubclient.domain.github.GitHubApi;
 import com.jpiser.hubclient.presentation.features.main.MainPresenter;
@@ -50,9 +52,14 @@ public class AppModule {
     @Singleton
     HubApi providesHubApi(){
         //TODO: At runtime a user preference setting could be read to allow binding to some other HubApi implementation
-        return new GitHubApi();
+        return new GitHubApi(new RetrofitGithubApiHelper());
     }
 
+    @Provides
+    @Singleton
+    GithubApiHelper providesGithubApiHelper(){
+        return new RetrofitGithubApiHelper();
+    }
 
 
 }

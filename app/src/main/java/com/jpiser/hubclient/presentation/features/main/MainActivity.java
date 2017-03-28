@@ -1,5 +1,6 @@
 package com.jpiser.hubclient.presentation.features.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
     @Override
     public void tapItem(MenuItem menuItem) {
-        Toast.makeText(this, "Tapped" + menuItem.getName(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Tapped" + menuItem.getName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, menuItem.getActivityClass());
+        startActivity(intent);
     }
 }
