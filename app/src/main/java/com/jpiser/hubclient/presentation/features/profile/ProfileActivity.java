@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.jpiser.hubclient.R;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
+import com.jpiser.hubclient.presentation.features.profile.model.Profile;
 
 import javax.inject.Inject;
 
@@ -32,4 +33,12 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         profilePresenter.loadProfile();
 
     }
+
+
+    @Override
+    public void displayProfile(Profile profile) {
+
+    }
+
+
 }

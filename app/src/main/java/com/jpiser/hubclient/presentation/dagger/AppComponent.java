@@ -3,6 +3,7 @@ package com.jpiser.hubclient.presentation.dagger;
 import com.jpiser.hubclient.presentation.features.main.MainActivity;
 import com.jpiser.hubclient.presentation.features.main.MainPresenterImpl;
 import com.jpiser.hubclient.presentation.features.profile.ProfileActivity;
+import com.jpiser.hubclient.presentation.features.profile.ProfilePresenterImpl;
 
 import javax.inject.Singleton;
 
@@ -19,4 +20,5 @@ public interface AppComponent {
     void inject(MainPresenterImpl mainPresenterImpl);
 
     void inject(ProfileActivity profileActivity);
+    void inject(ProfilePresenterImpl profilePresenterImpl);
 }

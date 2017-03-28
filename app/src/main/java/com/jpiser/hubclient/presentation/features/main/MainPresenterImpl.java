@@ -8,9 +8,14 @@ import javax.inject.Inject;
 
 public class MainPresenterImpl implements MainPresenter{
 
-    @Inject MainUseCases mainUseCases;
+    MainUseCases mainUseCases;
 
     private ViewLayer viewLayer;
+
+    @Inject
+    public MainPresenterImpl(MainUseCases mainUseCases) {
+        this.mainUseCases = mainUseCases;
+    }
 
     @Override
     public void loadMenu() {
@@ -21,7 +26,6 @@ public class MainPresenterImpl implements MainPresenter{
     public void bind(ViewLayer viewLayer) {
 
         this.viewLayer = viewLayer;
-        viewLayer.getHubClientApplication().getAppComponent().inject(this);
 
     }
 }

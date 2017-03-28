@@ -5,14 +5,11 @@ import com.jpiser.hubclient.presentation.features.profile.model.Profile;
 /**
  * @author John Piser johnpiser@yahoo.com
  */
-public interface ProfilePresenter {
+public interface ProfileUseCases {
 
-    interface ViewLayer{
-        void displayProfile(Profile profile);
+    interface ProfileReceiver{
+        void receiveProfile(Profile profile);
     }
 
-
-    void bind(ViewLayer viewLayer);
-
-    void loadProfile();
+    void loadProfile(ProfileReceiver profileReceiver);
 }

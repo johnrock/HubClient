@@ -50,10 +50,6 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
     }
 
-    @Override
-    public HubClientApplication getHubClientApplication() {
-        return (HubClientApplication) getApplication();
-    }
 
     @Override
     public void tapItem(MenuItem menuItem) {
