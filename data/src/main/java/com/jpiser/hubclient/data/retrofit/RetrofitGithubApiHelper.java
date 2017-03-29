@@ -1,13 +1,18 @@
 package com.jpiser.hubclient.data.retrofit;
 
 import com.jpiser.hubclient.data.github.GithubApiHelper;
-import com.jpiser.hubclient.data.retrofit.model.Contributor;
+import com.jpiser.hubclient.data.logging.LogHelper;
+import com.jpiser.hubclient.data.github.model.Contributor;
 
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author John Piser johnpiser@yahoo.com
@@ -16,13 +21,42 @@ import retrofit2.Response;
 public class RetrofitGithubApiHelper implements GithubApiHelper{
 
 
-    private GithubApiAccessor githubApiAccessor;
+    GithubApiAccessor githubApiAccessor;
+    LogHelper logHelper;
+
+    public RetrofitGithubApiHelper(LogHelper logHelper) {
+        this.logHelper = logHelper;
+    }
+
+    private OkHttpClient createHttpClient() {
+
+        OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
+
+        if(logHelper.debugMode()){
+            //Add as last interceptor
+            HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            okHttpClientBuilder.addInterceptor(httpLoggingInterceptor);
+        }
+
+        return okHttpClientBuilder.build();
+    }
+
+    private Retrofit createRetrofit(){
+
+      return     new Retrofit.Builder()
+                .baseUrl("https://api.github.com/")
+                .client(createHttpClient())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
+
 
     @Override
     public void loadProfile(final GithubApiAccessor githubApiAccessor) {
         this.githubApiAccessor = githubApiAccessor;
 
-        RetrofitGithubService retrofitGithubService = RetrofitGithubService.retrofit.create(RetrofitGithubService.class);
+        RetrofitGithubService retrofitGithubService = createRetrofit().create(RetrofitGithubService.class);
 
         final Call<List<Contributor>> call = retrofitGithubService.repoContributors("square", "retrofit");
 

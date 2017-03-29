@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.data.retrofit.model;
+package com.jpiser.hubclient.data.github.model;
 
 /**
  * @author John Piser johnpiser@yahoo.com
