@@ -5,6 +5,10 @@ dependencies {
 
     compile project(':common')
     compile project(':data')
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.1.0'
+
 }
 
 sourceCompatibility = "1.7"

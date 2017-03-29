@@ -16,7 +16,7 @@ import javax.inject.Inject;
 public class ProfileUseCasesImpl implements ProfileUseCases, HubApi.HubAccessor {
 
     HubApi hubApi;
-    private ProfileReceiver profileReceiver;
+    ProfileReceiver profileReceiver;
 
     @Inject
     public ProfileUseCasesImpl(HubApi hubApi) {
@@ -26,8 +26,9 @@ public class ProfileUseCasesImpl implements ProfileUseCases, HubApi.HubAccessor 
     @Override
     public void loadProfile(ProfileReceiver profileReceiver, String userLogin) {
         this.profileReceiver = profileReceiver;
-        hubApi.loadProfile(this, userLogin);
-
+        if(hubApi != null){
+            hubApi.loadProfile(this, userLogin);
+        }
     }
 
     @Override

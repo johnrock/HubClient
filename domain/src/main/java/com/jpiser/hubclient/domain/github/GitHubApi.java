@@ -27,11 +27,15 @@ public class GitHubApi implements HubApi, GithubApiHelper.GithubApiAccessor {
 
     @Override
     public void receiveProfile(Profile profile) {
-        hubAccessor.receiveProfile(new HubUserProfileAdapter().adapt(profile));
+        if(hubAccessor != null){
+            hubAccessor.receiveProfile(new HubUserProfileAdapter().adapt(profile));
+        }
     }
 
     @Override
     public void receiveOrganiztions(List<Organization> organizations) {
-        hubAccessor.receiveOrganziations(new HubOrganizationAdapter().adapt(organizations));
+        if(hubAccessor != null){
+            hubAccessor.receiveOrganziations(new HubOrganizationAdapter().adapt(organizations));
+        }
     }
 }

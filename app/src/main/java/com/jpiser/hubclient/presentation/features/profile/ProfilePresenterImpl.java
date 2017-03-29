@@ -14,8 +14,7 @@ import javax.inject.Inject;
 public class ProfilePresenterImpl implements  ProfilePresenter, ProfileUseCases.ProfileReceiver {
 
     ProfileUseCases profileUseCases;
-
-    private ViewLayer viewLayer;
+    ViewLayer viewLayer;
 
     @Inject
     public ProfilePresenterImpl(ProfileUseCases profileUseCases) {
@@ -29,16 +28,22 @@ public class ProfilePresenterImpl implements  ProfilePresenter, ProfileUseCases.
 
     @Override
     public void loadProfile(String userLogin) {
-        profileUseCases.loadProfile(this, userLogin);
+        if(profileUseCases != null){
+            profileUseCases.loadProfile(this, userLogin);
+        }
     }
 
     @Override
     public void receiveProfile(UserProfile userProfile) {
-        viewLayer.displayProfile(userProfile);
+        if(viewLayer != null){
+            viewLayer.displayProfile(userProfile);
+        }
     }
 
     @Override
     public void receiveOrganziations(List<OrganizationModel> organizationModels) {
-        viewLayer.displayOrganizations(organizationModels);
+        if(viewLayer != null){
+            viewLayer.displayOrganizations(organizationModels);
+        }
     }
 }
