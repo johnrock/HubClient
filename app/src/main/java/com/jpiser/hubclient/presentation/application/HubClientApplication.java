@@ -19,7 +19,7 @@ public class HubClientApplication extends Application {
         super.onCreate();
 
         appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule())
+                .appModule(new AppModule(getApplicationContext()))
                 .build();
     }
 

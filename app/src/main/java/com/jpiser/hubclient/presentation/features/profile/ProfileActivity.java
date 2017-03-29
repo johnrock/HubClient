@@ -3,9 +3,11 @@ package com.jpiser.hubclient.presentation.features.profile;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jpiser.hubclient.R;
+import com.jpiser.hubclient.common.imaging.ImageHelper;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
 import com.jpiser.hubclient.presentation.features.profile.model.UserProfile;
 
@@ -22,8 +24,10 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 {
 
     @Inject ProfilePresenter profilePresenter;
+    @Inject ImageHelper imageHelper;
 
-    @BindView(R.id.name) TextView nameTextView;
+    @BindView(R.id.name)   TextView nameTextView;
+    @BindView(R.id.avatar) ImageView avatarImageView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +47,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     public void displayProfile(UserProfile userProfile) {
         if(userProfile != null){
             nameTextView.setText(userProfile.getName());
+            imageHelper.loadImage(avatarImageView, userProfile.getAvatarUrl());
+
         }
     }
 
