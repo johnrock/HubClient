@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.data.retrofit;
+package com.jpiser.hubclient.retrofit.github;
 
 import com.jpiser.hubclient.data.github.GithubApiHelper;
 import com.jpiser.hubclient.common.logging.LogHelper;

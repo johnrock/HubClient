@@ -2,7 +2,6 @@ package com.jpiser.hubclient.presentation.dagger;
 
 import com.jpiser.hubclient.BuildConfig;
 import com.jpiser.hubclient.common.logging.LogHelper;
-import com.jpiser.hubclient.data.retrofit.RetrofitGithubApiHelper;
 import com.jpiser.hubclient.domain.HubApi;
 import com.jpiser.hubclient.domain.github.GitHubApi;
 import com.jpiser.hubclient.presentation.features.main.MainPresenter;
@@ -14,6 +13,7 @@ import com.jpiser.hubclient.presentation.features.profile.ProfilePresenterImpl;
 import com.jpiser.hubclient.presentation.features.profile.ProfileUseCases;
 import com.jpiser.hubclient.presentation.features.profile.ProfileUseCasesImpl;
 import com.jpiser.hubclient.presentation.logging.LogHelperImpl;
+import com.jpiser.hubclient.retrofit.github.RetrofitGithubApiHelper;
 
 import javax.inject.Singleton;
 
@@ -60,6 +60,8 @@ public class AppModule {
     @Singleton
     HubApi providesHubApi(LogHelper logHelper){
         //TODO: At runtime a user preference setting could be read to allow binding to some other HubApi implementation
+        // To use another Http library other than Retrofit, just pass in a different GithubApiHelper implementation
+        // and remove the dependency on the retrofit module in build.gradle
         return new GitHubApi(new RetrofitGithubApiHelper(logHelper));
     }
 
