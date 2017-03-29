@@ -1,7 +1,7 @@
 package com.jpiser.hubclient.presentation.dagger;
 
 import com.jpiser.hubclient.BuildConfig;
-import com.jpiser.hubclient.data.logging.LogHelper;
+import com.jpiser.hubclient.common.logging.LogHelper;
 import com.jpiser.hubclient.data.retrofit.RetrofitGithubApiHelper;
 import com.jpiser.hubclient.domain.HubApi;
 import com.jpiser.hubclient.domain.github.GitHubApi;

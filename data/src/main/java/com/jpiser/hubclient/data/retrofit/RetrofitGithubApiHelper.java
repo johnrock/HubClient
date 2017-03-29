@@ -1,7 +1,7 @@
 package com.jpiser.hubclient.data.retrofit;
 
 import com.jpiser.hubclient.data.github.GithubApiHelper;
-import com.jpiser.hubclient.data.logging.LogHelper;
+import com.jpiser.hubclient.common.logging.LogHelper;
 import com.jpiser.hubclient.data.github.model.Contributor;
 
 import java.util.List;

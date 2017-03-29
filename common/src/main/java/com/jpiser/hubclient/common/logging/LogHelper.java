@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.data.logging;
+package com.jpiser.hubclient.common.logging;
 
 /**
  * @author John Piser johnpiser@yahoo.com

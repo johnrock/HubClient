@@ -2,7 +2,7 @@ package com.jpiser.hubclient.presentation.logging;
 
 import android.util.Log;
 
-import com.jpiser.hubclient.data.logging.LogHelper;
+import com.jpiser.hubclient.common.logging.LogHelper;
 
 /**
  * @author John Piser johnpiser@yahoo.com
