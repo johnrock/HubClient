@@ -3,7 +3,9 @@ package com.jpiser.hubclient.presentation.features.profile;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,6 +54,13 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
         ((HubClientApplication)getApplication()).getAppComponent().inject(this);
         ButterKnife.bind(this);
+
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle("Profile");
+        }
 
         userLogin = getIntent().getStringExtra(Extras.USER_LOGIN);
         if(userLogin == null){
@@ -106,5 +115,15 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
