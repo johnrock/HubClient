@@ -2,7 +2,10 @@ package com.jpiser.hubclient.retrofit.github;
 
 import com.jpiser.hubclient.common.logging.LogHelper;
 import com.jpiser.hubclient.data.github.GithubApiHelper;
+import com.jpiser.hubclient.data.github.model.Organization;
 import com.jpiser.hubclient.data.github.model.Profile;
+
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -20,11 +23,13 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
 
     private final String LOGTAG = getClass().getSimpleName();
 
-    GithubApiAccessor githubApiAccessor;
     LogHelper logHelper;
+
+    private final RetrofitGithubService retrofitGithubService;
 
     public RetrofitGithubApiHelper(LogHelper logHelper) {
         this.logHelper = logHelper;
+        retrofitGithubService = createRetrofit().create(RetrofitGithubService.class);
     }
 
     private OkHttpClient createHttpClient() {
@@ -53,9 +58,6 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
 
     @Override
     public void loadProfile(final GithubApiAccessor githubApiAccessor) {
-        this.githubApiAccessor = githubApiAccessor;
-
-        RetrofitGithubService retrofitGithubService = createRetrofit().create(RetrofitGithubService.class);
 
         final Call<Profile> call = retrofitGithubService.userProfile("JakeWharton");
 
@@ -66,6 +68,7 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
                 logHelper.debug(LOGTAG, "Retrieved profile: " + profile);
 
                 githubApiAccessor.receiveProfile(profile);
+                loadOrganizations(githubApiAccessor);
             }
 
             @Override
@@ -77,5 +80,22 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
                 githubApiAccessor.receiveProfile(profile);
             }
         });
+    }
+
+    private void loadOrganizations(final GithubApiAccessor githubApiAccessor){
+
+        final Call<List<Organization>> call = retrofitGithubService.organizations("JakeWharton");
+        call.enqueue(new Callback<List<Organization>>() {
+            @Override
+            public void onResponse(Call<List<Organization>> call, Response<List<Organization>> response) {
+                githubApiAccessor.receiveOrganiztions(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Organization>> call, Throwable t) {
+                logHelper.error(LOGTAG, "Error retrieving profile: " + t);
+            }
+        });
+
     }
 }

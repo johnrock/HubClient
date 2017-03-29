@@ -28,6 +28,58 @@
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
         />
 
+    <TextView
+        android:id="@+id/company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/avatar"
+        android:layout_below="@+id/name"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+        />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/avatar"
+        android:layout_below="@+id/company"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+        />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/avatar"
+        android:layout_below="@+id/location"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+        />
+
+    <TextView
+        android:id="@+id/blog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/avatar"
+        android:layout_below="@+id/email"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+        />
+
+    <ScrollView
+        android:layout_toRightOf="@+id/avatar"
+        android:layout_below="@+id/blog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:id="@+id/organizationLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            />
+    </ScrollView>
+
 
 
 </RelativeLayout>
