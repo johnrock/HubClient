@@ -1,10 +1,8 @@
 package com.jpiser.hubclient.retrofit.github;
 
-import com.jpiser.hubclient.data.github.GithubApiHelper;
 import com.jpiser.hubclient.common.logging.LogHelper;
-import com.jpiser.hubclient.data.github.model.Contributor;
-
-import java.util.List;
+import com.jpiser.hubclient.data.github.GithubApiHelper;
+import com.jpiser.hubclient.data.github.model.Profile;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -20,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitGithubApiHelper implements GithubApiHelper{
 
+    private final String LOGTAG = getClass().getSimpleName();
 
     GithubApiAccessor githubApiAccessor;
     LogHelper logHelper;
@@ -58,19 +57,24 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
 
         RetrofitGithubService retrofitGithubService = createRetrofit().create(RetrofitGithubService.class);
 
-        final Call<List<Contributor>> call = retrofitGithubService.repoContributors("square", "retrofit");
+        final Call<Profile> call = retrofitGithubService.userProfile("JakeWharton");
 
-        call.enqueue(new Callback<List<Contributor>>() {
+        call.enqueue(new Callback<Profile>() {
             @Override
-            public void onResponse(Call<List<Contributor>> call, Response<List<Contributor>> response) {
-                for (Contributor contributor : response.body()) {
-                    System.out.println("Contributor: " + contributor.toString());
-                }
-                githubApiAccessor.receiveProfile();
+            public void onResponse(Call<Profile> call, Response<Profile> response) {
+                Profile profile = response.body();
+                logHelper.debug(LOGTAG, "Retrieved profile: " + profile);
+
+                githubApiAccessor.receiveProfile(profile);
             }
+
             @Override
-            public void onFailure(Call<List<Contributor>> call, Throwable t) {
-                System.out.println("Retrofit call failure: " + t.getMessage());
+            public void onFailure(Call<Profile> call, Throwable t) {
+                logHelper.error(LOGTAG, "Error retrieving profile: " + t);
+                //TODO: Handle failures better. This is just a quick n easy way to handle it.
+                Profile profile = new Profile();
+                profile.setName("Error retreiving profile");
+                githubApiAccessor.receiveProfile(profile);
             }
         });
     }

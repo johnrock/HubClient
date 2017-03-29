@@ -1,7 +1,9 @@
 package com.jpiser.hubclient.domain.github;
 
 import com.jpiser.hubclient.data.github.GithubApiHelper;
+import com.jpiser.hubclient.data.github.model.Profile;
 import com.jpiser.hubclient.domain.HubApi;
+import com.jpiser.hubclient.domain.HubUserProfileAdapter;
 
 public class GitHubApi implements HubApi, GithubApiHelper.GithubApiAccessor {
 
@@ -20,7 +22,7 @@ public class GitHubApi implements HubApi, GithubApiHelper.GithubApiAccessor {
     }
 
     @Override
-    public void receiveProfile() {
-        //hubAccessor.receiveProfile();
+    public void receiveProfile(Profile profile) {
+        hubAccessor.receiveProfile(new HubUserProfileAdapter().adapt(profile));
     }
 }

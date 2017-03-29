@@ -1,8 +1,8 @@
 package com.jpiser.hubclient.presentation.features.profile;
 
 import com.jpiser.hubclient.domain.HubApi;
-import com.jpiser.hubclient.domain.model.HubProfile;
-import com.jpiser.hubclient.presentation.features.profile.model.ProfileAdapter;
+import com.jpiser.hubclient.domain.model.HubUserProfile;
+import com.jpiser.hubclient.presentation.features.profile.model.UserProfileAdapter;
 
 import javax.inject.Inject;
 
@@ -27,9 +27,9 @@ public class ProfileUseCasesImpl implements ProfileUseCases, HubApi.HubAccessor 
     }
 
     @Override
-    public void receiveProfile(HubProfile hubProfile) {
+    public void receiveProfile(HubUserProfile hubUserProfile) {
         if(profileReceiver != null){
-            profileReceiver.receiveProfile(new ProfileAdapter().adapt(hubProfile));
+            profileReceiver.receiveProfile(new UserProfileAdapter().adapt(hubUserProfile));
         }
     }
 }

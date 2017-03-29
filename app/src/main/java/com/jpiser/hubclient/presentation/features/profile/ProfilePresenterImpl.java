@@ -1,6 +1,6 @@
 package com.jpiser.hubclient.presentation.features.profile;
 
-import com.jpiser.hubclient.presentation.features.profile.model.Profile;
+import com.jpiser.hubclient.presentation.features.profile.model.UserProfile;
 
 import javax.inject.Inject;
 
@@ -30,7 +30,7 @@ public class ProfilePresenterImpl implements  ProfilePresenter, ProfileUseCases.
     }
 
     @Override
-    public void receiveProfile(Profile profile) {
-        viewLayer.displayProfile(profile);
+    public void receiveProfile(UserProfile userProfile) {
+        viewLayer.displayProfile(userProfile);
     }
 }

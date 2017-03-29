@@ -3,13 +3,15 @@ package com.jpiser.hubclient.presentation.features.profile;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import com.jpiser.hubclient.R;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
-import com.jpiser.hubclient.presentation.features.profile.model.Profile;
+import com.jpiser.hubclient.presentation.features.profile.model.UserProfile;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -20,6 +22,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 {
 
     @Inject ProfilePresenter profilePresenter;
+
+    @BindView(R.id.name) TextView nameTextView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,8 +40,10 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
 
     @Override
-    public void displayProfile(Profile profile) {
-
+    public void displayProfile(UserProfile userProfile) {
+        if(userProfile != null){
+            nameTextView.setText(userProfile.getName());
+        }
     }
 
 

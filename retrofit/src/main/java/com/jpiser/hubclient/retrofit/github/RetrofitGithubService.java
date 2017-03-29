@@ -1,6 +1,7 @@
 package com.jpiser.hubclient.retrofit.github;
 
 import com.jpiser.hubclient.data.github.model.Contributor;
+import com.jpiser.hubclient.data.github.model.Profile;
 
 import java.util.List;
 
@@ -16,5 +17,8 @@ public interface RetrofitGithubService {
 
     @GET("repos/{owner}/{repo}/contributors")
     Call<List<Contributor>> repoContributors(@Path("owner") String owner, @Path("repo") String repo);
+
+    @GET("users/{userLogin}")
+    Call<Profile> userProfile(@Path("userLogin") String userLogin);
 
 }

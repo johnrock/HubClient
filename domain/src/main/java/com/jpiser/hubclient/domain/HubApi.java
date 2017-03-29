@@ -1,11 +1,11 @@
 package com.jpiser.hubclient.domain;
 
-import com.jpiser.hubclient.domain.model.HubProfile;
+import com.jpiser.hubclient.domain.model.HubUserProfile;
 
 public interface HubApi {
 
     interface HubAccessor{
-        void receiveProfile(HubProfile hubProfile);
+        void receiveProfile(HubUserProfile hubUserProfile);
     }
 
 
