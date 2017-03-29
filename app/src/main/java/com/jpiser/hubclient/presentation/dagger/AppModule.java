@@ -7,10 +7,6 @@ import com.jpiser.hubclient.common.imaging.ImageHelper;
 import com.jpiser.hubclient.common.logging.LogHelper;
 import com.jpiser.hubclient.domain.HubApi;
 import com.jpiser.hubclient.domain.github.GitHubApi;
-import com.jpiser.hubclient.presentation.features.main.MainPresenter;
-import com.jpiser.hubclient.presentation.features.main.MainPresenterImpl;
-import com.jpiser.hubclient.presentation.features.main.MainUseCases;
-import com.jpiser.hubclient.presentation.features.main.MainUseCasesImpl;
 import com.jpiser.hubclient.presentation.features.profile.ProfilePresenter;
 import com.jpiser.hubclient.presentation.features.profile.ProfilePresenterImpl;
 import com.jpiser.hubclient.presentation.features.profile.ProfileUseCases;
@@ -42,17 +38,6 @@ public class AppModule {
         return new LogHelperImpl(BuildConfig.DEBUG);
     }
 
-    @Provides
-    @Singleton
-    MainPresenter providesMainPresenter(MainUseCases mainUseCases){
-        return new MainPresenterImpl(mainUseCases);
-    }
-
-    @Provides
-    @Singleton
-    MainUseCases providesMainUseCases(){
-        return new MainUseCasesImpl();
-    }
 
     @Provides
     @Singleton

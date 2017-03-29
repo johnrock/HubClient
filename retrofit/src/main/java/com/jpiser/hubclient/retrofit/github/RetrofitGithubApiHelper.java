@@ -57,34 +57,38 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
 
 
     @Override
-    public void loadProfile(final GithubApiAccessor githubApiAccessor) {
+    public void loadProfile(final GithubApiAccessor githubApiAccessor, final String userLogin) {
 
-        final Call<Profile> call = retrofitGithubService.userProfile("JakeWharton");
+        if(userLogin != null){
 
-        call.enqueue(new Callback<Profile>() {
-            @Override
-            public void onResponse(Call<Profile> call, Response<Profile> response) {
-                Profile profile = response.body();
-                logHelper.debug(LOGTAG, "Retrieved profile: " + profile);
+            final Call<Profile> call = retrofitGithubService.userProfile(userLogin);
 
-                githubApiAccessor.receiveProfile(profile);
-                loadOrganizations(githubApiAccessor);
-            }
+            call.enqueue(new Callback<Profile>() {
+                @Override
+                public void onResponse(Call<Profile> call, Response<Profile> response) {
+                    Profile profile = response.body();
+                    logHelper.debug(LOGTAG, "Retrieved profile: " + profile);
 
-            @Override
-            public void onFailure(Call<Profile> call, Throwable t) {
-                logHelper.error(LOGTAG, "Error retrieving profile: " + t);
-                //TODO: Handle failures better. This is just a quick n easy way to handle it.
-                Profile profile = new Profile();
-                profile.setName("Error retreiving profile");
-                githubApiAccessor.receiveProfile(profile);
-            }
-        });
+                    githubApiAccessor.receiveProfile(profile);
+                    loadOrganizations(githubApiAccessor, userLogin);
+                }
+
+                @Override
+                public void onFailure(Call<Profile> call, Throwable t) {
+                    logHelper.error(LOGTAG, "Error retrieving profile: " + t);
+                    //TODO: Handle failures better. This is just a quick n easy way to handle it.
+                    Profile profile = new Profile();
+                    profile.setName("Error retreiving profile");
+                    githubApiAccessor.receiveProfile(profile);
+                }
+            });
+        }
+
     }
 
-    private void loadOrganizations(final GithubApiAccessor githubApiAccessor){
+    private void loadOrganizations(final GithubApiAccessor githubApiAccessor, final String userLogin){
 
-        final Call<List<Organization>> call = retrofitGithubService.organizations("JakeWharton");
+        final Call<List<Organization>> call = retrofitGithubService.organizations(userLogin);
         call.enqueue(new Callback<List<Organization>>() {
             @Override
             public void onResponse(Call<List<Organization>> call, Response<List<Organization>> response) {

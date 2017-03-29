@@ -28,8 +28,8 @@ public class ProfilePresenterImpl implements  ProfilePresenter, ProfileUseCases.
     }
 
     @Override
-    public void loadProfile() {
-        profileUseCases.loadProfile(this);
+    public void loadProfile(String userLogin) {
+        profileUseCases.loadProfile(this, userLogin);
     }
 
     @Override

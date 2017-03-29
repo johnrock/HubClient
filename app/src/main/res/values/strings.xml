@@ -3,10 +3,9 @@
 
 
     <string name="main_selected_hub">SELECTED HUB:</string>
-
-    <string name="main_menu_item_profile">Profile</string>
-    <string name="main_menu_item_repositories">Repositories</string>
-    <string name="main_menu_item_issues">Issues</string>
+    <string name="main_user_label">Hub user login:</string>
+    <string name="main_prompt_enter_login">Please enter a Github user login</string>
+    <string name="main_button_go">GO</string>
 
 
 </resources>

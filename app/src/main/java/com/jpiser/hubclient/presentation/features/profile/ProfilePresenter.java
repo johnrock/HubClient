@@ -19,5 +19,5 @@ public interface ProfilePresenter {
 
     void bind(ViewLayer viewLayer);
 
-    void loadProfile();
+    void loadProfile(String userLogin);
 }

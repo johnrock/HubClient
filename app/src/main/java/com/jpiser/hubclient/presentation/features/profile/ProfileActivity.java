@@ -14,6 +14,7 @@ import com.jpiser.hubclient.presentation.application.HubClientApplication;
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
 import com.jpiser.hubclient.presentation.features.profile.model.UserProfile;
 import com.jpiser.hubclient.presentation.imaging.ViewHelper;
+import com.jpiser.hubclient.presentation.util.Extras;
 
 import java.util.List;
 
@@ -42,6 +43,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     @BindView(R.id.avatar) ImageView avatarImageView;
     @BindView(R.id.organizationLayout) LinearLayout organizationLayout;
 
+    private String userLogin;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +53,13 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         ((HubClientApplication)getApplication()).getAppComponent().inject(this);
         ButterKnife.bind(this);
 
+        userLogin = getIntent().getStringExtra(Extras.USER_LOGIN);
+        if(userLogin == null){
+            finish();
+        }
+
         profilePresenter.bind(this);
-        profilePresenter.loadProfile();
+        profilePresenter.loadProfile(userLogin);
 
     }
 

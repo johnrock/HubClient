@@ -16,5 +16,5 @@ public interface GithubApiHelper {
         void receiveOrganiztions(List<Organization> organizations);
     }
 
-    void loadProfile(GithubApiAccessor githubApiAccessor);
+    void loadProfile(GithubApiAccessor githubApiAccessor, String userLogin);
 }

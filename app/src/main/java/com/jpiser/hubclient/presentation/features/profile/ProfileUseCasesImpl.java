@@ -24,9 +24,9 @@ public class ProfileUseCasesImpl implements ProfileUseCases, HubApi.HubAccessor 
     }
 
     @Override
-    public void loadProfile(ProfileReceiver profileReceiver) {
+    public void loadProfile(ProfileReceiver profileReceiver, String userLogin) {
         this.profileReceiver = profileReceiver;
-        hubApi.loadProfile(this);
+        hubApi.loadProfile(this, userLogin);
 
     }
 

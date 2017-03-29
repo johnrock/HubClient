@@ -13,5 +13,5 @@ public interface HubApi {
     }
 
 
-    void loadProfile(HubAccessor hubAccessor);
+    void loadProfile(HubAccessor hubAccessor, String UserLogin);
 }

@@ -26,14 +26,34 @@
         android:layout_toRightOf="@+id/hublabel"
         android:text="GitHub" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/hubUserlabel"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/hublabel"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/main_user_label" />
+
+    <EditText
+        android:id="@+id/userLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/hubUserlabel"
+        android:layout_below="@+id/hublabel"
+        android:layout_marginRight="10dp"
+        android:inputType="textPersonName"
+        android:hint="Enter a github login"
         />
+
+    <Button
+        android:id="@+id/loadProfileButton"
+        android:layout_toRightOf="@+id/userLogin"
+        android:layout_below="@+id/hublabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_button_go"/>
+
 
 
 </RelativeLayout>

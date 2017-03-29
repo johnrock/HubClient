@@ -19,10 +19,10 @@ public class GitHubApi implements HubApi, GithubApiHelper.GithubApiAccessor {
     }
 
     @Override
-    public void loadProfile(HubAccessor hubAccessor) {
+    public void loadProfile(HubAccessor hubAccessor, String userLogin) {
         this.hubAccessor = hubAccessor;
 
-        githubApiHelper.loadProfile(this);
+        githubApiHelper.loadProfile(this, userLogin);
     }
 
     @Override

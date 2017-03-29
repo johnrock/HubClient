@@ -15,5 +15,5 @@ public interface ProfileUseCases {
         void receiveOrganziations(List<OrganizationModel> organizationModels);
     }
 
-    void loadProfile(ProfileReceiver profileReceiver);
+    void loadProfile(ProfileReceiver profileReceiver, String userLogin);
 }
