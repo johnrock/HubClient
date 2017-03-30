@@ -87,10 +87,7 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
                 @Override
                 public void onFailure(Call<Profile> call, Throwable t) {
                     logHelper.error(LOGTAG, "Error retrieving profile: " + t);
-                    //TODO: Handle failures better. This is just a quick n easy way to handle it.
-                    Profile profile = new Profile();
-                    profile.setName("Error retreiving profile");
-                    githubApiAccessor.receiveProfile(profile);
+                    //TODO: Handle failures better.
                 }
             });
         }

@@ -1,6 +1,7 @@
 package com.jpiser.hubclient.retrofit.github;
 
 import com.jpiser.hubclient.data.github.model.Contributor;
+import com.jpiser.hubclient.data.github.model.Issue;
 import com.jpiser.hubclient.data.github.model.Organization;
 import com.jpiser.hubclient.data.github.model.Profile;
 import com.jpiser.hubclient.data.github.model.Repo;
@@ -28,5 +29,8 @@ public interface RetrofitGithubService {
 
     @GET("users/{userLogin}/repos")
     Call<List<Repo>> repos(@Path("userLogin") String userLogin);
+
+    @GET("repos/{owner}/{reponame}/issues")
+    Call<List<Issue>> issues(@Path("owner") String owner, @Path("reponame") String repoName);
 
 }
