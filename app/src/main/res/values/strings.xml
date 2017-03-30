@@ -7,6 +7,7 @@
     <string name="main_prompt_enter_login">Please enter a Github user login</string>
     <string name="main_button_go">GO</string>
     <string name="profile_heading_repositories">Repositories</string>
+    <string name="feature_issues_message_no_issues_found">No Issues found</string>
 
 
 </resources>

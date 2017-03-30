@@ -2,6 +2,7 @@ package com.jpiser.hubclient.retrofit.github;
 
 import com.jpiser.hubclient.common.logging.LogHelper;
 import com.jpiser.hubclient.data.github.GithubApiHelper;
+import com.jpiser.hubclient.data.github.model.Issue;
 import com.jpiser.hubclient.data.github.model.Organization;
 import com.jpiser.hubclient.data.github.model.Profile;
 import com.jpiser.hubclient.data.github.model.Repo;
@@ -118,6 +119,32 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
             });
         }
     }
+
+    @Override
+    public void loadIssues(String ownerName, String repoName) {
+
+        if(githubApiAccessor == null){
+            logHelper.error(LOGTAG, "Error: Must call bind() before calling loadIssues");
+            return;
+        }
+        if(repoName != null && ownerName != null){
+
+            Call<List<Issue>> call = retrofitGithubService.issues(ownerName, repoName);
+            call.enqueue(new Callback<List<Issue>>() {
+                @Override
+                public void onResponse(Call<List<Issue>> call, Response<List<Issue>> response) {
+                    githubApiAccessor.receiveIssues(response.body());
+                }
+
+                @Override
+                public void onFailure(Call<List<Issue>> call, Throwable t) {
+                    logHelper.error(LOGTAG, "Error retrieving issues: " + t);
+                }
+            });
+        }
+
+    }
+
 
     private void loadOrganizations(final String userLogin){
 

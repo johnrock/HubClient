@@ -28,7 +28,8 @@ public class GitHubApiTest {
     GitHubApi gitHubApi;
 
     @Mock GithubApiHelper githubApiHelper;
-    @Mock HubApi.HubAccessor hubAccessor;
+    @Mock
+    HubApi.HubProfileAccessor hubProfileAccessor;
     @Mock List<Repo> repoList;
 
 
@@ -42,9 +43,9 @@ public class GitHubApiTest {
 
     @Test
     public void shouldBind(){
-        gitHubApi.bind(hubAccessor);
+        gitHubApi.bind(hubProfileAccessor);
 
-        assertEquals(hubAccessor, gitHubApi.hubAccessor);
+        assertEquals(hubProfileAccessor, gitHubApi.hubProfileAccessor);
         verify(githubApiHelper).bind(gitHubApi);
     }
 
@@ -62,26 +63,26 @@ public class GitHubApiTest {
 
     @Test
     public void shouldReceiveProfile(){
-        gitHubApi.bind(hubAccessor);
+        gitHubApi.bind(hubProfileAccessor);
         gitHubApi.receiveProfile(testProfile());
 
-        verify(hubAccessor).receiveProfile(any(HubUserProfile.class));
+        verify(hubProfileAccessor).receiveProfile(any(HubUserProfile.class));
     }
 
     @Test
     public void shouldReceiveOrganizations(){
-        gitHubApi.bind(hubAccessor);
+        gitHubApi.bind(hubProfileAccessor);
         gitHubApi.receiveOrganiztions(createTestOrganizations());
 
-        verify(hubAccessor).receiveOrganziations(any(List.class));
+        verify(hubProfileAccessor).receiveOrganziations(any(List.class));
     }
 
     @Test
     public void shouldReceiveRepos(){
-        gitHubApi.bind(hubAccessor);
+        gitHubApi.bind(hubProfileAccessor);
         gitHubApi.receiveRepos(repoList);
 
-        verify(hubAccessor).receiveRepos(any(List.class));
+        verify(hubProfileAccessor).receiveRepos(any(List.class));
     }
 
     private List<Organization> createTestOrganizations() {

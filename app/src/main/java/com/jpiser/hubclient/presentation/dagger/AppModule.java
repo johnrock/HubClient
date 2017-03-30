@@ -7,6 +7,10 @@ import com.jpiser.hubclient.common.imaging.ImageHelper;
 import com.jpiser.hubclient.common.logging.LogHelper;
 import com.jpiser.hubclient.domain.HubApi;
 import com.jpiser.hubclient.domain.github.GitHubApi;
+import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenter;
+import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenterImpl;
+import com.jpiser.hubclient.presentation.features.issues.model.IssuesUseCases;
+import com.jpiser.hubclient.presentation.features.issues.model.IssuesUseCasesImpl;
 import com.jpiser.hubclient.presentation.features.profile.ProfilePresenter;
 import com.jpiser.hubclient.presentation.features.profile.ProfilePresenterImpl;
 import com.jpiser.hubclient.presentation.features.profile.ProfileUseCases;
@@ -66,6 +70,17 @@ public class AppModule {
         return new PicassoImageHelper(applicationContext, false);
     }
 
+    @Provides
+    @Singleton
+    IssuesPresenter providesIssuesPresenter(IssuesUseCases issuesUseCases){
+        return new IssuesPresenterImpl(issuesUseCases);
+    }
+
+    @Provides
+    @Singleton
+    IssuesUseCases providesIssuesUseCases(HubApi hubApi){
+        return new IssuesUseCasesImpl(hubApi);
+    }
 
 
 

@@ -7,4 +7,5 @@ package com.jpiser.hubclient.presentation.util;
 public class Extras {
 
     public static final String USER_LOGIN = "com.jpiser.hubclient.extra.userlogin";
+    public static final String REPO_NAME  = "com.jpiser.hubclient.extra.repoName";
 }

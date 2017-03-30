@@ -1,5 +1,6 @@
 package com.jpiser.hubclient.presentation.features.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,11 +12,11 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jpiser.hubclient.R;
 import com.jpiser.hubclient.common.imaging.ImageHelper;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
+import com.jpiser.hubclient.presentation.features.issues.view.IssuesActivity;
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
 import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
 import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
@@ -105,6 +106,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         }
     }
 
+    //TODO: Allow for pagination of repo instead of just showing the first page
+
     @Override
     public void displayRepos(List<RepoModel> repoModels) {
         if(repoModels != null && repoModels.size() > 0){
@@ -115,7 +118,14 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
     @Override
     public void onRepoTapped(RepoModel repoModel) {
-        Toast.makeText(this, "tapped " + repoModel.getName(), Toast.LENGTH_SHORT).show();
+
+        //TODO: For phase I tapping a repo will simply display a list of issues for that repo.
+        if(repoModel != null){
+            Intent intent = new Intent(this, IssuesActivity.class);
+            intent.putExtra(Extras.REPO_NAME, repoModel.getName());
+            intent.putExtra(Extras.USER_LOGIN, userLogin);
+            startActivity(intent);
+        }
     }
 
     @NonNull

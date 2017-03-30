@@ -1,6 +1,7 @@
 package com.jpiser.hubclient.presentation.features.profile;
 
 import com.jpiser.hubclient.domain.HubApi;
+import com.jpiser.hubclient.domain.model.HubIssue;
 import com.jpiser.hubclient.domain.model.HubOrganization;
 import com.jpiser.hubclient.domain.model.HubRepo;
 import com.jpiser.hubclient.domain.model.HubUserProfile;
@@ -65,5 +66,10 @@ public class ProfileUseCasesImpl implements ProfileUseCases, HubApi.HubAccessor 
         if(profileReceiver != null){
             profileReceiver.receiveRepos(new RepoModelAdapter().adapt(repos));
         }
+    }
+
+    @Override
+    public void receiveIssues(List<HubIssue> issues) {
+        //Not Implemented
     }
 }

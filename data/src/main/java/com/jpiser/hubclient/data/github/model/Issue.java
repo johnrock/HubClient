@@ -14,6 +14,7 @@ package com.jpiser.hubclient.data.github.model;
 "id": 18331401,
 "number": 1018,
 "title": "Removing unused declared attributes",
+
 "user": {
 "login": "jonasfa",
 "id": 21069,
@@ -33,6 +34,7 @@ package com.jpiser.hubclient.data.github.model;
 "type": "User",
 "site_admin": false
 },
+
 "labels": [
 
 ],
@@ -59,4 +61,29 @@ package com.jpiser.hubclient.data.github.model;
  */
 public class Issue {
 
+    private String title;
+    private String state;
+    private User user;
+    private int number;
+    private int comments;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public int getComments() {
+        return comments;
+    }
 }

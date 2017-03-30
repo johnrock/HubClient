@@ -1,10 +1,12 @@
 package com.jpiser.hubclient.domain.github;
 
 import com.jpiser.hubclient.data.github.GithubApiHelper;
+import com.jpiser.hubclient.data.github.model.Issue;
 import com.jpiser.hubclient.data.github.model.Organization;
 import com.jpiser.hubclient.data.github.model.Profile;
 import com.jpiser.hubclient.data.github.model.Repo;
 import com.jpiser.hubclient.domain.HubApi;
+import com.jpiser.hubclient.domain.model.HubIssueAdapter;
 import com.jpiser.hubclient.domain.model.HubOrganizationAdapter;
 import com.jpiser.hubclient.domain.model.HubRepoAdapter;
 import com.jpiser.hubclient.domain.model.HubUserProfileAdapter;
@@ -42,6 +44,13 @@ public class GitHubApi implements HubApi, GithubApiHelper.GithubApiAccessor {
     }
 
     @Override
+    public void loadIssues(String ownerName, String repoName) {
+        if(githubApiHelper != null){
+            githubApiHelper.loadIssues(ownerName, repoName);
+        }
+    }
+
+    @Override
     public void receiveProfile(Profile profile) {
         if(hubAccessor != null){
             hubAccessor.receiveProfile(new HubUserProfileAdapter().adapt(profile));
@@ -59,6 +68,13 @@ public class GitHubApi implements HubApi, GithubApiHelper.GithubApiAccessor {
     public void receiveRepos(List<Repo> repos) {
         if(hubAccessor != null){
             hubAccessor.receiveRepos(new HubRepoAdapter().adapt(repos));
+        }
+    }
+
+    @Override
+    public void receiveIssues(List<Issue> issues) {
+        if(hubAccessor != null){
+            hubAccessor.receiveIssues(new HubIssueAdapter().adapt(issues));
         }
     }
 }

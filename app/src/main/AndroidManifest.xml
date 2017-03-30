@@ -20,6 +20,8 @@
         </activity>
 
         <activity android:name=".presentation.features.profile.ProfileActivity" />
+        <activity android:name=".presentation.features.issues.view.IssuesActivity" />
+
     </application>
 
 </manifest>
