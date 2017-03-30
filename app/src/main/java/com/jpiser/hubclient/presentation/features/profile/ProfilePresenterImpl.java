@@ -1,6 +1,7 @@
 package com.jpiser.hubclient.presentation.features.profile;
 
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
+import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
 import com.jpiser.hubclient.presentation.features.profile.model.UserProfile;
 
 import java.util.List;
@@ -24,12 +25,14 @@ public class ProfilePresenterImpl implements  ProfilePresenter, ProfileUseCases.
     @Override
     public void bind(ViewLayer viewLayer) {
         this.viewLayer = viewLayer;
+        profileUseCases.bind(this);
     }
 
     @Override
-    public void loadProfile(String userLogin) {
+    public void initProfile(String userLogin) {
         if(profileUseCases != null){
-            profileUseCases.loadProfile(this, userLogin);
+            profileUseCases.loadProfile(userLogin);
+            profileUseCases.loadRepos(userLogin);
         }
     }
 
@@ -44,6 +47,13 @@ public class ProfilePresenterImpl implements  ProfilePresenter, ProfileUseCases.
     public void receiveOrganziations(List<OrganizationModel> organizationModels) {
         if(viewLayer != null){
             viewLayer.displayOrganizations(organizationModels);
+        }
+    }
+
+    @Override
+    public void receiveRepos(List<RepoModel> repoModels) {
+        if(viewLayer != null){
+            viewLayer.displayRepos(repoModels);
         }
     }
 }

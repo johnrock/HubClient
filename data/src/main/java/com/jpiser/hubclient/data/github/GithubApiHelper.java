@@ -2,6 +2,7 @@ package com.jpiser.hubclient.data.github;
 
 import com.jpiser.hubclient.data.github.model.Organization;
 import com.jpiser.hubclient.data.github.model.Profile;
+import com.jpiser.hubclient.data.github.model.Repo;
 
 import java.util.List;
 
@@ -13,8 +14,15 @@ public interface GithubApiHelper {
     interface GithubApiAccessor{
 
         void receiveProfile(Profile profile);
+
         void receiveOrganiztions(List<Organization> organizations);
+
+        void receiveRepos(List<Repo> repos);
     }
 
-    void loadProfile(GithubApiAccessor githubApiAccessor, String userLogin);
+    void bind(GithubApiAccessor githubApiAccessor);
+
+    void loadProfile(String userLogin);
+
+    void loadRepos(String userLogin);
 }

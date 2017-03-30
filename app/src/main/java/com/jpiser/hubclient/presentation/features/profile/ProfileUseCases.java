@@ -1,6 +1,7 @@
 package com.jpiser.hubclient.presentation.features.profile;
 
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
+import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
 import com.jpiser.hubclient.presentation.features.profile.model.UserProfile;
 
 import java.util.List;
@@ -11,9 +12,15 @@ import java.util.List;
 public interface ProfileUseCases {
 
     interface ProfileReceiver{
+
         void receiveProfile(UserProfile userProfile);
         void receiveOrganziations(List<OrganizationModel> organizationModels);
+        void receiveRepos(List<RepoModel> repoModels);
     }
 
-    void loadProfile(ProfileReceiver profileReceiver, String userLogin);
+    void bind(ProfileReceiver profileReceiver);
+
+    void loadProfile(String userLogin);
+
+    void loadRepos(String userLogin);
 }

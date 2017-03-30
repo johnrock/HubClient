@@ -2,8 +2,10 @@ package com.jpiser.hubclient.presentation.features.profile;
 
 import com.jpiser.hubclient.domain.HubApi;
 import com.jpiser.hubclient.domain.model.HubOrganization;
+import com.jpiser.hubclient.domain.model.HubRepo;
 import com.jpiser.hubclient.domain.model.HubUserProfile;
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModelAdapter;
+import com.jpiser.hubclient.presentation.features.profile.model.RepoModelAdapter;
 import com.jpiser.hubclient.presentation.features.profile.model.UserProfileAdapter;
 
 import java.util.List;
@@ -24,12 +26,25 @@ public class ProfileUseCasesImpl implements ProfileUseCases, HubApi.HubAccessor 
     }
 
     @Override
-    public void loadProfile(ProfileReceiver profileReceiver, String userLogin) {
+    public void bind(ProfileReceiver profileReceiver) {
         this.profileReceiver = profileReceiver;
-        if(hubApi != null){
-            hubApi.loadProfile(this, userLogin);
+        hubApi.bind(this);
+    }
+
+    @Override
+    public void loadProfile(String userLogin) {
+        if(hubApi != null && profileReceiver != null){
+            hubApi.loadProfile(userLogin);
         }
     }
+
+    @Override
+    public void loadRepos(String userLogin) {
+        if(hubApi != null && profileReceiver != null){
+            hubApi.loadRepos(userLogin);
+        }
+    }
+
 
     @Override
     public void receiveProfile(HubUserProfile hubUserProfile) {
@@ -42,6 +57,13 @@ public class ProfileUseCasesImpl implements ProfileUseCases, HubApi.HubAccessor 
     public void receiveOrganziations(List<HubOrganization> organizations) {
         if(profileReceiver != null){
             profileReceiver.receiveOrganziations(new OrganizationModelAdapter().adapt(organizations));
+        }
+    }
+
+    @Override
+    public void receiveRepos(List<HubRepo> repos) {
+        if(profileReceiver != null){
+            profileReceiver.receiveRepos(new RepoModelAdapter().adapt(repos));
         }
     }
 }

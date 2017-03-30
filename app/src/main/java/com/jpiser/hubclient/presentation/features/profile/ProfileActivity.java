@@ -9,11 +9,13 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jpiser.hubclient.R;
 import com.jpiser.hubclient.common.imaging.ImageHelper;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
+import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
 import com.jpiser.hubclient.presentation.features.profile.model.UserProfile;
 import com.jpiser.hubclient.presentation.imaging.ViewHelper;
 import com.jpiser.hubclient.presentation.util.Extras;
@@ -68,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         }
 
         profilePresenter.bind(this);
-        profilePresenter.loadProfile(userLogin);
+        profilePresenter.initProfile(userLogin);
 
     }
 
@@ -96,6 +98,13 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
                 organizationLayout.addView(imageView);
             }
 
+        }
+    }
+
+    @Override
+    public void displayRepos(List<RepoModel> repoModels) {
+        if(repoModels != null && repoModels.size() > 0){
+            Toast.makeText(this, repoModels.toString(), Toast.LENGTH_LONG).show();
         }
     }
 

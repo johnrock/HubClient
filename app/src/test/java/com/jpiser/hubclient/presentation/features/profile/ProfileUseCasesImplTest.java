@@ -2,6 +2,7 @@ package com.jpiser.hubclient.presentation.features.profile;
 
 import com.jpiser.hubclient.domain.HubApi;
 import com.jpiser.hubclient.domain.model.HubOrganization;
+import com.jpiser.hubclient.domain.model.HubRepo;
 import com.jpiser.hubclient.domain.model.HubUserProfile;
 import com.jpiser.hubclient.presentation.features.profile.model.UserProfile;
 
@@ -28,6 +29,7 @@ public class ProfileUseCasesImplTest {
     @Mock ProfileUseCases.ProfileReceiver profileReceiver;
     @Mock HubUserProfile hubUserProfile;
     @Mock List<HubOrganization> organizationList;
+    @Mock List<HubRepo> repoList;
 
     @Before
     public void setup(){
@@ -42,22 +44,33 @@ public class ProfileUseCasesImplTest {
     }
 
     @Test
-    public void shouldSetProfileReceiverInLoadProfile(){
-        profileUseCases.loadProfile(profileReceiver, TEST_USER_LOGIN);
+    public void shouldBind(){
+        profileUseCases.bind(profileReceiver);
 
         assertEquals(profileReceiver, profileUseCases.profileReceiver);
+        verify(hubApi).bind(profileUseCases);
     }
+
 
     @Test
     public void shouldLoadProfileFromHubApi(){
-        profileUseCases.loadProfile(profileReceiver, TEST_USER_LOGIN);
+        profileUseCases.bind(profileReceiver);
+        profileUseCases.loadProfile(TEST_USER_LOGIN);
 
-        verify(hubApi).loadProfile(profileUseCases, TEST_USER_LOGIN);
+        verify(hubApi).loadProfile(TEST_USER_LOGIN);
     }
 
     @Test
-    public void shouldReceiveProfileAfterLoadProfile(){
-        profileUseCases.loadProfile(profileReceiver, TEST_USER_LOGIN);
+    public void shouldLoadReposFromHubApi(){
+        profileUseCases.bind(profileReceiver);
+        profileUseCases.loadRepos(TEST_USER_LOGIN);
+
+        verify(hubApi).loadRepos(TEST_USER_LOGIN);
+    }
+
+    @Test
+    public void shouldReceiveProfile(){
+        profileUseCases.bind(profileReceiver);
         profileUseCases.receiveProfile(hubUserProfile);
 
         verify(profileReceiver).receiveProfile(any(UserProfile.class));
@@ -65,10 +78,18 @@ public class ProfileUseCasesImplTest {
 
     @Test
     public void shouldReceiveOrganizations(){
-        profileUseCases.loadProfile(profileReceiver, TEST_USER_LOGIN);
+        profileUseCases.bind(profileReceiver);
         profileUseCases.receiveOrganziations(organizationList);
 
         verify(profileReceiver).receiveOrganziations(any(List.class));
+    }
+
+    @Test
+    public void shouldReceiveRepos(){
+        profileUseCases.bind(profileReceiver);
+        profileUseCases.receiveRepos(repoList);
+
+        verify(profileReceiver).receiveRepos(any(List.class));
     }
 
 

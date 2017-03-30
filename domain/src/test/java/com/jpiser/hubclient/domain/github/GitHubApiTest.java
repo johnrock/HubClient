@@ -3,6 +3,7 @@ package com.jpiser.hubclient.domain.github;
 import com.jpiser.hubclient.data.github.GithubApiHelper;
 import com.jpiser.hubclient.data.github.model.Organization;
 import com.jpiser.hubclient.data.github.model.Profile;
+import com.jpiser.hubclient.data.github.model.Repo;
 import com.jpiser.hubclient.domain.HubApi;
 import com.jpiser.hubclient.domain.model.HubUserProfile;
 
@@ -14,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
@@ -27,6 +29,7 @@ public class GitHubApiTest {
 
     @Mock GithubApiHelper githubApiHelper;
     @Mock HubApi.HubAccessor hubAccessor;
+    @Mock List<Repo> repoList;
 
 
     @Before
@@ -38,29 +41,47 @@ public class GitHubApiTest {
 
 
     @Test
-    public void shouldLoadProfile(){
+    public void shouldBind(){
+        gitHubApi.bind(hubAccessor);
 
-        gitHubApi.loadProfile(hubAccessor, TEST_USER_LOGIN);
-        verify(githubApiHelper).loadProfile(gitHubApi, TEST_USER_LOGIN);
+        assertEquals(hubAccessor, gitHubApi.hubAccessor);
+        verify(githubApiHelper).bind(gitHubApi);
+    }
+
+    @Test
+    public void shouldLoadProfile(){
+        gitHubApi.loadProfile(TEST_USER_LOGIN);
+        verify(githubApiHelper).loadProfile(TEST_USER_LOGIN);
+    }
+
+    @Test
+    public void shouldLoadRepos(){
+        gitHubApi.loadRepos(TEST_USER_LOGIN);
+        verify(githubApiHelper).loadRepos(TEST_USER_LOGIN);
     }
 
     @Test
     public void shouldReceiveProfile(){
-        Profile profile = testProfile();
-        gitHubApi.hubAccessor = hubAccessor;
+        gitHubApi.bind(hubAccessor);
+        gitHubApi.receiveProfile(testProfile());
 
-        gitHubApi.receiveProfile(profile);
         verify(hubAccessor).receiveProfile(any(HubUserProfile.class));
     }
 
     @Test
     public void shouldReceiveOrganizations(){
-        Profile profile = testProfile();
-        gitHubApi.hubAccessor = hubAccessor;
-
+        gitHubApi.bind(hubAccessor);
         gitHubApi.receiveOrganiztions(createTestOrganizations());
 
         verify(hubAccessor).receiveOrganziations(any(List.class));
+    }
+
+    @Test
+    public void shouldReceiveRepos(){
+        gitHubApi.bind(hubAccessor);
+        gitHubApi.receiveRepos(repoList);
+
+        verify(hubAccessor).receiveRepos(any(List.class));
     }
 
     private List<Organization> createTestOrganizations() {

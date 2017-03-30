@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.domain;
+package com.jpiser.hubclient.domain.model;
 
 import com.jpiser.hubclient.data.github.model.Profile;
 import com.jpiser.hubclient.domain.model.HubUserProfile;

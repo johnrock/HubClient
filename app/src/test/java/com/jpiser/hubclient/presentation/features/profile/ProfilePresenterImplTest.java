@@ -1,6 +1,7 @@
 package com.jpiser.hubclient.presentation.features.profile;
 
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
+import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
 import com.jpiser.hubclient.presentation.features.profile.model.UserProfile;
 
 import org.junit.Before;
@@ -25,6 +26,7 @@ public class ProfilePresenterImplTest {
     @Mock ProfilePresenter.ViewLayer viewLayer;
     @Mock UserProfile userProfile;
     @Mock List<OrganizationModel> organizationList;
+    @Mock List<RepoModel> repoList;
 
     @Before
     public void setup(){
@@ -40,14 +42,23 @@ public class ProfilePresenterImplTest {
     @Test
     public void shouldBind(){
         profilePresenter.bind(viewLayer);
+
         assertEquals(viewLayer, profilePresenter.viewLayer);
+        verify(profileUseCases).bind(profilePresenter);
     }
 
     @Test
-    public void shouldLoadProfile(){
-        profilePresenter.loadProfile(TEST_USER_LOGIN);
+    public void shouldLoadProfileDuringInitProfile(){
+        profilePresenter.initProfile(TEST_USER_LOGIN);
 
-        verify(profileUseCases).loadProfile(profilePresenter, TEST_USER_LOGIN);
+        verify(profileUseCases).loadProfile(TEST_USER_LOGIN);
+    }
+
+    @Test
+    public void shouldLoadReposDuringInitProfile(){
+        profilePresenter.initProfile(TEST_USER_LOGIN);
+
+        verify(profileUseCases).loadRepos(TEST_USER_LOGIN);
     }
 
     @Test
@@ -62,6 +73,13 @@ public class ProfilePresenterImplTest {
         profilePresenter.bind(viewLayer);
         profilePresenter.receiveOrganziations(organizationList);
         verify(viewLayer).displayOrganizations(organizationList);
+    }
+
+    @Test
+    public void shouldReceiveRepos(){
+        profilePresenter.bind(viewLayer);
+        profilePresenter.receiveRepos(repoList);
+        verify(viewLayer).displayRepos(repoList);
     }
 
 }
