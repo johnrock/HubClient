@@ -1,7 +1,6 @@
 package com.jpiser.hubclient.domain.model;
 
 import com.jpiser.hubclient.data.github.model.Repo;
-import com.jpiser.hubclient.domain.model.HubRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +18,10 @@ public class HubRepoAdapter {
                 hubRepo.setName(repo.getName());
                 hubRepo.setDescription(repo.getDescription());
                 hubRepo.setUrl(repo.getUrl());
+                hubRepo.setStargazersCount(repo.getStargazersCount());
+                hubRepo.setForksCount(repo.getForksCount());
+                hubRepo.setUpdatedAt(repo.getUpdatedAt());
+                hubRepo.setLanguage(repo.getLanguage());
                 items.add(hubRepo);
             }
         }

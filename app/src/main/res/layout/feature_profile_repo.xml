@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@color/colorRepoItemBackground"
     android:layout_margin="4dp"
-    android:padding="4dp">
+    android:padding="6dp">
 
     <TextView
         android:id="@+id/name"
@@ -19,6 +19,58 @@
         android:layout_below="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:id="@+id/language"
+        android:layout_below="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+        />
+
+    <ImageView
+        android:id="@+id/stargazersLabel"
+        android:layout_below="@+id/description"
+        android:layout_toRightOf="@+id/language"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginRight="2dp"
+        android:src="@drawable/ic_star"
+        android:layout_alignBottom="@+id/language"
+        />
+
+    <TextView
+        android:id="@+id/stargazers"
+        android:layout_below="@+id/description"
+        android:layout_toRightOf="@+id/stargazersLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+        />
+
+    <ImageView
+        android:id="@+id/forksLabel"
+        android:layout_below="@+id/description"
+        android:layout_toRightOf="@+id/stargazers"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginRight="2dp"
+        android:src="@drawable/ic_fork"
+        android:layout_alignBottom="@+id/language"
+        />
+
+    <TextView
+        android:id="@+id/forks"
+        android:layout_below="@+id/description"
+        android:layout_toRightOf="@+id/forksLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="6dp"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
         />
 
 </RelativeLayout>

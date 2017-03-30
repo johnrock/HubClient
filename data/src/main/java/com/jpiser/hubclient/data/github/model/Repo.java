@@ -1,5 +1,9 @@
 package com.jpiser.hubclient.data.github.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
+
 /**
  * @author John Piser johnpiser@yahoo.com
  *
@@ -100,8 +104,31 @@ public class Repo {
     private String name;
     private String description;
     private String url;
+    private String language;
 
+    @SerializedName("stargazers_count")
+    private int stargazersCount;
+    @SerializedName("forks_count")
+    private int forksCount;
 
+    @SerializedName("updated_at")
+    private Date updatedAt;
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public int getStargazersCount() {
+        return stargazersCount;
+    }
+
+    public int getForksCount() {
+        return forksCount;
+    }
 
     public String getName() {
         return name;

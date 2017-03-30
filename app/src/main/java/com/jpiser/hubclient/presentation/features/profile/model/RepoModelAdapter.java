@@ -20,6 +20,10 @@ public class RepoModelAdapter {
                 repoModel.setName(repo.getName());
                 repoModel.setDescription(repo.getDescription());
                 repoModel.setUrl(repo.getUrl());
+                repoModel.setLanguage(repo.getLanguage());
+                repoModel.setUpdatedAt(repo.getUpdatedAt());
+                repoModel.setStargazersCount(repo.getStargazersCount());
+                repoModel.setForksCount(repo.getForksCount());
                 items.add(repoModel);
             }
         }

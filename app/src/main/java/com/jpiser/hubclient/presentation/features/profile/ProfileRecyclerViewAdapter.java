@@ -11,6 +11,9 @@ import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * @author John Piser johnpiser@yahoo.com
  */
@@ -47,15 +50,18 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
 
     public static class RepoHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private TextView nameTextView;
-        private TextView descriptionTextView;
+        @BindView(R.id.name)        TextView nameTextView;
+        @BindView(R.id.description) TextView descriptionTextView;
+        @BindView(R.id.language)    TextView languageTextView;
+        @BindView(R.id.stargazers)  TextView stargazersTextView;
+        @BindView(R.id.forks)       TextView forksTextView;
+
         private final RepoTapper repoTapper;
         private RepoModel repo;
 
         public RepoHolder(View itemView, RepoTapper repoTapper) {
             super(itemView);
-            nameTextView = (TextView) itemView.findViewById(R.id.name);
-            descriptionTextView = (TextView) itemView.findViewById(R.id.description);
+            ButterKnife.bind(this, itemView);
             this.repoTapper = repoTapper;
             itemView.setOnClickListener(this);
         }
@@ -69,6 +75,9 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
             this.repo = repoModel;
             nameTextView.setText(repoModel.getName());
             descriptionTextView.setText(repoModel.getDescription());
+            languageTextView.setText(repoModel.getLanguage());
+            stargazersTextView.setText(String.valueOf(repoModel.getStargazersCount()));
+            forksTextView.setText(String.valueOf(repoModel.getForksCount()));
         }
     }
 }
