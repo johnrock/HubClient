@@ -6,7 +6,7 @@ import com.jpiser.hubclient.domain.model.HubRepo;
 import com.jpiser.hubclient.domain.model.HubUserProfile;
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModelAdapter;
 import com.jpiser.hubclient.presentation.features.profile.model.RepoModelAdapter;
-import com.jpiser.hubclient.presentation.features.profile.model.UserProfileAdapter;
+import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModelAdapter;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class ProfileUseCasesImpl implements ProfileUseCases, HubApi.HubAccessor 
     @Override
     public void receiveProfile(HubUserProfile hubUserProfile) {
         if(profileReceiver != null){
-            profileReceiver.receiveProfile(new UserProfileAdapter().adapt(hubUserProfile));
+            profileReceiver.receiveProfile(new UserProfileModelAdapter().adapt(hubUserProfile));
         }
     }
 

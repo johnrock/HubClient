@@ -9,7 +9,7 @@ import com.jpiser.hubclient.presentation.features.profile.ProfileActivity;
 
 public enum MenuItem {
 
-    PROFILE("UserProfile", ProfileActivity.class),
+    PROFILE("UserProfileModel", ProfileActivity.class),
     REPOSITORIES("Repositories", MainActivity.class),
     ISSUES("Issues", MainActivity.class);
 

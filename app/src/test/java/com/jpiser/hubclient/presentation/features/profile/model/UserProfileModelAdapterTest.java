@@ -5,9 +5,9 @@ import org.junit.Test;
 /**
  * @author John Piser johnpiser@yahoo.com
  */
-public class UserProfileAdapterTest {
+public class UserProfileModelAdapterTest {
 
-    //TODO: Implement tests for UserProfileAdapter
+    //TODO: Implement tests for UserProfileModelAdapter
 
     @Test
     public void shouldAdaptSomething(){

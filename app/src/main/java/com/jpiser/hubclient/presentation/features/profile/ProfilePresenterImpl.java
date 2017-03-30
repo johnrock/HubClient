@@ -2,7 +2,7 @@ package com.jpiser.hubclient.presentation.features.profile;
 
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
 import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
-import com.jpiser.hubclient.presentation.features.profile.model.UserProfile;
+import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
 
 import java.util.List;
 
@@ -37,9 +37,9 @@ public class ProfilePresenterImpl implements  ProfilePresenter, ProfileUseCases.
     }
 
     @Override
-    public void receiveProfile(UserProfile userProfile) {
+    public void receiveProfile(UserProfileModel userProfileModel) {
         if(viewLayer != null){
-            viewLayer.displayProfile(userProfile);
+            viewLayer.displayProfile(userProfileModel);
         }
     }
 

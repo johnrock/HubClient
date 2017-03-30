@@ -4,7 +4,7 @@ import com.jpiser.hubclient.domain.HubApi;
 import com.jpiser.hubclient.domain.model.HubOrganization;
 import com.jpiser.hubclient.domain.model.HubRepo;
 import com.jpiser.hubclient.domain.model.HubUserProfile;
-import com.jpiser.hubclient.presentation.features.profile.model.UserProfile;
+import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -73,7 +73,7 @@ public class ProfileUseCasesImplTest {
         profileUseCases.bind(profileReceiver);
         profileUseCases.receiveProfile(hubUserProfile);
 
-        verify(profileReceiver).receiveProfile(any(UserProfile.class));
+        verify(profileReceiver).receiveProfile(any(UserProfileModel.class));
     }
 
     @Test

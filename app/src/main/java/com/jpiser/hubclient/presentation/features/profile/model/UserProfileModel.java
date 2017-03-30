@@ -6,7 +6,7 @@ import java.util.Date;
  * @author John Piser johnpiser@yahoo.com
  */
 
-public class UserProfile {
+public class UserProfileModel {
     private String login;
     private int id;
     private String avatarUrl;

@@ -18,7 +18,7 @@ import com.jpiser.hubclient.common.imaging.ImageHelper;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
 import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
-import com.jpiser.hubclient.presentation.features.profile.model.UserProfile;
+import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
 import com.jpiser.hubclient.presentation.imaging.ViewHelper;
 import com.jpiser.hubclient.presentation.util.Extras;
 
@@ -80,14 +80,14 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
 
     @Override
-    public void displayProfile(UserProfile userProfile) {
-        if(userProfile != null){
-            imageHelper.loadImage(avatarImageView, userProfile.getAvatarUrl());
-            nameTextView.setText(userProfile.getName());
-            companyTextView.setText(userProfile.getCompany());
-            locationTextView.setText(userProfile.getLocation());
-            emailTextView.setText(userProfile.getEmail());
-            blogTextView.setText(userProfile.getBlog());
+    public void displayProfile(UserProfileModel userProfileModel) {
+        if(userProfileModel != null){
+            imageHelper.loadImage(avatarImageView, userProfileModel.getAvatarUrl());
+            nameTextView.setText(userProfileModel.getName());
+            companyTextView.setText(userProfileModel.getCompany());
+            locationTextView.setText(userProfileModel.getLocation());
+            emailTextView.setText(userProfileModel.getEmail());
+            blogTextView.setText(userProfileModel.getBlog());
         }
     }
 

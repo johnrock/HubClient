@@ -2,7 +2,7 @@ package com.jpiser.hubclient.presentation.features.profile;
 
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
 import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
-import com.jpiser.hubclient.presentation.features.profile.model.UserProfile;
+import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,8 @@ public class ProfilePresenterImplTest {
 
     @Mock ProfileUseCases profileUseCases;
     @Mock ProfilePresenter.ViewLayer viewLayer;
-    @Mock UserProfile userProfile;
+    @Mock
+    UserProfileModel userProfileModel;
     @Mock List<OrganizationModel> organizationList;
     @Mock List<RepoModel> repoList;
 
@@ -64,8 +65,8 @@ public class ProfilePresenterImplTest {
     @Test
     public void shouldReceiveProfile(){
         profilePresenter.bind(viewLayer);
-        profilePresenter.receiveProfile(userProfile);
-        verify(viewLayer).displayProfile(userProfile);
+        profilePresenter.receiveProfile(userProfileModel);
+        verify(viewLayer).displayProfile(userProfileModel);
     }
 
     @Test

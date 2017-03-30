@@ -2,7 +2,7 @@ package com.jpiser.hubclient.presentation.features.profile;
 
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
 import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
-import com.jpiser.hubclient.presentation.features.profile.model.UserProfile;
+import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public interface ProfilePresenter {
 
     interface ViewLayer{
 
-        void displayProfile(UserProfile userProfile);
+        void displayProfile(UserProfileModel userProfileModel);
         void displayOrganizations(List<OrganizationModel> organizationModels);
         void displayRepos(List<RepoModel> repoModels);
     }
