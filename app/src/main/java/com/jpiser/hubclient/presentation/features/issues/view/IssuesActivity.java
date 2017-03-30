@@ -101,7 +101,8 @@ public class IssuesActivity extends AppCompatActivity implements IssuesPresenter
     public void displayIssues(List<IssueModel> issueModels) {
         if(issueModels != null && !issueModels.isEmpty()){
             toggleStatusMessage(false);
-
+            IssuesRecyclerViewAdapter adapter = new IssuesRecyclerViewAdapter(issueModels);
+            recyclerView.setAdapter(adapter);
         }
         else{
             toggleStatusMessage(true);
