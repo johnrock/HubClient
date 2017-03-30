@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.jpiser.hubclient.R;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
-import com.jpiser.hubclient.presentation.features.profile.ProfileActivity;
+import com.jpiser.hubclient.presentation.features.profile.view.ProfileActivity;
 import com.jpiser.hubclient.presentation.util.Extras;
 
 import butterknife.BindView;

@@ -1,10 +1,9 @@
-package com.jpiser.hubclient.presentation.features.profile;
+package com.jpiser.hubclient.presentation.features.profile.model;
 
 import com.jpiser.hubclient.domain.HubApi;
 import com.jpiser.hubclient.domain.model.HubOrganization;
 import com.jpiser.hubclient.domain.model.HubRepo;
 import com.jpiser.hubclient.domain.model.HubUserProfile;
-import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
 
 import org.junit.Before;
 import org.junit.Test;

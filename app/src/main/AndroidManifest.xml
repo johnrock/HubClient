@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.features.profile.ProfileActivity" />
+        <activity android:name=".presentation.features.profile.view.ProfileActivity" />
         <activity android:name=".presentation.features.issues.view.IssuesActivity" />
 
     </application>

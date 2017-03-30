@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.presentation.features.profile;
+package com.jpiser.hubclient.presentation.features.profile.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import com.jpiser.hubclient.R;
 import com.jpiser.hubclient.common.imaging.ImageHelper;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
 import com.jpiser.hubclient.presentation.features.issues.view.IssuesActivity;
+import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePresenter;
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
 import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
 import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;

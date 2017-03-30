@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.presentation.features.profile;
+package com.jpiser.hubclient.presentation.features.profile.presenter;
 
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
 import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;

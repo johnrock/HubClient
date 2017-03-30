@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.presentation.features.profile;
+package com.jpiser.hubclient.presentation.features.profile.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

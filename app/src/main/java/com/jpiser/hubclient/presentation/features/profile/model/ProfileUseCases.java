@@ -1,8 +1,4 @@
-package com.jpiser.hubclient.presentation.features.profile;
-
-import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
-import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
-import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
+package com.jpiser.hubclient.presentation.features.profile.model;
 
 import java.util.List;
 

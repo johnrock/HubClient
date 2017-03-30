@@ -1,7 +1,7 @@
 package com.jpiser.hubclient.presentation.features.main.model;
 
 import com.jpiser.hubclient.presentation.features.main.MainActivity;
-import com.jpiser.hubclient.presentation.features.profile.ProfileActivity;
+import com.jpiser.hubclient.presentation.features.profile.view.ProfileActivity;
 
 /**
  * @author John Piser johnpiser@yahoo.com

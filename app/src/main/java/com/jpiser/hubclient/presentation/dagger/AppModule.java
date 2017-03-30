@@ -11,10 +11,10 @@ import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresent
 import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenterImpl;
 import com.jpiser.hubclient.presentation.features.issues.model.IssuesUseCases;
 import com.jpiser.hubclient.presentation.features.issues.model.IssuesUseCasesImpl;
-import com.jpiser.hubclient.presentation.features.profile.ProfilePresenter;
-import com.jpiser.hubclient.presentation.features.profile.ProfilePresenterImpl;
-import com.jpiser.hubclient.presentation.features.profile.ProfileUseCases;
-import com.jpiser.hubclient.presentation.features.profile.ProfileUseCasesImpl;
+import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePresenter;
+import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePresenterImpl;
+import com.jpiser.hubclient.presentation.features.profile.model.ProfileUseCases;
+import com.jpiser.hubclient.presentation.features.profile.model.ProfileUseCasesImpl;
 import com.jpiser.hubclient.presentation.logging.LogHelperImpl;
 import com.jpiser.hubclient.retrofit.github.RetrofitGithubApiHelper;
 import com.jpiser.picasso.PicassoImageHelper;

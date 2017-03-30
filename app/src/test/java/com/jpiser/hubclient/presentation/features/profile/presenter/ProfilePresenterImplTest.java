@@ -1,6 +1,7 @@
-package com.jpiser.hubclient.presentation.features.profile;
+package com.jpiser.hubclient.presentation.features.profile.presenter;
 
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
+import com.jpiser.hubclient.presentation.features.profile.model.ProfileUseCases;
 import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
 import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
 
@@ -22,7 +23,8 @@ public class ProfilePresenterImplTest {
     public static final String TEST_USER_LOGIN = "TestUserLogin";
     ProfilePresenterImpl profilePresenter;
 
-    @Mock ProfileUseCases profileUseCases;
+    @Mock
+    ProfileUseCases profileUseCases;
     @Mock ProfilePresenter.ViewLayer viewLayer;
     @Mock
     UserProfileModel userProfileModel;

@@ -1,5 +1,6 @@
-package com.jpiser.hubclient.presentation.features.profile;
+package com.jpiser.hubclient.presentation.features.profile.presenter;
 
+import com.jpiser.hubclient.presentation.features.profile.model.ProfileUseCases;
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
 import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
 import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
@@ -12,7 +13,7 @@ import javax.inject.Inject;
  * @author John Piser johnpiser@yahoo.com
  */
 
-public class ProfilePresenterImpl implements  ProfilePresenter, ProfileUseCases.ProfileReceiver {
+public class ProfilePresenterImpl implements ProfilePresenter, ProfileUseCases.ProfileReceiver {
 
     ProfileUseCases profileUseCases;
     ViewLayer viewLayer;

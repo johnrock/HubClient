@@ -2,8 +2,8 @@ package com.jpiser.hubclient.presentation.dagger;
 
 import com.jpiser.hubclient.presentation.features.issues.view.IssuesActivity;
 import com.jpiser.hubclient.presentation.features.main.MainActivity;
-import com.jpiser.hubclient.presentation.features.profile.ProfileActivity;
-import com.jpiser.hubclient.presentation.features.profile.ProfilePresenterImpl;
+import com.jpiser.hubclient.presentation.features.profile.view.ProfileActivity;
+import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePresenterImpl;
 
 import javax.inject.Singleton;
 
