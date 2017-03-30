@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,8 +33,7 @@ import butterknife.ButterKnife;
  * @author John Piser johnpiser@yahoo.com
  */
 
-public class ProfileActivity extends AppCompatActivity implements ProfilePresenter.ViewLayer
-{
+public class ProfileActivity extends AppCompatActivity implements ProfilePresenter.ViewLayer, ProfileRecyclerViewAdapter.RepoTapper {
 
     @Inject ProfilePresenter profilePresenter;
     @Inject ImageHelper imageHelper;
@@ -43,11 +44,12 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     @BindView(R.id.location)   TextView locationTextView;
     @BindView(R.id.email)   TextView emailTextView;
     @BindView(R.id.blog)   TextView blogTextView;
-
     @BindView(R.id.avatar) ImageView avatarImageView;
     @BindView(R.id.organizationLayout) LinearLayout organizationLayout;
+    @BindView(R.id.recyclerView) RecyclerView recyclerView;
 
     private String userLogin;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +58,6 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
         ((HubClientApplication)getApplication()).getAppComponent().inject(this);
         ButterKnife.bind(this);
-
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -68,6 +69,9 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         if(userLogin == null){
             finish();
         }
+
+        linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         profilePresenter.bind(this);
         profilePresenter.initProfile(userLogin);
@@ -104,15 +108,21 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     @Override
     public void displayRepos(List<RepoModel> repoModels) {
         if(repoModels != null && repoModels.size() > 0){
-            Toast.makeText(this, repoModels.toString(), Toast.LENGTH_LONG).show();
+            ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(this, repoModels);
+            recyclerView.setAdapter(adapter);
         }
+    }
+
+    @Override
+    public void onRepoTapped(RepoModel repoModel) {
+        Toast.makeText(this, "tapped " + repoModel.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @NonNull
     private ImageView createOrganizationImageView() {
         ImageView imageView = new ImageView(this);
         imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                                                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                LinearLayout.LayoutParams.WRAP_CONTENT));
         int size = (int) viewHelper.convertDpToPx(this, 40);
         imageView.getLayoutParams().height = size;
         imageView.getLayoutParams().width  = size;
@@ -134,5 +144,4 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
