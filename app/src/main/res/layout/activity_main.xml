@@ -43,7 +43,7 @@
         android:layout_below="@+id/hublabel"
         android:layout_marginRight="10dp"
         android:inputType="textPersonName"
-        android:hint="Enter a github login"
+        android:hint="@string/main_prompt_enter_login"
         />
 
     <Button
