@@ -32,12 +32,10 @@ public class IssuesUseCasesImpl implements IssuesUseCases, HubApi.HubAccessor {
 
     @Override
     public void loadIssues(String ownerName, String repoName) {
-
         if(hubApi != null){
             hubApi.loadIssues(ownerName, repoName);
         }
     }
-
 
     @Override
     public void receiveIssues(List<HubIssue> issues) {

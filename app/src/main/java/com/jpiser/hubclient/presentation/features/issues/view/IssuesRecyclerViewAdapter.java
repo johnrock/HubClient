@@ -60,7 +60,7 @@ public class IssuesRecyclerViewAdapter extends RecyclerView.Adapter<IssuesRecycl
 
         @Override
         public void onClick(View v) {
-
+            //TODO: implement tapping on an issue
         }
 
         public void bind(IssueModel issueModel) {

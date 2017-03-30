@@ -11,7 +11,6 @@ import java.util.List;
 public interface IssuesPresenter {
 
     interface ViewLayer{
-
         void displayIssues(List<IssueModel> issueModels);
         void displayHeading(String heading);
     }

@@ -13,7 +13,7 @@ class IssueModelAdapter {
     public List<IssueModel> adapt(List<HubIssue> issues) {
         List<IssueModel> items = new ArrayList<>();
 
-        if(issues != null && !issues.isEmpty()){
+        if(issues != null && issues.size() > 0){
             for (HubIssue issue : issues) {
                 IssueModel issueModel = new IssueModel();
                 issueModel.setIssueUserModel(new IssueUserModelAdapter().adapt(issue.getHubUser()));

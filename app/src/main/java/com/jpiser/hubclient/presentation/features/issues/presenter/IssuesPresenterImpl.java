@@ -40,11 +40,15 @@ public class IssuesPresenterImpl implements IssuesPresenter, IssuesUseCases.Issu
 
     @Override
     public void loadIssues(String ownerName, String repoName) {
-        issuesUseCases.loadIssues(ownerName, repoName);
+        if(issuesUseCases != null){
+            issuesUseCases.loadIssues(ownerName, repoName);
+        }
     }
 
     @Override
     public void receiveIssues(List<IssueModel> issueModels) {
-        viewLayer.displayIssues(issueModels);
+        if(viewLayer != null){
+            viewLayer.displayIssues(issueModels);
+        }
     }
 }

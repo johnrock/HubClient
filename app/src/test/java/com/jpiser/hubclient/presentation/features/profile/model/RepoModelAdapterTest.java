@@ -10,7 +10,7 @@ public class RepoModelAdapterTest {
     //TODO: Implement tests for RepoModelAdapter
 
     @Test
-    public void shouldAdaptSomething(){
+    public void dummyTest(){
 
     }
 }

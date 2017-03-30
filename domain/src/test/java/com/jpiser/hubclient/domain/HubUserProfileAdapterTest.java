@@ -10,7 +10,7 @@ public class HubUserProfileAdapterTest {
     //TODO: Implement tests for HubUserProfileAdapter
 
     @Test
-    public void shouldAdaptSomething(){
+    public void dummyTest(){
 
     }
 

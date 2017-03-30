@@ -99,7 +99,7 @@ public class IssuesActivity extends AppCompatActivity implements IssuesPresenter
 
     @Override
     public void displayIssues(List<IssueModel> issueModels) {
-        if(issueModels != null && !issueModels.isEmpty()){
+        if(issueModels != null && issueModels.size() > 0){
             toggleStatusMessage(false);
             IssuesRecyclerViewAdapter adapter = new IssuesRecyclerViewAdapter(issueModels);
             recyclerView.setAdapter(adapter);

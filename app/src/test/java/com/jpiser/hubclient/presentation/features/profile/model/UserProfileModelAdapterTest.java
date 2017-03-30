@@ -10,7 +10,7 @@ public class UserProfileModelAdapterTest {
     //TODO: Implement tests for UserProfileModelAdapter
 
     @Test
-    public void shouldAdaptSomething(){
+    public void dummyTest(){
 
     }
 
