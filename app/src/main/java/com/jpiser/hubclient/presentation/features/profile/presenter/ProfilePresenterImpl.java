@@ -1,9 +1,13 @@
 package com.jpiser.hubclient.presentation.features.profile.presenter;
 
-import com.jpiser.hubclient.presentation.features.profile.model.ProfileUseCases;
-import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
-import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
-import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
+import com.jpiser.hubclient.domain.interactors.HubInteractor;
+import com.jpiser.hubclient.domain.models.HubIssue;
+import com.jpiser.hubclient.domain.models.HubOrganization;
+import com.jpiser.hubclient.domain.models.HubRepo;
+import com.jpiser.hubclient.domain.models.HubUserProfile;
+import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModelAdapter;
+import com.jpiser.hubclient.presentation.features.profile.model.RepoModelAdapter;
+import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModelAdapter;
 
 import java.util.List;
 
@@ -13,48 +17,53 @@ import javax.inject.Inject;
  * @author John Piser johnpiser@yahoo.com
  */
 
-public class ProfilePresenterImpl implements ProfilePresenter, ProfileUseCases.ProfileReceiver {
+public class ProfilePresenterImpl implements ProfilePresenter, HubInteractor.HubAccessor{
 
-    ProfileUseCases profileUseCases;
     ViewLayer viewLayer;
+    HubInteractor hubInteractor;
 
     @Inject
-    public ProfilePresenterImpl(ProfileUseCases profileUseCases) {
-        this.profileUseCases = profileUseCases;
+    public ProfilePresenterImpl(HubInteractor hubInteractor) {
+        this.hubInteractor = hubInteractor;
     }
 
     @Override
     public void bind(ViewLayer viewLayer) {
         this.viewLayer = viewLayer;
-        profileUseCases.bind(this);
+        hubInteractor.bind(this);
     }
 
     @Override
     public void initProfile(String userLogin) {
-        if(profileUseCases != null){
-            profileUseCases.loadProfile(userLogin);
-            profileUseCases.loadRepos(userLogin);
+        if(hubInteractor != null){
+            hubInteractor.loadProfile(userLogin);
+            hubInteractor.loadRepos(userLogin);
         }
     }
 
     @Override
-    public void receiveProfile(UserProfileModel userProfileModel) {
+    public void receiveProfile(HubUserProfile hubUserProfile) {
         if(viewLayer != null){
-            viewLayer.displayProfile(userProfileModel);
+            viewLayer.displayProfile(new UserProfileModelAdapter().adapt(hubUserProfile));
         }
     }
 
     @Override
-    public void receiveOrganziations(List<OrganizationModel> organizationModels) {
+    public void receiveOrganziations(List<HubOrganization> organizations) {
         if(viewLayer != null){
-            viewLayer.displayOrganizations(organizationModels);
+            viewLayer.displayOrganizations(new OrganizationModelAdapter().adapt(organizations));
         }
     }
 
     @Override
-    public void receiveRepos(List<RepoModel> repoModels) {
+    public void receiveRepos(List<HubRepo> repos) {
         if(viewLayer != null){
-            viewLayer.displayRepos(repoModels);
+            viewLayer.displayRepos(new RepoModelAdapter().adapt(repos));
         }
+    }
+
+    @Override
+    public void receiveIssues(List<HubIssue> issues) {
+        //Not Implemented
     }
 }

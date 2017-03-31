@@ -5,16 +5,14 @@ import android.content.Context;
 import com.jpiser.hubclient.BuildConfig;
 import com.jpiser.hubclient.common.imaging.ImageHelper;
 import com.jpiser.hubclient.common.logging.LogHelper;
-import com.jpiser.hubclient.domain.usecases.GitHubInteractor;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
-import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenter;
-import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenterImpl;
+import com.jpiser.hubclient.domain.usecases.GitHubInteractor;
 import com.jpiser.hubclient.presentation.features.issues.model.IssuesUseCases;
 import com.jpiser.hubclient.presentation.features.issues.model.IssuesUseCasesImpl;
+import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenter;
+import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenterImpl;
 import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePresenter;
 import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePresenterImpl;
-import com.jpiser.hubclient.presentation.features.profile.model.ProfileUseCases;
-import com.jpiser.hubclient.presentation.features.profile.model.ProfileUseCasesImpl;
 import com.jpiser.hubclient.presentation.logging.LogHelperImpl;
 import com.jpiser.hubclient.retrofit.github.RetrofitGithubRepository;
 import com.jpiser.picasso.PicassoImageHelper;
@@ -45,15 +43,10 @@ public class AppModule {
 
     @Provides
     @Singleton
-    ProfilePresenter providesProfilePresenter(ProfileUseCases profileUseCases){
-        return new ProfilePresenterImpl(profileUseCases);
+    ProfilePresenter providesProfilePresenter(HubInteractor hubInteractor){
+        return new ProfilePresenterImpl(hubInteractor);
     }
 
-    @Provides
-    @Singleton
-    ProfileUseCases providesProfileUseCases(HubInteractor hubInteractor){
-        return new ProfileUseCasesImpl(hubInteractor);
-    }
 
     @Provides
     @Singleton
