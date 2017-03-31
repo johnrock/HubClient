@@ -6,7 +6,7 @@ import com.jpiser.hubclient.domain.models.HubUser;
  * @author John Piser johnpiser@yahoo.com
  */
 
-class IssueUserModelAdapter {
+public class IssueUserModelAdapter {
     public IssueUserModel adapt(HubUser hubUser) {
         if(hubUser != null){
             IssueUserModel issueUserModel = new IssueUserModel();

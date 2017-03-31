@@ -9,7 +9,7 @@ import java.util.List;
  * @author John Piser johnpiser@yahoo.com
  */
 
-class IssueModelAdapter {
+public class IssueModelAdapter {
     public List<IssueModel> adapt(List<HubIssue> issues) {
         List<IssueModel> items = new ArrayList<>();
 

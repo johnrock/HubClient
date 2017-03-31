@@ -7,8 +7,6 @@ import com.jpiser.hubclient.common.imaging.ImageHelper;
 import com.jpiser.hubclient.common.logging.LogHelper;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
 import com.jpiser.hubclient.domain.usecases.GitHubInteractor;
-import com.jpiser.hubclient.presentation.features.issues.model.IssuesUseCases;
-import com.jpiser.hubclient.presentation.features.issues.model.IssuesUseCasesImpl;
 import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenter;
 import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenterImpl;
 import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePresenter;
@@ -65,16 +63,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    IssuesPresenter providesIssuesPresenter(IssuesUseCases issuesUseCases){
-        return new IssuesPresenterImpl(issuesUseCases);
+    IssuesPresenter providesIssuesPresenter(HubInteractor hubInteractor){
+        return new IssuesPresenterImpl(hubInteractor);
     }
-
-    @Provides
-    @Singleton
-    IssuesUseCases providesIssuesUseCases(HubInteractor hubInteractor){
-        return new IssuesUseCasesImpl(hubInteractor);
-    }
-
-
 
 }

@@ -1,7 +1,11 @@
 package com.jpiser.hubclient.presentation.features.issues.presenter;
 
-import com.jpiser.hubclient.presentation.features.issues.model.IssueModel;
-import com.jpiser.hubclient.presentation.features.issues.model.IssuesUseCases;
+import com.jpiser.hubclient.domain.interactors.HubInteractor;
+import com.jpiser.hubclient.domain.models.HubIssue;
+import com.jpiser.hubclient.domain.models.HubOrganization;
+import com.jpiser.hubclient.domain.models.HubRepo;
+import com.jpiser.hubclient.domain.models.HubUserProfile;
+import com.jpiser.hubclient.presentation.features.issues.model.IssueModelAdapter;
 
 import java.util.List;
 
@@ -11,22 +15,22 @@ import javax.inject.Inject;
  * @author John Piser johnpiser@yahoo.com
  */
 
-public class IssuesPresenterImpl implements IssuesPresenter, IssuesUseCases.IssuesReceiver {
+public class IssuesPresenterImpl implements IssuesPresenter, HubInteractor.HubAccessor {
 
     public static final String SLASH = "/";
+
     ViewLayer viewLayer;
-    IssuesUseCases issuesUseCases;
+    HubInteractor hubInteractor;
 
     @Inject
-    public IssuesPresenterImpl(IssuesUseCases issuesUseCases) {
-        this.issuesUseCases = issuesUseCases;
+    public IssuesPresenterImpl(HubInteractor hubInteractor) {
+        this.hubInteractor = hubInteractor;
     }
 
     @Override
     public void bind(ViewLayer viewLayer) {
         this.viewLayer = viewLayer;
-        issuesUseCases.bind(this);
-
+        hubInteractor.bind(this);
     }
 
     @Override
@@ -40,15 +44,30 @@ public class IssuesPresenterImpl implements IssuesPresenter, IssuesUseCases.Issu
 
     @Override
     public void loadIssues(String ownerName, String repoName) {
-        if(issuesUseCases != null){
-            issuesUseCases.loadIssues(ownerName, repoName);
+        if(hubInteractor != null){
+            hubInteractor.loadIssues(ownerName, repoName);
         }
     }
 
     @Override
-    public void receiveIssues(List<IssueModel> issueModels) {
+    public void receiveIssues(List<HubIssue> issues) {
         if(viewLayer != null){
-            viewLayer.displayIssues(issueModels);
+           viewLayer.displayIssues(new IssueModelAdapter().adapt(issues));
         }
+    }
+
+    @Override
+    public void receiveProfile(HubUserProfile hubUserProfile) {
+        //Not Implemented
+    }
+
+    @Override
+    public void receiveOrganziations(List<HubOrganization> organizations) {
+        //Not Implemented
+    }
+
+    @Override
+    public void receiveRepos(List<HubRepo> repos) {
+        //Not Implemented
     }
 }

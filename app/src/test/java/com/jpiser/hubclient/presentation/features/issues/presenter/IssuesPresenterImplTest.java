@@ -1,7 +1,7 @@
 package com.jpiser.hubclient.presentation.features.issues.presenter;
 
-import com.jpiser.hubclient.presentation.features.issues.model.IssueModel;
-import com.jpiser.hubclient.presentation.features.issues.model.IssuesUseCases;
+import com.jpiser.hubclient.domain.interactors.HubInteractor;
+import com.jpiser.hubclient.domain.models.HubIssue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,22 +23,21 @@ public class IssuesPresenterImplTest {
     public static final String TEST_OWNER = "testOwner";
     IssuesPresenterImpl issuesPresenter;
 
-    @Mock IssuesUseCases issuesUseCases;
     @Mock IssuesPresenter.ViewLayer viewLayer;
-    @Mock IssuesUseCases.IssuesReceiver issuesReceiver;
-    @Mock List<IssueModel> issueModels;
+    @Mock List<HubIssue> issueModels;
+    @Mock HubInteractor hubInteractor;
 
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
-        issuesPresenter = new IssuesPresenterImpl(issuesUseCases);
+        issuesPresenter = new IssuesPresenterImpl(hubInteractor);
     }
 
     @Test
     public void shouldBind(){
         issuesPresenter.bind(viewLayer);
         assertEquals(viewLayer, issuesPresenter.viewLayer);
-        verify(issuesUseCases).bind(issuesPresenter);
+        verify(hubInteractor).bind(issuesPresenter);
     }
 
     @Test
@@ -51,7 +50,7 @@ public class IssuesPresenterImplTest {
         issuesPresenter.bind(viewLayer);
         issuesPresenter.loadIssues(TEST_OWNER, TEST_REPO);
 
-        verify(issuesUseCases).loadIssues(TEST_OWNER, TEST_REPO);
+        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO);
     }
 
     @Test
