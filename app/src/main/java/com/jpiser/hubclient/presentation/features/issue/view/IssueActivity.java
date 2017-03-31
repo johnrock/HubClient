@@ -68,7 +68,6 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
             finish();
         }
 
-        initActionBar();
         initView();
 
         issuePresenter.bind(this, application.getCredentials());
@@ -76,6 +75,11 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
     }
 
     private void initView(){
+        initActionBar();
+
+        newIssueTitle.setText("");
+        newIssueBody.setText("");
+
         ((HubClientApplication) getApplication()).getCredentials();
         if(issueModel != null){
             issueLayout.setVisibility(View.VISIBLE);
