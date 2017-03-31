@@ -1,6 +1,6 @@
 package com.jpiser.hubclient.presentation.features.main.model;
 
-import com.jpiser.hubclient.presentation.features.main.MainActivity;
+import com.jpiser.hubclient.presentation.features.main.view.MainActivity;
 import com.jpiser.hubclient.presentation.features.profile.view.ProfileActivity;
 
 /**

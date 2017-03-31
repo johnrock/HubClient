@@ -9,5 +9,8 @@
     <string name="profile_heading_repositories">Repositories</string>
     <string name="feature_issues_message_no_issues_found">No Issues found</string>
 
+    <string name="feature_profile_view_title">Profile</string>
+    <string name="feature_issues_view_title">Issues</string>
+
 
 </resources>

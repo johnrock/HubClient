@@ -61,23 +61,27 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         ((HubClientApplication)getApplication()).getAppComponent().inject(this);
         ButterKnife.bind(this);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("Profile");
-        }
-
         userLogin = getIntent().getStringExtra(Extras.USER_LOGIN);
         if(userLogin == null){
             finish();
         }
+
+        initActionBar();
 
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         profilePresenter.bind(this);
         profilePresenter.initProfile(userLogin);
+    }
 
+
+    private void initActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.feature_profile_view_title);
+        }
     }
 
 

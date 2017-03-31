@@ -33,13 +33,11 @@ import static com.jpiser.hubclient.R.id.heading;
 
 public class IssuesActivity extends AppCompatActivity implements IssuesPresenter.ViewLayer {
 
-    public static final String VIEW_TITLE = "Issues";
     @Inject IssuesPresenter issuesPresenter;
 
     @BindView(R.id.recyclerView)  RecyclerView recyclerView;
     @BindView(heading)       TextView headingTextView;
     @BindView(R.id.statusMessage) TextView statusMessage;
-
 
     LinearLayoutManager linearLayoutManager;
     private String repoName;
@@ -63,16 +61,19 @@ public class IssuesActivity extends AppCompatActivity implements IssuesPresenter
             finish();
         }
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(VIEW_TITLE);
-        }
-
+        initActionBar();
 
         issuesPresenter.bind(this);
         issuesPresenter.createHeading(userLogin, repoName);
         issuesPresenter.loadIssues(userLogin, repoName);
+    }
+
+    private void initActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.feature_issues_view_title);
+        }
     }
 
     private void toggleStatusMessage(boolean visible) {

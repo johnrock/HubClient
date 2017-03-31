@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.presentation.features.main;
+package com.jpiser.hubclient.presentation.features.main.view;
 
 import android.content.Intent;
 import android.os.Bundle;
