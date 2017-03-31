@@ -38,23 +38,6 @@ public class AppModule {
         return new LogHelperImpl(BuildConfig.DEBUG);
     }
 
-
-    @Provides
-    @Singleton
-    ProfilePresenter providesProfilePresenter(HubInteractor hubInteractor){
-        return new ProfilePresenterImpl(hubInteractor);
-    }
-
-
-    @Provides
-    @Singleton
-    HubInteractor providesHubApi(LogHelper logHelper){
-        //TODO: At runtime a user preference setting could be read to allow binding to some other HubInteractor implementation
-        // To use another Http library other than Retrofit, just pass in a different GithubRepository implementation
-        // and remove the dependency on the retrofit module in build.gradle
-        return new GitHubInteractor(new RetrofitGithubRepository(logHelper));
-    }
-
     @Provides
     @Singleton
     ImageHelper providesImageHelper(){
@@ -63,8 +46,23 @@ public class AppModule {
 
     @Provides
     @Singleton
+    ProfilePresenter providesProfilePresenter(HubInteractor hubInteractor){
+        return new ProfilePresenterImpl(hubInteractor);
+    }
+
+    @Provides
+    @Singleton
     IssuesPresenter providesIssuesPresenter(HubInteractor hubInteractor){
         return new IssuesPresenterImpl(hubInteractor);
+    }
+
+    @Provides
+    @Singleton
+    HubInteractor providesHubInteractor(LogHelper logHelper){
+        //TODO: At runtime a user preference setting could be read to allow binding to some other HubInteractor implementation
+        // To use another Http library other than Retrofit, just pass in a different GithubRepository implementation
+        // and remove the dependency on the retrofit module in build.gradle
+        return new GitHubInteractor(new RetrofitGithubRepository(logHelper));
     }
 
 }
