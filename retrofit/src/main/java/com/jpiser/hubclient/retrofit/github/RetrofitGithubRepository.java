@@ -1,11 +1,11 @@
 package com.jpiser.hubclient.retrofit.github;
 
 import com.jpiser.hubclient.common.logging.LogHelper;
-import com.jpiser.hubclient.data.github.GithubApiHelper;
-import com.jpiser.hubclient.data.github.model.Issue;
-import com.jpiser.hubclient.data.github.model.Organization;
-import com.jpiser.hubclient.data.github.model.Profile;
-import com.jpiser.hubclient.data.github.model.Repo;
+import com.jpiser.hubclient.data.repositories.GithubRepository;
+import com.jpiser.hubclient.data.models.github.Issue;
+import com.jpiser.hubclient.data.models.github.Organization;
+import com.jpiser.hubclient.data.models.github.Profile;
+import com.jpiser.hubclient.data.models.github.Repo;
 
 import java.util.List;
 
@@ -21,23 +21,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @author John Piser johnpiser@yahoo.com
  */
 
-public class RetrofitGithubApiHelper implements GithubApiHelper{
+public class RetrofitGithubRepository implements GithubRepository {
 
     private final String LOGTAG = getClass().getSimpleName();
 
     LogHelper logHelper;
 
     private final RetrofitGithubService retrofitGithubService;
-    private GithubApiAccessor githubApiAccessor;
+    private RepositoryAccessor repositoryAccessor;
 
-    public RetrofitGithubApiHelper(LogHelper logHelper) {
+    public RetrofitGithubRepository(LogHelper logHelper) {
         this.logHelper = logHelper;
         retrofitGithubService = createRetrofit().create(RetrofitGithubService.class);
     }
 
     @Override
-    public void bind(GithubApiAccessor githubApiAccessor) {
-        this.githubApiAccessor = githubApiAccessor;
+    public void bind(RepositoryAccessor repositoryAccessor) {
+        this.repositoryAccessor = repositoryAccessor;
     }
 
     private OkHttpClient createHttpClient() {
@@ -67,7 +67,7 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
     @Override
     public void loadProfile(final String userLogin) {
 
-        if(githubApiAccessor == null){
+        if(repositoryAccessor == null){
             logHelper.error(LOGTAG, "Error: Must call bind() before calling loadProfile");
             return;
         }
@@ -81,7 +81,7 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
                 public void onResponse(Call<Profile> call, Response<Profile> response) {
                     Profile profile = response.body();
 
-                    githubApiAccessor.receiveProfile(profile);
+                    repositoryAccessor.receiveProfile(profile);
                     loadOrganizations(userLogin);
                 }
 
@@ -97,7 +97,7 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
     @Override
     public void loadRepos(String userLogin) {
 
-        if(githubApiAccessor == null){
+        if(repositoryAccessor == null){
             logHelper.error(LOGTAG, "Error: Must call bind() before calling loadRepos");
             return;
         }
@@ -109,7 +109,7 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
             call.enqueue(new Callback<List<Repo>>() {
                 @Override
                 public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
-                    githubApiAccessor.receiveRepos(response.body());
+                    repositoryAccessor.receiveRepos(response.body());
                 }
 
                 @Override
@@ -123,7 +123,7 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
     @Override
     public void loadIssues(String ownerName, String repoName) {
 
-        if(githubApiAccessor == null){
+        if(repositoryAccessor == null){
             logHelper.error(LOGTAG, "Error: Must call bind() before calling loadIssues");
             return;
         }
@@ -133,7 +133,7 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
             call.enqueue(new Callback<List<Issue>>() {
                 @Override
                 public void onResponse(Call<List<Issue>> call, Response<List<Issue>> response) {
-                    githubApiAccessor.receiveIssues(response.body());
+                    repositoryAccessor.receiveIssues(response.body());
                 }
 
                 @Override
@@ -148,7 +148,7 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
 
     private void loadOrganizations(final String userLogin){
 
-        if(githubApiAccessor == null){
+        if(repositoryAccessor == null){
             logHelper.error(LOGTAG, "Error: Must call bind() before calling loadOrganizations");
             return;
         }
@@ -158,7 +158,7 @@ public class RetrofitGithubApiHelper implements GithubApiHelper{
         call.enqueue(new Callback<List<Organization>>() {
             @Override
             public void onResponse(Call<List<Organization>> call, Response<List<Organization>> response) {
-                githubApiAccessor.receiveOrganiztions(response.body());
+                repositoryAccessor.receiveOrganiztions(response.body());
             }
 
             @Override

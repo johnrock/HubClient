@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.domain;
+package com.jpiser.hubclient.domain.models;
 
 import org.junit.Test;
 

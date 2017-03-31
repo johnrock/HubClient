@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.domain.model;
+package com.jpiser.hubclient.domain.models;
 
 import java.util.Date;
 

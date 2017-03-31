@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.data.github.model;
+package com.jpiser.hubclient.data.models.github;
 
 import com.google.gson.annotations.SerializedName;
 

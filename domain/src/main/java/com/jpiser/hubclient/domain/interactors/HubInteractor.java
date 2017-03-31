@@ -1,13 +1,13 @@
-package com.jpiser.hubclient.domain;
+package com.jpiser.hubclient.domain.interactors;
 
-import com.jpiser.hubclient.domain.model.HubIssue;
-import com.jpiser.hubclient.domain.model.HubOrganization;
-import com.jpiser.hubclient.domain.model.HubRepo;
-import com.jpiser.hubclient.domain.model.HubUserProfile;
+import com.jpiser.hubclient.domain.models.HubIssue;
+import com.jpiser.hubclient.domain.models.HubOrganization;
+import com.jpiser.hubclient.domain.models.HubRepo;
+import com.jpiser.hubclient.domain.models.HubUserProfile;
 
 import java.util.List;
 
-public interface HubApi {
+public interface HubInteractor {
 
     interface HubAccessor  {
         void receiveProfile(HubUserProfile hubUserProfile);

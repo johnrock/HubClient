@@ -5,8 +5,8 @@ import android.content.Context;
 import com.jpiser.hubclient.BuildConfig;
 import com.jpiser.hubclient.common.imaging.ImageHelper;
 import com.jpiser.hubclient.common.logging.LogHelper;
-import com.jpiser.hubclient.domain.HubApi;
-import com.jpiser.hubclient.domain.github.GitHubApi;
+import com.jpiser.hubclient.domain.usecases.GitHubInteractor;
+import com.jpiser.hubclient.domain.interactors.HubInteractor;
 import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenter;
 import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenterImpl;
 import com.jpiser.hubclient.presentation.features.issues.model.IssuesUseCases;
@@ -16,7 +16,7 @@ import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePrese
 import com.jpiser.hubclient.presentation.features.profile.model.ProfileUseCases;
 import com.jpiser.hubclient.presentation.features.profile.model.ProfileUseCasesImpl;
 import com.jpiser.hubclient.presentation.logging.LogHelperImpl;
-import com.jpiser.hubclient.retrofit.github.RetrofitGithubApiHelper;
+import com.jpiser.hubclient.retrofit.github.RetrofitGithubRepository;
 import com.jpiser.picasso.PicassoImageHelper;
 
 import javax.inject.Singleton;
@@ -51,17 +51,17 @@ public class AppModule {
 
     @Provides
     @Singleton
-    ProfileUseCases providesProfileUseCases(HubApi hubApi){
-        return new ProfileUseCasesImpl(hubApi);
+    ProfileUseCases providesProfileUseCases(HubInteractor hubInteractor){
+        return new ProfileUseCasesImpl(hubInteractor);
     }
 
     @Provides
     @Singleton
-    HubApi providesHubApi(LogHelper logHelper){
-        //TODO: At runtime a user preference setting could be read to allow binding to some other HubApi implementation
-        // To use another Http library other than Retrofit, just pass in a different GithubApiHelper implementation
+    HubInteractor providesHubApi(LogHelper logHelper){
+        //TODO: At runtime a user preference setting could be read to allow binding to some other HubInteractor implementation
+        // To use another Http library other than Retrofit, just pass in a different GithubRepository implementation
         // and remove the dependency on the retrofit module in build.gradle
-        return new GitHubApi(new RetrofitGithubApiHelper(logHelper));
+        return new GitHubInteractor(new RetrofitGithubRepository(logHelper));
     }
 
     @Provides
@@ -78,8 +78,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    IssuesUseCases providesIssuesUseCases(HubApi hubApi){
-        return new IssuesUseCasesImpl(hubApi);
+    IssuesUseCases providesIssuesUseCases(HubInteractor hubInteractor){
+        return new IssuesUseCasesImpl(hubInteractor);
     }
 
 

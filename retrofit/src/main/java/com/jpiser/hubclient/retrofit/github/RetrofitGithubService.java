@@ -1,10 +1,10 @@
 package com.jpiser.hubclient.retrofit.github;
 
-import com.jpiser.hubclient.data.github.model.Contributor;
-import com.jpiser.hubclient.data.github.model.Issue;
-import com.jpiser.hubclient.data.github.model.Organization;
-import com.jpiser.hubclient.data.github.model.Profile;
-import com.jpiser.hubclient.data.github.model.Repo;
+import com.jpiser.hubclient.data.models.github.Contributor;
+import com.jpiser.hubclient.data.models.github.Issue;
+import com.jpiser.hubclient.data.models.github.Organization;
+import com.jpiser.hubclient.data.models.github.Profile;
+import com.jpiser.hubclient.data.models.github.Repo;
 
 import java.util.List;
 

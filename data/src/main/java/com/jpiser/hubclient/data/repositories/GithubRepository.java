@@ -1,25 +1,25 @@
-package com.jpiser.hubclient.data.github;
+package com.jpiser.hubclient.data.repositories;
 
-import com.jpiser.hubclient.data.github.model.Issue;
-import com.jpiser.hubclient.data.github.model.Organization;
-import com.jpiser.hubclient.data.github.model.Profile;
-import com.jpiser.hubclient.data.github.model.Repo;
+import com.jpiser.hubclient.data.models.github.Issue;
+import com.jpiser.hubclient.data.models.github.Organization;
+import com.jpiser.hubclient.data.models.github.Profile;
+import com.jpiser.hubclient.data.models.github.Repo;
 
 import java.util.List;
 
 /**
  * @author John Piser johnpiser@yahoo.com
  */
-public interface GithubApiHelper {
+public interface GithubRepository {
 
-    interface GithubApiAccessor{
+    interface RepositoryAccessor {
         void receiveProfile(Profile profile);
         void receiveOrganiztions(List<Organization> organizations);
         void receiveRepos(List<Repo> repos);
         void receiveIssues(List<Issue> issues);
     }
 
-    void bind(GithubApiAccessor githubApiAccessor);
+    void bind(RepositoryAccessor repositoryAccessor);
 
     void loadProfile(String userLogin);
 

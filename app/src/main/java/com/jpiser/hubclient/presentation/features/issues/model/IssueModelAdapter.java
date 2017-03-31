@@ -1,6 +1,6 @@
 package com.jpiser.hubclient.presentation.features.issues.model;
 
-import com.jpiser.hubclient.domain.model.HubIssue;
+import com.jpiser.hubclient.domain.models.HubIssue;
 
 import java.util.ArrayList;
 import java.util.List;

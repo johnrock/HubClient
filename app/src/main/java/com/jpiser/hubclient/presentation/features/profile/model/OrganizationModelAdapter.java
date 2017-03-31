@@ -1,6 +1,6 @@
 package com.jpiser.hubclient.presentation.features.profile.model;
 
-import com.jpiser.hubclient.domain.model.HubOrganization;
+import com.jpiser.hubclient.domain.models.HubOrganization;
 
 import java.util.ArrayList;
 import java.util.List;

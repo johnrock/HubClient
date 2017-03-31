@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.data.github.model;
+package com.jpiser.hubclient.data.models.github;
 
 /**
  * @author John Piser johnpiser@yahoo.com

@@ -1,6 +1,6 @@
 package com.jpiser.hubclient.presentation.features.profile.model;
 
-import com.jpiser.hubclient.domain.model.HubRepo;
+import com.jpiser.hubclient.domain.models.HubRepo;
 
 import java.util.ArrayList;
 import java.util.List;

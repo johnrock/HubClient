@@ -1,9 +1,9 @@
 package com.jpiser.hubclient.presentation.features.profile.model;
 
-import com.jpiser.hubclient.domain.HubApi;
-import com.jpiser.hubclient.domain.model.HubOrganization;
-import com.jpiser.hubclient.domain.model.HubRepo;
-import com.jpiser.hubclient.domain.model.HubUserProfile;
+import com.jpiser.hubclient.domain.interactors.HubInteractor;
+import com.jpiser.hubclient.domain.models.HubOrganization;
+import com.jpiser.hubclient.domain.models.HubRepo;
+import com.jpiser.hubclient.domain.models.HubUserProfile;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,8 @@ public class ProfileUseCasesImplTest {
     public static final String TEST_USER_LOGIN = "TestUserLogin";
     ProfileUseCasesImpl profileUseCases;
 
-    @Mock HubApi hubApi;
+    @Mock
+    HubInteractor hubInteractor;
     @Mock ProfileUseCases.ProfileReceiver profileReceiver;
     @Mock HubUserProfile hubUserProfile;
     @Mock List<HubOrganization> organizationList;
@@ -34,12 +35,12 @@ public class ProfileUseCasesImplTest {
     public void setup(){
         MockitoAnnotations.initMocks(this);
 
-        profileUseCases = new ProfileUseCasesImpl(hubApi);
+        profileUseCases = new ProfileUseCasesImpl(hubInteractor);
     }
 
     @Test
     public void shouldInitFieldsInConstructor(){
-        assertEquals(hubApi, profileUseCases.hubApi);
+        assertEquals(hubInteractor, profileUseCases.hubInteractor);
     }
 
     @Test
@@ -47,7 +48,7 @@ public class ProfileUseCasesImplTest {
         profileUseCases.bind(profileReceiver);
 
         assertEquals(profileReceiver, profileUseCases.profileReceiver);
-        verify(hubApi).bind(profileUseCases);
+        verify(hubInteractor).bind(profileUseCases);
     }
 
 
@@ -56,7 +57,7 @@ public class ProfileUseCasesImplTest {
         profileUseCases.bind(profileReceiver);
         profileUseCases.loadProfile(TEST_USER_LOGIN);
 
-        verify(hubApi).loadProfile(TEST_USER_LOGIN);
+        verify(hubInteractor).loadProfile(TEST_USER_LOGIN);
     }
 
     @Test
@@ -64,7 +65,7 @@ public class ProfileUseCasesImplTest {
         profileUseCases.bind(profileReceiver);
         profileUseCases.loadRepos(TEST_USER_LOGIN);
 
-        verify(hubApi).loadRepos(TEST_USER_LOGIN);
+        verify(hubInteractor).loadRepos(TEST_USER_LOGIN);
     }
 
     @Test

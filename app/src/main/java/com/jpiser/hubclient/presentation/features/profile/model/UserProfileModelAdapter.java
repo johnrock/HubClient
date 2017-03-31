@@ -1,6 +1,6 @@
 package com.jpiser.hubclient.presentation.features.profile.model;
 
-import com.jpiser.hubclient.domain.model.HubUserProfile;
+import com.jpiser.hubclient.domain.models.HubUserProfile;
 
 /**
  * @author John Piser johnpiser@yahoo.com

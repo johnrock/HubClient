@@ -1,7 +1,7 @@
 package com.jpiser.hubclient.presentation.features.issues.model;
 
-import com.jpiser.hubclient.domain.HubApi;
-import com.jpiser.hubclient.domain.model.HubIssue;
+import com.jpiser.hubclient.domain.interactors.HubInteractor;
+import com.jpiser.hubclient.domain.models.HubIssue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +23,8 @@ public class IssuesUseCasesImplTest {
     public static final String TEST_OWNER = "testOwner";
     IssuesUseCasesImpl issuesUseCases;
 
-    @Mock HubApi hubApi;
+    @Mock
+    HubInteractor hubInteractor;
     @Mock IssuesUseCases.IssuesReceiver issuesReceiver;
     @Mock List<HubIssue> issueList;
 
@@ -31,20 +32,20 @@ public class IssuesUseCasesImplTest {
     public void setup(){
         MockitoAnnotations.initMocks(this);
 
-        issuesUseCases = new IssuesUseCasesImpl(hubApi);
+        issuesUseCases = new IssuesUseCasesImpl(hubInteractor);
     }
 
     @Test
     public void shouldBind(){
         issuesUseCases.bind(issuesReceiver);
         assertEquals(issuesReceiver, issuesUseCases.issuesReceiver);
-        verify(hubApi).bind(issuesUseCases);
+        verify(hubInteractor).bind(issuesUseCases);
     }
 
     @Test
     public void shouldLoadIssues(){
         issuesUseCases.loadIssues(TEST_OWNER, TEST_REPO);
-        verify(hubApi).loadIssues(TEST_OWNER, TEST_REPO);
+        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO);
     }
 
     @Test

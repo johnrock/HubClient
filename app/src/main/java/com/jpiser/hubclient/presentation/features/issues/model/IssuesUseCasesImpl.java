@@ -1,10 +1,10 @@
 package com.jpiser.hubclient.presentation.features.issues.model;
 
-import com.jpiser.hubclient.domain.HubApi;
-import com.jpiser.hubclient.domain.model.HubIssue;
-import com.jpiser.hubclient.domain.model.HubOrganization;
-import com.jpiser.hubclient.domain.model.HubRepo;
-import com.jpiser.hubclient.domain.model.HubUserProfile;
+import com.jpiser.hubclient.domain.interactors.HubInteractor;
+import com.jpiser.hubclient.domain.models.HubIssue;
+import com.jpiser.hubclient.domain.models.HubOrganization;
+import com.jpiser.hubclient.domain.models.HubRepo;
+import com.jpiser.hubclient.domain.models.HubUserProfile;
 
 import java.util.List;
 
@@ -14,26 +14,26 @@ import javax.inject.Inject;
  * @author John Piser johnpiser@yahoo.com
  */
 
-public class IssuesUseCasesImpl implements IssuesUseCases, HubApi.HubAccessor {
+public class IssuesUseCasesImpl implements IssuesUseCases, HubInteractor.HubAccessor {
 
-    HubApi hubApi;
+    HubInteractor hubInteractor;
     IssuesReceiver issuesReceiver;
 
     @Inject
-    public IssuesUseCasesImpl(HubApi hubApi) {
-        this.hubApi = hubApi;
+    public IssuesUseCasesImpl(HubInteractor hubInteractor) {
+        this.hubInteractor = hubInteractor;
     }
 
     @Override
     public void bind(IssuesReceiver issuesReceiver) {
         this.issuesReceiver = issuesReceiver;
-        hubApi.bind(this);
+        hubInteractor.bind(this);
     }
 
     @Override
     public void loadIssues(String ownerName, String repoName) {
-        if(hubApi != null){
-            hubApi.loadIssues(ownerName, repoName);
+        if(hubInteractor != null){
+            hubInteractor.loadIssues(ownerName, repoName);
         }
     }
 

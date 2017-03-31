@@ -1,10 +1,10 @@
 package com.jpiser.hubclient.presentation.features.profile.model;
 
-import com.jpiser.hubclient.domain.HubApi;
-import com.jpiser.hubclient.domain.model.HubIssue;
-import com.jpiser.hubclient.domain.model.HubOrganization;
-import com.jpiser.hubclient.domain.model.HubRepo;
-import com.jpiser.hubclient.domain.model.HubUserProfile;
+import com.jpiser.hubclient.domain.interactors.HubInteractor;
+import com.jpiser.hubclient.domain.models.HubIssue;
+import com.jpiser.hubclient.domain.models.HubOrganization;
+import com.jpiser.hubclient.domain.models.HubRepo;
+import com.jpiser.hubclient.domain.models.HubUserProfile;
 
 import java.util.List;
 
@@ -13,33 +13,33 @@ import javax.inject.Inject;
 /**
  * @author John Piser johnpiser@yahoo.com
  */
-public class ProfileUseCasesImpl implements ProfileUseCases, HubApi.HubAccessor {
+public class ProfileUseCasesImpl implements ProfileUseCases, HubInteractor.HubAccessor {
 
-    HubApi hubApi;
+    HubInteractor hubInteractor;
     ProfileReceiver profileReceiver;
 
     @Inject
-    public ProfileUseCasesImpl(HubApi hubApi) {
-        this.hubApi = hubApi;
+    public ProfileUseCasesImpl(HubInteractor hubInteractor) {
+        this.hubInteractor = hubInteractor;
     }
 
     @Override
     public void bind(ProfileReceiver profileReceiver) {
         this.profileReceiver = profileReceiver;
-        hubApi.bind(this);
+        hubInteractor.bind(this);
     }
 
     @Override
     public void loadProfile(String userLogin) {
-        if(hubApi != null && profileReceiver != null){
-            hubApi.loadProfile(userLogin);
+        if(hubInteractor != null && profileReceiver != null){
+            hubInteractor.loadProfile(userLogin);
         }
     }
 
     @Override
     public void loadRepos(String userLogin) {
-        if(hubApi != null && profileReceiver != null){
-            hubApi.loadRepos(userLogin);
+        if(hubInteractor != null && profileReceiver != null){
+            hubInteractor.loadRepos(userLogin);
         }
     }
 

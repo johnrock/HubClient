@@ -1,52 +1,52 @@
-package com.jpiser.hubclient.domain.github;
+package com.jpiser.hubclient.domain.usecases;
 
-import com.jpiser.hubclient.data.github.GithubApiHelper;
-import com.jpiser.hubclient.data.github.model.Issue;
-import com.jpiser.hubclient.data.github.model.Organization;
-import com.jpiser.hubclient.data.github.model.Profile;
-import com.jpiser.hubclient.data.github.model.Repo;
-import com.jpiser.hubclient.domain.HubApi;
-import com.jpiser.hubclient.domain.model.HubIssueAdapter;
-import com.jpiser.hubclient.domain.model.HubOrganizationAdapter;
-import com.jpiser.hubclient.domain.model.HubRepoAdapter;
-import com.jpiser.hubclient.domain.model.HubUserProfileAdapter;
+import com.jpiser.hubclient.data.repositories.GithubRepository;
+import com.jpiser.hubclient.data.models.github.Issue;
+import com.jpiser.hubclient.data.models.github.Organization;
+import com.jpiser.hubclient.data.models.github.Profile;
+import com.jpiser.hubclient.data.models.github.Repo;
+import com.jpiser.hubclient.domain.interactors.HubInteractor;
+import com.jpiser.hubclient.domain.models.HubIssueAdapter;
+import com.jpiser.hubclient.domain.models.HubOrganizationAdapter;
+import com.jpiser.hubclient.domain.models.HubRepoAdapter;
+import com.jpiser.hubclient.domain.models.HubUserProfileAdapter;
 
 import java.util.List;
 
-public class GitHubApi implements HubApi, GithubApiHelper.GithubApiAccessor {
+public class GitHubInteractor implements HubInteractor, GithubRepository.RepositoryAccessor {
 
     HubAccessor hubAccessor;
-    GithubApiHelper githubApiHelper;
+    GithubRepository githubRepository;
 
-    public GitHubApi(GithubApiHelper githubApiHelper) {
-        this.githubApiHelper = githubApiHelper;
+    public GitHubInteractor(GithubRepository githubRepository) {
+        this.githubRepository = githubRepository;
     }
 
 
     @Override
     public void bind(HubAccessor hubAccessor) {
         this.hubAccessor = hubAccessor;
-        githubApiHelper.bind(this);
+        githubRepository.bind(this);
     }
 
     @Override
     public void loadProfile(String userLogin) {
-        if(githubApiHelper != null){
-            githubApiHelper.loadProfile(userLogin);
+        if(githubRepository != null){
+            githubRepository.loadProfile(userLogin);
         }
     }
 
     @Override
     public void loadRepos(String userLogin) {
-        if(githubApiHelper != null){
-            githubApiHelper.loadRepos(userLogin);
+        if(githubRepository != null){
+            githubRepository.loadRepos(userLogin);
         }
     }
 
     @Override
     public void loadIssues(String ownerName, String repoName) {
-        if(githubApiHelper != null){
-            githubApiHelper.loadIssues(ownerName, repoName);
+        if(githubRepository != null){
+            githubRepository.loadIssues(ownerName, repoName);
         }
     }
 

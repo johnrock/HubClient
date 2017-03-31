@@ -1,7 +1,6 @@
-package com.jpiser.hubclient.domain.model;
+package com.jpiser.hubclient.domain.models;
 
-import com.jpiser.hubclient.data.github.model.Profile;
-import com.jpiser.hubclient.domain.model.HubUserProfile;
+import com.jpiser.hubclient.data.models.github.Profile;
 
 /**
  * @author John Piser johnpiser@yahoo.com

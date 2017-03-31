@@ -1,6 +1,6 @@
-package com.jpiser.hubclient.domain.model;
+package com.jpiser.hubclient.domain.models;
 
-import com.jpiser.hubclient.data.github.model.Organization;
+import com.jpiser.hubclient.data.models.github.Organization;
 
 import java.util.ArrayList;
 import java.util.List;
