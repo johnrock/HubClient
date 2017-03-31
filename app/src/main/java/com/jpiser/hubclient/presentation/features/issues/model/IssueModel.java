@@ -1,16 +1,60 @@
 package com.jpiser.hubclient.presentation.features.issues.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * @author John Piser johnpiser@yahoo.com
  */
 
-public class IssueModel {
+public class IssueModel implements Parcelable{
+
+    public IssueModel() {
+    }
+
+
+    protected IssueModel(Parcel in) {
+        issueUserModel = in.readParcelable(IssueUserModel.class.getClassLoader());
+        title = in.readString();
+        comments = in.readInt();
+        number = in.readInt();
+        state = in.readString();
+        body = in.readString();
+    }
+
+    public static final Creator<IssueModel> CREATOR = new Creator<IssueModel>() {
+        @Override
+        public IssueModel createFromParcel(Parcel in) {
+            return new IssueModel(in);
+        }
+
+        @Override
+        public IssueModel[] newArray(int size) {
+            return new IssueModel[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(issueUserModel, flags);
+        dest.writeString(title);
+        dest.writeInt(comments);
+        dest.writeInt(number);
+        dest.writeString(state);
+        dest.writeString(body);
+    }
 
     private IssueUserModel issueUserModel;
     private String title;
     private int comments;
     private int number;
     private String state;
+    private String body;
 
     public IssueUserModel getIssueUserModel() {
         return issueUserModel;
@@ -48,8 +92,20 @@ public class IssueModel {
         return number;
     }
 
+    public String getNumberAsString(){
+        return "#" + number;
+    }
+
     public String getState() {
         return state;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getBody() {
+        return body;
     }
 
     @Override
@@ -60,6 +116,10 @@ public class IssueModel {
                 ", comments=" + comments +
                 ", number=" + number +
                 ", state='" + state + '\'' +
+                ", body='" + body + '\'' +
                 '}';
     }
+
+
+
 }

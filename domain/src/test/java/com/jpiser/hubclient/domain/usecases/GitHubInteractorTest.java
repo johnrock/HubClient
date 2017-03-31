@@ -1,10 +1,13 @@
 package com.jpiser.hubclient.domain.usecases;
 
+import com.jpiser.hubclient.data.models.github.Issue;
+import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.data.repositories.GithubRepository;
 import com.jpiser.hubclient.data.models.github.Organization;
 import com.jpiser.hubclient.data.models.github.Profile;
 import com.jpiser.hubclient.data.models.github.Repo;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
+import com.jpiser.hubclient.domain.models.HubIssue;
 import com.jpiser.hubclient.domain.models.HubUserProfile;
 
 import org.junit.Before;
@@ -25,64 +28,80 @@ import static org.mockito.Mockito.verify;
 public class GitHubInteractorTest {
 
     public static final String TEST_USER_LOGIN = "testUserLogin";
-    GitHubInteractor gitHubApi;
+    public static final String TEST_TITLE = "testTitle";
+    public static final String TEST_BODY = "testBody";
+    public static final String TEST_REPONAME = "testReponame";
 
-    @Mock
-    GithubRepository githubRepository;
+    GitHubInteractor gitHubInteractor;
+
+    @Mock  GithubRepository githubRepository;
     @Mock  HubInteractor.HubAccessor hubAccessor;
     @Mock List<Repo> repoList;
+    @Mock Issue issue;
 
+    Credentials credentials;
 
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
 
-        gitHubApi = new GitHubInteractor(githubRepository);
+        gitHubInteractor = new GitHubInteractor(githubRepository);
+        credentials = Credentials.empty();
+        gitHubInteractor.bind(hubAccessor);
     }
 
 
     @Test
     public void shouldBind(){
-        gitHubApi.bind(hubAccessor);
 
-        assertEquals(hubAccessor, gitHubApi.hubAccessor);
-        verify(githubRepository).bind(gitHubApi);
+        assertEquals(hubAccessor, gitHubInteractor.hubAccessor);
+        verify(githubRepository).bind(gitHubInteractor);
     }
 
     @Test
     public void shouldLoadProfile(){
-        gitHubApi.loadProfile(TEST_USER_LOGIN);
-        verify(githubRepository).loadProfile(TEST_USER_LOGIN);
+        gitHubInteractor.loadProfile(TEST_USER_LOGIN, credentials);
+        verify(githubRepository).loadProfile(TEST_USER_LOGIN, credentials);
     }
 
     @Test
     public void shouldLoadRepos(){
-        gitHubApi.loadRepos(TEST_USER_LOGIN);
-        verify(githubRepository).loadRepos(TEST_USER_LOGIN);
+        gitHubInteractor.loadRepos(TEST_USER_LOGIN, credentials);
+        verify(githubRepository).loadRepos(TEST_USER_LOGIN, credentials);
+    }
+
+    @Test
+    public void shouldCreateIssue(){
+        gitHubInteractor.createIssue(TEST_TITLE, TEST_BODY, TEST_REPONAME, credentials);
+        verify(githubRepository).createIssue(TEST_REPONAME, TEST_TITLE, TEST_BODY, credentials);
     }
 
     @Test
     public void shouldReceiveProfile(){
-        gitHubApi.bind(hubAccessor);
-        gitHubApi.receiveProfile(testProfile());
+        gitHubInteractor.receiveProfile(testProfile());
 
         verify(hubAccessor).receiveProfile(any(HubUserProfile.class));
     }
 
     @Test
     public void shouldReceiveOrganizations(){
-        gitHubApi.bind(hubAccessor);
-        gitHubApi.receiveOrganiztions(createTestOrganizations());
+        gitHubInteractor.receiveOrganiztions(createTestOrganizations());
 
         verify(hubAccessor).receiveOrganziations(any(List.class));
     }
 
     @Test
     public void shouldReceiveRepos(){
-        gitHubApi.bind(hubAccessor);
-        gitHubApi.receiveRepos(repoList);
+        gitHubInteractor.receiveRepos(repoList);
 
         verify(hubAccessor).receiveRepos(any(List.class));
+    }
+
+    @Test
+    public void shouldReceiveIssue(){
+        gitHubInteractor.receiveIssue(issue);
+
+        verify(hubAccessor).receiveIssue(any(HubIssue.class));
     }
 
     private List<Organization> createTestOrganizations() {

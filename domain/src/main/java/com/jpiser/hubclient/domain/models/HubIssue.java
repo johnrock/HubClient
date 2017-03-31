@@ -11,6 +11,7 @@ public class HubIssue {
     private String state;
     private int comments;
     private int number;
+    private String body;
 
     public String getTitle() {
         return title;
@@ -50,5 +51,13 @@ public class HubIssue {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getBody() {
+        return body;
     }
 }

@@ -1,5 +1,6 @@
 package com.jpiser.hubclient.presentation.features.issues.presenter;
 
+import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
 import com.jpiser.hubclient.domain.models.HubIssue;
 import com.jpiser.hubclient.domain.models.HubOrganization;
@@ -20,6 +21,7 @@ public class IssuesPresenterImpl implements IssuesPresenter, HubInteractor.HubAc
     public static final String SLASH = "/";
 
     ViewLayer viewLayer;
+    private Credentials credentials;
     HubInteractor hubInteractor;
 
     @Inject
@@ -28,8 +30,9 @@ public class IssuesPresenterImpl implements IssuesPresenter, HubInteractor.HubAc
     }
 
     @Override
-    public void bind(ViewLayer viewLayer) {
+    public void bind(ViewLayer viewLayer, Credentials credentials) {
         this.viewLayer = viewLayer;
+        this.credentials = credentials;
         hubInteractor.bind(this);
     }
 
@@ -45,7 +48,7 @@ public class IssuesPresenterImpl implements IssuesPresenter, HubInteractor.HubAc
     @Override
     public void loadIssues(String ownerName, String repoName) {
         if(hubInteractor != null){
-            hubInteractor.loadIssues(ownerName, repoName);
+            hubInteractor.loadIssues(ownerName, repoName, credentials);
         }
     }
 
@@ -54,6 +57,11 @@ public class IssuesPresenterImpl implements IssuesPresenter, HubInteractor.HubAc
         if(viewLayer != null){
            viewLayer.displayIssues(new IssueModelAdapter().adapt(issues));
         }
+    }
+
+    @Override
+    public void receiveIssue(HubIssue hubIssue) {
+        //Not Implemented
     }
 
     @Override

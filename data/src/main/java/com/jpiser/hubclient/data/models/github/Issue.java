@@ -62,6 +62,8 @@ package com.jpiser.hubclient.data.models.github;
 public class Issue {
 
     private String title;
+    private String body;
+
     private String state;
     private User user;
     private int number;
@@ -85,5 +87,17 @@ public class Issue {
 
     public int getComments() {
         return comments;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

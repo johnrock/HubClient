@@ -1,5 +1,6 @@
 package com.jpiser.hubclient.domain.interactors;
 
+import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.domain.models.HubIssue;
 import com.jpiser.hubclient.domain.models.HubOrganization;
 import com.jpiser.hubclient.domain.models.HubRepo;
@@ -10,17 +11,20 @@ import java.util.List;
 public interface HubInteractor {
 
     interface HubAccessor  {
+
         void receiveProfile(HubUserProfile hubUserProfile);
         void receiveOrganziations(List<HubOrganization> organizations);
         void receiveRepos(List<HubRepo> repos);
         void receiveIssues(List<HubIssue> issues);
+        void receiveIssue(HubIssue hubIssue);
     }
-
     void bind(HubAccessor hubAccessor);
 
-    void loadProfile(String UserLogin);
+    void loadProfile(String UserLogin, Credentials credentials);
 
-    void loadRepos(String userLogin);
+    void loadRepos(String userLogin, Credentials credentials);
 
-    void loadIssues(String ownerName, String repoName);
+    void loadIssues(String ownerName, String repoName, Credentials credentials);
+
+    void createIssue(String title, String body, String repoName, Credentials credentials);
 }

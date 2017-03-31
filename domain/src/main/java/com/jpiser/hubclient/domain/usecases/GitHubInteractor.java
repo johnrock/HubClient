@@ -1,5 +1,6 @@
 package com.jpiser.hubclient.domain.usecases;
 
+import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.data.repositories.GithubRepository;
 import com.jpiser.hubclient.data.models.github.Issue;
 import com.jpiser.hubclient.data.models.github.Organization;
@@ -30,23 +31,30 @@ public class GitHubInteractor implements HubInteractor, GithubRepository.Reposit
     }
 
     @Override
-    public void loadProfile(String userLogin) {
+    public void loadProfile(String userLogin, Credentials credentials) {
         if(githubRepository != null){
-            githubRepository.loadProfile(userLogin);
+            githubRepository.loadProfile(userLogin, credentials);
         }
     }
 
     @Override
-    public void loadRepos(String userLogin) {
+    public void loadRepos(String userLogin, Credentials credentials) {
         if(githubRepository != null){
-            githubRepository.loadRepos(userLogin);
+            githubRepository.loadRepos(userLogin, credentials);
         }
     }
 
     @Override
-    public void loadIssues(String ownerName, String repoName) {
+    public void loadIssues(String ownerName, String repoName, Credentials credentials) {
         if(githubRepository != null){
-            githubRepository.loadIssues(ownerName, repoName);
+            githubRepository.loadIssues(ownerName, repoName, credentials);
+        }
+    }
+
+    @Override
+    public void createIssue(String title, String body, String repoName, Credentials credentials) {
+        if(githubRepository != null){
+            githubRepository.createIssue(repoName, title, body, credentials);
         }
     }
 
@@ -75,6 +83,13 @@ public class GitHubInteractor implements HubInteractor, GithubRepository.Reposit
     public void receiveIssues(List<Issue> issues) {
         if(hubAccessor != null){
             hubAccessor.receiveIssues(new HubIssueAdapter().adapt(issues));
+        }
+    }
+
+    @Override
+    public void receiveIssue(Issue issue) {
+        if(hubAccessor != null){
+            hubAccessor.receiveIssue(new HubIssueAdapter().adapt(issue));
         }
     }
 }

@@ -3,14 +3,21 @@
 
 
     <string name="main_selected_hub">SELECTED HUB:</string>
-    <string name="main_user_label">HUB LOGIN:</string>
-    <string name="main_prompt_enter_login">Enter a user login</string>
+
+    <string name="main_prompt_enter_login">Enter any hub user login</string>
+    <string name="main_prompt_password">Password (optional: required for posting)</string>
     <string name="main_button_go">GO</string>
     <string name="profile_heading_repositories">Repositories</string>
     <string name="feature_issues_message_no_issues_found">No Issues found</string>
 
     <string name="feature_profile_view_title">Profile</string>
     <string name="feature_issues_view_title">Issues</string>
+    <string name="feature_issue_view_title">Issue</string>
+    <string name="feature_issues_buttonlabel_new_issue">New Issue</string>
+    <string name="feature_issues_buttonlabel_create_issue">Create Issue</string>
+    <string name="feature_issue_new_issue_hint">Issue Title</string>
+    <string name="feature_issue_new_issue_body_hint">Describe the issue</string>
+    <string name="feature_issue_label_new_issue">Create New Issue</string>
 
 
 </resources>

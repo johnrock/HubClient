@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+        android:layout_marginBottom="10dp"
+        />
+
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/issueLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorRepoItemBackground"
+        android:padding="6dp"
+        android:visibility="gone">
+
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:layout_marginRight="20dp"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+            android:layout_marginBottom="4dp"
+            />
+
+        <TextView
+            android:id="@+id/state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:layout_toRightOf="@+id/number"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+            android:layout_marginBottom="4dp"
+            />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/number"
+            android:textStyle="bold"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:textStyle="italic"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:id="@+id/body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:textStyle="normal"
+            />
+
+    </RelativeLayout>
+
+
+
+
+
+<LinearLayout
+    android:id="@+id/createIssueLayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone">
+
+    <TextView
+        android:id="@+id/newIssueLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+        android:layout_marginBottom="10dp"
+        android:text="@string/feature_issue_label_new_issue"
+        />
+
+    <EditText
+        android:id="@+id/newIssueTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/feature_issue_new_issue_hint"
+        android:ems="10"
+        android:inputType="text"
+        android:padding="4dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorEditTextBackground"/>
+
+    <EditText
+        android:id="@+id/newIssueBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/feature_issue_new_issue_body_hint"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:padding="4dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorEditTextBackground"/>
+
+    <Button
+        android:id="@+id/createIssueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/feature_issues_buttonlabel_create_issue"
+        android:layout_gravity="right"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:background="@color/colorCreateButtonBackground"
+        android:layout_margin="4dp"/>
+
+</LinearLayout>
+
+</LinearLayout>
+</ScrollView>

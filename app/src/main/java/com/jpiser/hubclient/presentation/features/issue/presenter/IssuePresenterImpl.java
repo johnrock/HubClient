@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.presentation.features.profile.presenter;
+package com.jpiser.hubclient.presentation.features.issue.presenter;
 
 import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
@@ -6,28 +6,30 @@ import com.jpiser.hubclient.domain.models.HubIssue;
 import com.jpiser.hubclient.domain.models.HubOrganization;
 import com.jpiser.hubclient.domain.models.HubRepo;
 import com.jpiser.hubclient.domain.models.HubUserProfile;
-import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModelAdapter;
-import com.jpiser.hubclient.presentation.features.profile.model.RepoModelAdapter;
-import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModelAdapter;
+import com.jpiser.hubclient.presentation.features.issues.model.IssueModelAdapter;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+
 /**
  * @author John Piser johnpiser@yahoo.com
  */
 
-public class ProfilePresenterImpl implements ProfilePresenter, HubInteractor.HubAccessor{
+public class IssuePresenterImpl implements IssuePresenter, HubInteractor.HubAccessor {
 
+    public static final String SLASH = "/";
+
+    HubInteractor hubInteractor;
     ViewLayer viewLayer;
     Credentials credentials;
-    HubInteractor hubInteractor;
 
     @Inject
-    public ProfilePresenterImpl(HubInteractor hubInteractor) {
+    public IssuePresenterImpl(HubInteractor hubInteractor) {
         this.hubInteractor = hubInteractor;
     }
+
 
     @Override
     public void bind(ViewLayer viewLayer, Credentials credentials) {
@@ -37,41 +39,45 @@ public class ProfilePresenterImpl implements ProfilePresenter, HubInteractor.Hub
     }
 
     @Override
-    public void initProfile(String userLogin) {
+    public void createHeading(String userLogin, String repoName) {
+        StringBuilder builder = new StringBuilder(userLogin)
+                .append(SLASH)
+                .append(repoName);
+
+        viewLayer.displayHeading(builder.toString());
+    }
+
+    @Override
+    public void createIssue(String repoName, String title, String body) {
         if(hubInteractor != null){
-            hubInteractor.loadProfile(userLogin, credentials);
-            hubInteractor.loadRepos(userLogin, credentials);
+            hubInteractor.createIssue(title, body, repoName, credentials);
         }
     }
 
     @Override
     public void receiveProfile(HubUserProfile hubUserProfile) {
-        if(viewLayer != null){
-            viewLayer.displayProfile(new UserProfileModelAdapter().adapt(hubUserProfile));
-        }
+        //NOT IMPLEMENTED
     }
 
     @Override
     public void receiveOrganziations(List<HubOrganization> organizations) {
-        if(viewLayer != null){
-            viewLayer.displayOrganizations(new OrganizationModelAdapter().adapt(organizations));
-        }
+        //NOT IMPLEMENTED
     }
 
     @Override
     public void receiveRepos(List<HubRepo> repos) {
-        if(viewLayer != null){
-            viewLayer.displayRepos(new RepoModelAdapter().adapt(repos));
-        }
+        //NOT IMPLEMENTED
     }
 
     @Override
     public void receiveIssues(List<HubIssue> issues) {
-        //Not Implemented
+        //NOT IMPLEMENTED
     }
 
     @Override
     public void receiveIssue(HubIssue hubIssue) {
-        //Not Implemented
+        if(viewLayer != null){
+            viewLayer.displayIssue(new IssueModelAdapter().adapt(hubIssue));
+        }
     }
 }

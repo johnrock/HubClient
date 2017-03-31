@@ -1,5 +1,6 @@
 package com.jpiser.hubclient.presentation.dagger;
 
+import com.jpiser.hubclient.presentation.features.issue.view.IssueActivity;
 import com.jpiser.hubclient.presentation.features.issues.view.IssuesActivity;
 import com.jpiser.hubclient.presentation.features.main.view.MainActivity;
 import com.jpiser.hubclient.presentation.features.profile.view.ProfileActivity;
@@ -20,4 +21,5 @@ public interface AppComponent {
     void inject(ProfileActivity profileActivity);
     void inject(ProfilePresenterImpl profilePresenterImpl);
     void inject(IssuesActivity issuesActivity);
+    void inject(IssueActivity issueActivity);
 }

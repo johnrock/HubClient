@@ -1,5 +1,6 @@
 package com.jpiser.hubclient.presentation.features.profile.presenter;
 
+import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
 import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
 import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
@@ -18,7 +19,7 @@ public interface ProfilePresenter {
         void displayRepos(List<RepoModel> repoModels);
     }
 
-    void bind(ViewLayer viewLayer);
+    void bind(ViewLayer viewLayer, Credentials credentials);
 
     void initProfile(String userLogin);
 }

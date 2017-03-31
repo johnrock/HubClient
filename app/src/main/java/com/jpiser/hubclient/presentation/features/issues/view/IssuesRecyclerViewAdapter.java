@@ -21,16 +21,22 @@ import butterknife.ButterKnife;
 
 public class IssuesRecyclerViewAdapter extends RecyclerView.Adapter<IssuesRecyclerViewAdapter.IssueHolder> {
 
-    private List<IssueModel> issueModels;
+    public interface IssueTapper{
+        void loadIssue(IssueModel issueModel);
+    }
 
-    public IssuesRecyclerViewAdapter(List<IssueModel> issueModels) {
+    private List<IssueModel> issueModels;
+    private IssueTapper issueTapper;
+
+    public IssuesRecyclerViewAdapter(List<IssueModel> issueModels, IssueTapper issueTapper) {
         this.issueModels = issueModels;
+        this.issueTapper = issueTapper;
     }
 
     @Override
     public IssuesRecyclerViewAdapter.IssueHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.feaure_issues_issue, parent, false);
-        return new IssueHolder(view);
+        return new IssueHolder(view, issueTapper);
     }
 
     @Override
@@ -45,6 +51,7 @@ public class IssuesRecyclerViewAdapter extends RecyclerView.Adapter<IssuesRecycl
 
     public static class IssueHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        private final IssueTapper issueTapper;
         private IssueModel issueModel;
 
         @BindView(R.id.title) TextView titleTextView;
@@ -53,14 +60,16 @@ public class IssuesRecyclerViewAdapter extends RecyclerView.Adapter<IssuesRecycl
         @BindView(R.id.name) TextView nameTextView;
 
 
-        public IssueHolder(View itemView) {
+        public IssueHolder(View itemView, IssueTapper issueTapper) {
             super(itemView);
+            this.issueTapper = issueTapper;
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            //TODO: implement tapping on an issue
+            issueTapper.loadIssue(this.issueModel);
         }
 
         public void bind(IssueModel issueModel) {

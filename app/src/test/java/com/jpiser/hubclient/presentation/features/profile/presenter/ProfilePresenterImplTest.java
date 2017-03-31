@@ -1,5 +1,6 @@
 package com.jpiser.hubclient.presentation.features.profile.presenter;
 
+import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
 import com.jpiser.hubclient.domain.models.HubOrganization;
 import com.jpiser.hubclient.domain.models.HubRepo;
@@ -31,10 +32,15 @@ public class ProfilePresenterImplTest {
     @Mock List<HubOrganization> organizationList;
     @Mock List<HubRepo> repoList;
 
+    Credentials credentials;
+
+
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
         profilePresenter = new ProfilePresenterImpl(hubInteractor);
+        credentials = Credentials.empty();
+        profilePresenter.bind(viewLayer, credentials);
     }
 
     @Test
@@ -44,8 +50,6 @@ public class ProfilePresenterImplTest {
 
     @Test
     public void shouldBind(){
-        profilePresenter.bind(viewLayer);
-
         assertEquals(viewLayer, profilePresenter.viewLayer);
         verify(hubInteractor).bind(profilePresenter);
     }
@@ -54,33 +58,30 @@ public class ProfilePresenterImplTest {
     public void shouldLoadProfileDuringInitProfile(){
         profilePresenter.initProfile(TEST_USER_LOGIN);
 
-        verify(hubInteractor).loadProfile(TEST_USER_LOGIN);
+        verify(hubInteractor).loadProfile(TEST_USER_LOGIN, credentials);
     }
 
     @Test
     public void shouldLoadReposDuringInitProfile(){
         profilePresenter.initProfile(TEST_USER_LOGIN);
 
-        verify(hubInteractor).loadRepos(TEST_USER_LOGIN);
+        verify(hubInteractor).loadRepos(TEST_USER_LOGIN, credentials);
     }
 
     @Test
     public void shouldReceiveProfile(){
-        profilePresenter.bind(viewLayer);
         profilePresenter.receiveProfile(hubUserProfile);
         verify(viewLayer).displayProfile(any(UserProfileModel.class));
     }
 
     @Test
     public void shouldReceiveOrganizations(){
-        profilePresenter.bind(viewLayer);
         profilePresenter.receiveOrganziations(organizationList);
         verify(viewLayer).displayOrganizations(any(List.class));
     }
 
     @Test
     public void shouldReceiveRepos(){
-        profilePresenter.bind(viewLayer);
         profilePresenter.receiveRepos(repoList);
         verify(viewLayer).displayRepos(any(List.class));
     }

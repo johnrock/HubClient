@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jpiser.hubclient.R;
 import com.jpiser.hubclient.common.imaging.ImageHelper;
@@ -58,10 +59,11 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        ((HubClientApplication)getApplication()).getAppComponent().inject(this);
+        HubClientApplication application = (HubClientApplication) getApplication();
+        application.getAppComponent().inject(this);
         ButterKnife.bind(this);
 
-        userLogin = getIntent().getStringExtra(Extras.USER_LOGIN);
+        userLogin = application.getCredentials().getUsername();
         if(userLogin == null){
             finish();
         }
@@ -71,7 +73,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        profilePresenter.bind(this);
+        profilePresenter.bind(this, application.getCredentials());
         profilePresenter.initProfile(userLogin);
     }
 
@@ -94,6 +96,10 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
             locationTextView.setText(userProfileModel.getLocation());
             emailTextView.setText(userProfileModel.getEmail());
             blogTextView.setText(userProfileModel.getBlog());
+        }
+        else{
+            Toast.makeText(this, "Profile not found. Check your credentials", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
@@ -124,11 +130,9 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     @Override
     public void onRepoTapped(RepoModel repoModel) {
 
-        //TODO: For phase I tapping a repo will simply display a list of issues for that repo.
         if(repoModel != null){
             Intent intent = new Intent(this, IssuesActivity.class);
             intent.putExtra(Extras.REPO_NAME, repoModel.getName());
-            intent.putExtra(Extras.USER_LOGIN, userLogin);
             startActivity(intent);
         }
     }

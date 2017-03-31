@@ -1,5 +1,6 @@
 package com.jpiser.hubclient.presentation.features.issues.presenter;
 
+import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
 import com.jpiser.hubclient.domain.models.HubIssue;
 
@@ -27,15 +28,18 @@ public class IssuesPresenterImplTest {
     @Mock List<HubIssue> issueModels;
     @Mock HubInteractor hubInteractor;
 
+    Credentials credentials;
+
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
         issuesPresenter = new IssuesPresenterImpl(hubInteractor);
+        credentials = Credentials.empty();
     }
 
     @Test
     public void shouldBind(){
-        issuesPresenter.bind(viewLayer);
+        issuesPresenter.bind(viewLayer, credentials);
         assertEquals(viewLayer, issuesPresenter.viewLayer);
         verify(hubInteractor).bind(issuesPresenter);
     }
@@ -47,15 +51,15 @@ public class IssuesPresenterImplTest {
 
     @Test
     public void shouldLoadIssues(){
-        issuesPresenter.bind(viewLayer);
+        issuesPresenter.bind(viewLayer, credentials);
         issuesPresenter.loadIssues(TEST_OWNER, TEST_REPO);
 
-        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO);
+        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials);
     }
 
     @Test
     public void shouldReceiveIssues(){
-        issuesPresenter.bind(viewLayer);
+        issuesPresenter.bind(viewLayer, credentials);
         issuesPresenter.receiveIssues(issueModels);
 
         verify(viewLayer).displayIssues(any(List.class));

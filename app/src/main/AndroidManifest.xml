@@ -21,6 +21,7 @@
 
         <activity android:name=".presentation.features.profile.view.ProfileActivity" />
         <activity android:name=".presentation.features.issues.view.IssuesActivity" />
+        <activity android:name=".presentation.features.issue.view.IssueActivity" />
 
     </application>
 

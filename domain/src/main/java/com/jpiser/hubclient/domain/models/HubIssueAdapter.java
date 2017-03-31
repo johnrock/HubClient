@@ -10,21 +10,36 @@ import java.util.List;
  */
 
 public class HubIssueAdapter {
+
     public List<HubIssue> adapt(List<Issue> issues) {
 
         List<HubIssue> items = new ArrayList<>();
         if(issues != null){
-
             for (Issue issue : issues) {
-                HubIssue hubIssue = new HubIssue();
-                hubIssue.setHubUser(new HubUserAdapter().adapt(issue.getUser()));
-                hubIssue.setTitle(issue.getTitle());
-                hubIssue.setState(issue.getState());
-                hubIssue.setComments(issue.getComments());
-                hubIssue.setNumber(issue.getNumber());
+                HubIssue hubIssue = getHubIssue(issue);
                 items.add(hubIssue);
             }
         }
         return items;
+    }
+
+    public HubIssue adapt(Issue issue){
+
+        if(issue != null){
+            HubIssue hubIssue = getHubIssue(issue);
+            return hubIssue;
+        }
+        return null;
+    }
+
+    private HubIssue getHubIssue(Issue issue) {
+        HubIssue hubIssue = new HubIssue();
+        hubIssue.setHubUser(new HubUserAdapter().adapt(issue.getUser()));
+        hubIssue.setTitle(issue.getTitle());
+        hubIssue.setState(issue.getState());
+        hubIssue.setComments(issue.getComments());
+        hubIssue.setNumber(issue.getNumber());
+        hubIssue.setBody(issue.getBody());
+        return hubIssue;
     }
 }

@@ -9,7 +9,9 @@ import com.jpiser.hubclient.data.models.github.Repo;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
@@ -32,5 +34,9 @@ public interface RetrofitGithubService {
 
     @GET("repos/{owner}/{reponame}/issues")
     Call<List<Issue>> issues(@Path("owner") String owner, @Path("reponame") String repoName);
+
+    @POST("repos/{owner}/{reponame}/issues")
+    Call<Issue> createIssue(@Path("owner") String owner, @Path("reponame") String repoName, @Body Issue issue);
+
 
 }
