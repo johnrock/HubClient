@@ -1,5 +1,11 @@
 apply plugin: 'java'
 
+test {
+    testLogging {
+        events "PASSED", "FAILED", "SKIPPED"
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
