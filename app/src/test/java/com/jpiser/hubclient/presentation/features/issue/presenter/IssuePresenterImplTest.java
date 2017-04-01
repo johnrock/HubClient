@@ -4,6 +4,7 @@ import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
 import com.jpiser.hubclient.domain.models.HubIssue;
 import com.jpiser.hubclient.presentation.models.IssueModel;
+import com.jpiser.hubclient.presentation.models.IssueState;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +25,7 @@ public class IssuePresenterImplTest {
     public static final String TEST_REPO = "testRepo";
     public static final String TEST_TITLE = "testTitle";
     public static final String TEST_BODY = "testBody";
+    public static final String EDITED_BODY = "edited body";
     IssuePresenterImpl issuePresenter;
 
     @Mock HubInteractor hubInteractor;
@@ -68,9 +70,53 @@ public class IssuePresenterImplTest {
 
     @Test
     public void shouldUpdateIssue(){
-        issuePresenter.udpateIssue(TEST_REPO, issueModel);
+        issuePresenter.updateIssue(TEST_REPO, issueModel);
 
         verify(hubInteractor).updateIssue(anyString(), any(HubIssue.class), any(Credentials.class));
+    }
+
+    @Test
+    public void shouldUpdateIssueBody(){
+        ArgumentCaptor<HubIssue> hubIssueCaptor = ArgumentCaptor.forClass(HubIssue.class);
+
+        IssueModel sampleIssueModel = new IssueModel();
+        sampleIssueModel.setBody("12345");
+        issuePresenter.updateIssueBody(TEST_REPO, sampleIssueModel, EDITED_BODY);
+
+        verify(hubInteractor).updateIssue(anyString(), hubIssueCaptor.capture(), any(Credentials.class));
+
+        String actual = hubIssueCaptor.getValue().getBody();
+        assertEquals(EDITED_BODY, actual);
+    }
+
+    @Test
+    public void shouldToggleIssueStateClosed(){
+
+        ArgumentCaptor<HubIssue> hubIssueCaptor = ArgumentCaptor.forClass(HubIssue.class);
+
+        IssueModel sampleIssueModel = new IssueModel();
+        sampleIssueModel.setState(IssueState.OPEN.getValue());
+        issuePresenter.toggleIssueState(TEST_REPO, sampleIssueModel);
+
+        verify(hubInteractor).updateIssue(anyString(), hubIssueCaptor.capture(), any(Credentials.class));
+
+        String actual = hubIssueCaptor.getValue().getState();
+        assertEquals(IssueState.CLOSED.getValue(), actual);
+    }
+
+    @Test
+    public void shouldToggleIssueStateOpen(){
+
+        ArgumentCaptor<HubIssue> hubIssueCaptor = ArgumentCaptor.forClass(HubIssue.class);
+
+        IssueModel sampleIssueModel = new IssueModel();
+        sampleIssueModel.setState(IssueState.CLOSED.getValue());
+        issuePresenter.toggleIssueState(TEST_REPO, sampleIssueModel);
+
+        verify(hubInteractor).updateIssue(anyString(), hubIssueCaptor.capture(), any(Credentials.class));
+
+        String actual = hubIssueCaptor.getValue().getState();
+        assertEquals(IssueState.OPEN.getValue(), actual);
     }
 
     @Test

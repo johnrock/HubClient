@@ -37,6 +37,8 @@ import static com.jpiser.hubclient.R.id.heading;
  * Activity to display the
  */
 
+//TODO: Implement pagination of issues: currently only the first page is displayed
+
 public class IssuesActivity extends AppCompatActivity implements IssuesPresenter.ViewLayer, IssuesRecyclerViewAdapter.IssueTapper {
 
     @Inject IssuesPresenter issuesPresenter;
@@ -71,14 +73,11 @@ public class IssuesActivity extends AppCompatActivity implements IssuesPresenter
 
         initActionBar();
         initView(application.getCredentials());
-
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         issuesPresenter.bind(this, ((HubClientApplication) getApplication()).getCredentials());
         issuesPresenter.createHeading(userLogin, repoName);
         issuesPresenter.loadIssues(userLogin, repoName);

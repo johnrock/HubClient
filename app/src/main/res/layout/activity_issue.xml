@@ -113,8 +113,13 @@
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:padding="4dp"
+            android:lines="10"
             android:background="@color/colorEditTextBackground"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            >
+            <requestFocus />
+            </EditText>
+
 
         <Button
             android:id="@+id/updateIssueButton"
@@ -127,6 +132,19 @@
             android:layout_margin="4dp"
             android:background="@color/colorCreateButtonBackground"
             android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/issueStateButton"
+            android:layout_below="@+id/body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/feature_issues_buttonlabel_close_issue"
+            android:layout_alignParentRight="true"
+            android:layout_margin="4dp"
+            android:padding="8dp"
+            android:background="@color/colorClosedIssue"
+            />
+
 
 
     </RelativeLayout>
@@ -168,6 +186,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/feature_issue_new_issue_body_hint"
         android:ems="10"
+        android:lines="10"
         android:inputType="textMultiLine"
         android:padding="4dp"
         android:layout_marginBottom="10dp"

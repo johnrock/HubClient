@@ -38,6 +38,8 @@ import butterknife.ButterKnife;
  * @author John Piser johnpiser@yahoo.com
  */
 
+//TODO: Implement pagination of repos: currently only the first page is displayed
+
 public class ProfileActivity extends AppCompatActivity implements ProfilePresenter.ViewLayer, ProfileRecyclerViewAdapter.RepoTapper {
 
     @Inject ProfilePresenter profilePresenter;
@@ -117,11 +119,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
                 imageHelper.loadImage(imageView, organizationModel.getAvatarUrl());
                 organizationLayout.addView(imageView);
             }
-
         }
     }
-
-    //TODO: Allow for pagination of repo instead of just showing the first page
 
     @Override
     public void displayRepos(List<RepoModel> repoModels) {

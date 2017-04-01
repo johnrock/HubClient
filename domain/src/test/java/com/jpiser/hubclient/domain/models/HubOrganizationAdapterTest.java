@@ -11,7 +11,7 @@ public class HubOrganizationAdapterTest {
     //TODO: implement tests for HubOrganizationAdapter
 
     @Test
-    public void shouldAdapt(){
+    public void dummyTest(){
 
     }
 

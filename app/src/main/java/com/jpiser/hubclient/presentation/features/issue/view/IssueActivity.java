@@ -19,6 +19,7 @@ import com.jpiser.hubclient.R;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
 import com.jpiser.hubclient.presentation.features.issue.presenter.IssuePresenter;
 import com.jpiser.hubclient.presentation.models.IssueModel;
+import com.jpiser.hubclient.presentation.models.IssueState;
 import com.jpiser.hubclient.presentation.models.IssueUserModel;
 import com.jpiser.hubclient.presentation.util.Extras;
 
@@ -46,14 +47,15 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
     @BindView(R.id.issueLayout)       RelativeLayout issueLayout;
     @BindView(R.id.createIssueLayout) LinearLayout createIssueLayout;
 
-    @BindView(R.id.title) TextView  titleTextView;
-    @BindView(R.id.state) TextView  stateTextView;
-    @BindView(R.id.number) TextView numberTextView;
-    @BindView(R.id.name) TextView   nameTextView;
-    @BindView(R.id.body) TextView   bodyTextView;
-    @BindView(R.id.editModeIcon) ImageView editIcon;
-    @BindView(R.id.cancelEditIcon)   ImageView cancelEditIcon;
-    @BindView(R.id.updateIssueButton)  Button editIssueButton;
+    @BindView(R.id.title) TextView    titleTextView;
+    @BindView(R.id.state) TextView    stateTextView;
+    @BindView(R.id.number) TextView   numberTextView;
+    @BindView(R.id.name) TextView     nameTextView;
+    @BindView(R.id.body) TextView     bodyTextView;
+    @BindView(R.id.editModeIcon)      ImageView editIcon;
+    @BindView(R.id.cancelEditIcon)    ImageView cancelEditIcon;
+    @BindView(R.id.updateIssueButton) Button editIssueButton;
+    @BindView(R.id.issueStateButton)  Button issueStateButton;
 
     private IssueModel issueModel;
     private String repoName;
@@ -94,23 +96,29 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
             issueLayout.setVisibility(View.VISIBLE);
             titleTextView.setText(issueModel.getTitle());
             stateTextView.setText(issueModel.getState());
-            numberTextView.setText(" " + issueModel.getNumberAsString());
+            numberTextView.setText(" " + issueModel.getNumberForDisplay());
             IssueUserModel issueUserModel = issueModel.getIssueUserModel();
             if(issueUserModel != null){
                 nameTextView.setText(issueUserModel.getLogin());
             }
             bodyTextView.setText(issueModel.getBody());
+            if(IssueState.OPEN.getValue().equals(issueModel.getState())){
+                issueStateButton.setBackgroundColor(getResources().getColor(R.color.colorClosedIssue));
+                issueStateButton.setText(R.string.feature_issues_buttonlabel_close_issue);
+            }
+            else{
+                issueStateButton.setBackgroundColor(getResources().getColor(R.color.colorOpenIssue));
+                issueStateButton.setText(R.string.feature_issues_buttonlabel_open_issue);
+            }
         }
         else{
             issueLayout.setVisibility(GONE);
         }
         if(isAuthenticated()){
             createIssueLayout.setVisibility(View.VISIBLE);
-            editIcon.setVisibility(View.VISIBLE);
         }
         else{
             createIssueLayout.setVisibility(GONE);
-            editIcon.setVisibility(View.GONE);
         }
     }
 
@@ -119,6 +127,7 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
     }
 
     private void setEditMode(boolean editMode){
+
         if(isAuthenticated() && editMode){
 
             editIssueBody.setVisibility(View.VISIBLE);
@@ -128,9 +137,11 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
             cancelEditIcon.setVisibility(View.VISIBLE);
             bodyTextView.setVisibility(GONE);
             editIcon.setVisibility(GONE);
+            issueStateButton.setVisibility(GONE);
         }
         else{
             bodyTextView.setVisibility(View.VISIBLE);
+            issueStateButton.setVisibility(View.VISIBLE);
             editIcon.setVisibility(View.VISIBLE);
             editIssueBody.setVisibility(View.GONE);
             editIssueButton.setVisibility(View.GONE);
@@ -144,7 +155,7 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
             StringBuilder builder = new StringBuilder(getResources().getString(R.string.feature_issue_view_title ));
             actionBar.setDisplayHomeAsUpEnabled(true);
             if(issueModel != null){
-                builder.append(" ").append(issueModel.getNumberAsString());
+                builder.append(" ").append(issueModel.getNumberForDisplay());
             }
             actionBar.setTitle(builder.toString());
         }
@@ -183,7 +194,7 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
             issuePresenter.createIssue(repoName, title.toString(), body.toString());
         }
         else{
-            Toast.makeText(this, "Please enter a title and body for your issue", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.feature_issue_message_enter_issue_details, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -201,12 +212,18 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
     public void updateIssue(){
         Editable issueBody = editIssueBody.getText();
         if(issueBody != null && issueBody.length() > 0){
-            IssueModel updatedIssue = issueModel;
-            updatedIssue.setBody(issueBody.toString());
-            issuePresenter.udpateIssue(repoName, updatedIssue);
+            issuePresenter.updateIssueBody(repoName, issueModel, issueBody.toString());
         }
         else{
-            Toast.makeText(this, "Please enter body for your issue", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.feature_issue_message_enter_update_issue_details, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @OnClick(R.id.issueStateButton)
+    public void toggleIssueState(){
+        //TODO: User should be prompted first to confirm before closing
+        if(issueModel != null){
+                issuePresenter.toggleIssueState(repoName, issueModel);
         }
     }
 }

@@ -8,6 +8,7 @@ import com.jpiser.hubclient.domain.models.HubRepo;
 import com.jpiser.hubclient.domain.models.HubUserProfile;
 import com.jpiser.hubclient.presentation.models.IssueModel;
 import com.jpiser.hubclient.presentation.models.IssueModelAdapter;
+import com.jpiser.hubclient.presentation.models.IssueState;
 
 import java.util.List;
 
@@ -59,7 +60,39 @@ public class IssuePresenterImpl implements IssuePresenter, HubInteractor.HubAcce
     }
 
     @Override
-    public void udpateIssue(String repoName, IssueModel updatedIssue) {
+    public void updateIssueBody(String repoName, IssueModel issueModel, String newBody) {
+        if(issueModel != null && repoName != null && newBody != null){
+            //TODO: must create new object to modify, can't use existing reference
+            IssueModel updatedIssue = issueModel;
+            updatedIssue.setBody(newBody);
+            updateIssue(repoName, updatedIssue);
+        }
+    }
+
+    @Override
+    public void toggleIssueState(String repoName, IssueModel issueModel) {
+        if(issueModel != null && repoName != null){
+
+            //TODO: must create new object to modify, can't use existing reference
+            IssueModel updatedIssue = issueModel;
+            boolean updated = false;
+            if(IssueState.OPEN.getValue().equals(updatedIssue.getState())){
+                updatedIssue.setState(IssueState.CLOSED.getValue());
+                updated = true;
+            }
+            else if(IssueState.CLOSED.getValue().equals(updatedIssue.getState())){
+                updatedIssue.setState(IssueState.OPEN.getValue());
+                updated = true;
+            }
+
+            if(updated){
+                updateIssue(repoName, updatedIssue);
+            }
+        }
+    }
+
+
+    protected void updateIssue(String repoName, IssueModel updatedIssue) {
         if(hubInteractor != null){
             hubInteractor.updateIssue(repoName, new IssueModelAdapter().adapt(updatedIssue), credentials);
         }

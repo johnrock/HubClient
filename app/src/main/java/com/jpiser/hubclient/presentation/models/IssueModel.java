@@ -9,6 +9,8 @@ import android.os.Parcelable;
 
 public class IssueModel implements Parcelable{
 
+    public static final String NUMBER_SIGN = "#";
+
     public IssueModel() {
     }
 
@@ -92,8 +94,8 @@ public class IssueModel implements Parcelable{
         return number;
     }
 
-    public String getNumberAsString(){
-        return "#" + number;
+    public String getNumberForDisplay(){
+        return NUMBER_SIGN + number;
     }
 
     public String getState() {
