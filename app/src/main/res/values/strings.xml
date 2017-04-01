@@ -19,6 +19,7 @@
     <string name="feature_issue_new_issue_hint">Issue Title</string>
     <string name="feature_issue_new_issue_body_hint">Describe the issue</string>
     <string name="feature_issue_label_new_issue">Create New Issue</string>
+    <string name="feature_profile_message_profile_not_found">Profile not found. Check your credentials</string>
 
 
 </resources>

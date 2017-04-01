@@ -98,7 +98,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
             blogTextView.setText(userProfileModel.getBlog());
         }
         else{
-            Toast.makeText(this, "Profile not found. Check your credentials", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.feature_profile_message_profile_not_found, Toast.LENGTH_SHORT).show();
             finish();
         }
     }
@@ -129,7 +129,6 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
     @Override
     public void onRepoTapped(RepoModel repoModel) {
-
         if(repoModel != null){
             Intent intent = new Intent(this, IssuesActivity.class);
             intent.putExtra(Extras.REPO_NAME, repoModel.getName());
@@ -149,14 +148,11 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         int pad = (int) viewHelper.convertDpToPx(this, 4);
         imageView.setPadding(pad,pad,pad,pad);
         return imageView;
-
-
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 onBackPressed();
                 return true;

@@ -120,8 +120,10 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
 
     private void setEditMode(boolean editMode){
         if(isAuthenticated() && editMode){
+
             editIssueBody.setVisibility(View.VISIBLE);
             editIssueBody.setText(bodyTextView.getText());
+            editIssueBody.requestFocus();
             editIssueButton.setVisibility(View.VISIBLE);
             cancelEditIcon.setVisibility(View.VISIBLE);
             bodyTextView.setVisibility(GONE);
@@ -151,7 +153,6 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 onBackPressed();
                 return true;
