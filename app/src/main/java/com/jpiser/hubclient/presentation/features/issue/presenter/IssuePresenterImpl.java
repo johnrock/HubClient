@@ -62,7 +62,11 @@ public class IssuePresenterImpl implements IssuePresenter, HubInteractor.HubAcce
     @Override
     public void updateIssueBody(String repoName, IssueModel issueModel, String newBody) {
         if(issueModel != null && repoName != null && newBody != null){
-            //TODO: must create new object to modify, can't use existing reference
+            //TODO: Handle error messaging and refresh of the view if updateIssueBody fails
+            /**
+             * If the update fails then the view must be refreshed
+             * because the issueModel it is holding is dirty from the failed update
+             */
             IssueModel updatedIssue = issueModel;
             updatedIssue.setBody(newBody);
             updateIssue(repoName, updatedIssue);
@@ -73,7 +77,11 @@ public class IssuePresenterImpl implements IssuePresenter, HubInteractor.HubAcce
     public void toggleIssueState(String repoName, IssueModel issueModel) {
         if(issueModel != null && repoName != null){
 
-            //TODO: must create new object to modify, can't use existing reference
+            //TODO: Handle error messaging and  refresh of the view if toggleIssueState fails
+            /**
+             * If the update fails then the view must be refreshed
+             * because the issueModel it is holding is dirty from the failed update
+             */
             IssueModel updatedIssue = issueModel;
             boolean updated = false;
             if(IssueState.OPEN.getValue().equals(updatedIssue.getState())){

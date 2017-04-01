@@ -10,7 +10,7 @@ public class OrganizationModelAdapterTest {
     //TODO: Implement tests for OrganizationModelAdapter
 
     @Test
-    public void shouldTestSomething(){
+    public void dummyTest(){
 
     }
 
