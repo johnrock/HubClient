@@ -27,7 +27,7 @@ public interface GithubRepository {
 
     void loadRepos(String userLogin, Credentials credentials);
 
-    void loadIssues(String ownerName, String repoName, Credentials credentials);
+    void loadIssues(String ownerName, String repoName, Credentials credentials, String state);
 
     void createIssue(String repoName, Issue issue, Credentials credentials);
 

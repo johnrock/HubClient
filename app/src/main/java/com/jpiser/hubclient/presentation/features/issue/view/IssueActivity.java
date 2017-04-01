@@ -55,7 +55,7 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
     @BindView(R.id.editModeIcon)      ImageView editIcon;
     @BindView(R.id.cancelEditIcon)    ImageView cancelEditIcon;
     @BindView(R.id.updateIssueButton) Button editIssueButton;
-    @BindView(R.id.issueStateButton)  Button issueStateButton;
+    @BindView(R.id.issuesStateButton)  Button issueStateButton;
     @BindView(R.id.showCreateIssueButton) Button showCreateIssueButton;
 
     private IssueModel issueModel;
@@ -239,7 +239,7 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
         }
     }
 
-    @OnClick(R.id.issueStateButton)
+    @OnClick(R.id.issuesStateButton)
     public void toggleIssueState(){
         //TODO: User should be prompted first to confirm before closing
         if(issueModel != null){

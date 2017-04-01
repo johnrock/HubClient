@@ -53,9 +53,9 @@ public class GitHubInteractor implements HubInteractor, GithubRepository.Reposit
     }
 
     @Override
-    public void loadIssues(String ownerName, String repoName, Credentials credentials) {
+    public void loadIssues(String ownerName, String repoName, Credentials credentials, String state) {
         if(githubRepository != null){
-            githubRepository.loadIssues(ownerName, repoName, credentials);
+            githubRepository.loadIssues(ownerName, repoName, credentials, state);
         }
     }
 

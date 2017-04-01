@@ -5,6 +5,7 @@ import com.jpiser.hubclient.data.models.github.Issue;
 import com.jpiser.hubclient.data.models.github.Organization;
 import com.jpiser.hubclient.data.models.github.Profile;
 import com.jpiser.hubclient.data.models.github.Repo;
+import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.data.repositories.GithubRepository;
 import com.jpiser.hubclient.retrofit.RetrofitRepository;
 
@@ -97,7 +98,7 @@ public class RetrofitGithubRepository extends RetrofitRepository implements Gith
     }
 
     @Override
-    public void loadIssues(String ownerName, String repoName, com.jpiser.hubclient.data.models.shared.Credentials credentials) {
+    public void loadIssues(String ownerName, String repoName, Credentials credentials, String state) {
 
         if(repositoryAccessor == null){
             logHelper.error(LOGTAG, "Error: Must call bind() before calling loadIssues");
@@ -107,7 +108,7 @@ public class RetrofitGithubRepository extends RetrofitRepository implements Gith
 
             RetrofitGithubAPI retrofitGithubAPI = createRetrofit(credentials, GITHUB_BASE_URL).create(RetrofitGithubAPI.class);
 
-            Call<List<Issue>> call = retrofitGithubAPI.issues(ownerName, repoName);
+            Call<List<Issue>> call = retrofitGithubAPI.issues(ownerName, repoName, state);
             call.enqueue(new Callback<List<Issue>>() {
                 @Override
                 public void onResponse(Call<List<Issue>> call, Response<List<Issue>> response) {

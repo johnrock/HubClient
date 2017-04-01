@@ -134,7 +134,7 @@
             android:visibility="gone"/>
 
         <Button
-            android:id="@+id/issueStateButton"
+            android:id="@+id/issuesStateButton"
             android:layout_below="@+id/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

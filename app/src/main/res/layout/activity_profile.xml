@@ -91,9 +91,10 @@
         android:id="@+id/reposLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/organizationScrollview"
+        android:layout_below="@+id/avatar"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
         android:text="@string/profile_heading_repositories"
+        android:layout_marginTop="10dp"
         />
 
     <android.support.v7.widget.RecyclerView

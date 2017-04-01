@@ -12,13 +12,17 @@ import java.util.List;
 public interface IssuesPresenter {
 
     interface ViewLayer{
+
         void displayIssues(List<IssueModel> issueModels);
         void displayHeading(String heading);
     }
-
     void bind(ViewLayer viewLayer, Credentials credentials);
 
     void createHeading(String userLogin, String repoName);
 
     void loadIssues(String ownerName, String repoName);
+
+    void toggleIssueState(boolean open, String owner, String repoName);
+
+    boolean getIssuesState();
 }

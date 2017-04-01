@@ -14,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * @author John Piser johnpiser@yahoo.com
@@ -34,7 +35,7 @@ public interface RetrofitGithubAPI {
     Call<List<Repo>> repos(@Path("userLogin") String userLogin);
 
     @GET("repos/{owner}/{reponame}/issues")
-    Call<List<Issue>> issues(@Path("owner") String owner, @Path("reponame") String repoName);
+    Call<List<Issue>> issues(@Path("owner") String owner, @Path("reponame") String repoName, @Query("state") String state);
 
     @POST("repos/{owner}/{reponame}/issues")
     Call<Issue> createIssue(@Path("owner") String owner, @Path("reponame") String repoName, @Body Issue issue);

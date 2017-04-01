@@ -7,6 +7,7 @@ import com.jpiser.hubclient.domain.models.HubOrganization;
 import com.jpiser.hubclient.domain.models.HubRepo;
 import com.jpiser.hubclient.domain.models.HubUserProfile;
 import com.jpiser.hubclient.presentation.models.IssueModelAdapter;
+import com.jpiser.hubclient.presentation.models.IssueState;
 
 import java.util.List;
 
@@ -23,10 +24,12 @@ public class IssuesPresenterImpl implements IssuesPresenter, HubInteractor.HubAc
     ViewLayer viewLayer;
     private Credentials credentials;
     HubInteractor hubInteractor;
+    boolean showOpenIssues;
 
     @Inject
     public IssuesPresenterImpl(HubInteractor hubInteractor) {
         this.hubInteractor = hubInteractor;
+        showOpenIssues = true;
     }
 
     @Override
@@ -48,8 +51,20 @@ public class IssuesPresenterImpl implements IssuesPresenter, HubInteractor.HubAc
     @Override
     public void loadIssues(String ownerName, String repoName) {
         if(hubInteractor != null){
-            hubInteractor.loadIssues(ownerName, repoName, credentials);
+            String state = showOpenIssues ? IssueState.OPEN.getValue() : IssueState.CLOSED.getValue();
+            hubInteractor.loadIssues(ownerName, repoName, credentials, state);
         }
+    }
+
+    @Override
+    public void toggleIssueState(boolean open, String owner, String repoName) {
+        showOpenIssues = open;
+        loadIssues(owner, repoName);
+    }
+
+    @Override
+    public boolean getIssuesState() {
+        return showOpenIssues;
     }
 
     @Override

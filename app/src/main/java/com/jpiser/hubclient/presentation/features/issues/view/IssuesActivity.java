@@ -11,13 +11,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.jpiser.hubclient.R;
 import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
 import com.jpiser.hubclient.presentation.features.issue.view.IssueActivity;
-import com.jpiser.hubclient.presentation.models.IssueModel;
 import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenter;
+import com.jpiser.hubclient.presentation.models.IssueModel;
 import com.jpiser.hubclient.presentation.util.Extras;
 
 import java.util.List;
@@ -47,6 +48,7 @@ public class IssuesActivity extends AppCompatActivity implements IssuesPresenter
     @BindView(heading)                TextView headingTextView;
     @BindView(R.id.statusMessage)     TextView statusMessage;
     @BindView(R.id.createIssueButton) Button createIssueButton;
+    @BindView(R.id.issuesStateButton)  ToggleButton issueStateToggleButton;
 
     LinearLayoutManager linearLayoutManager;
     private String repoName;
@@ -72,18 +74,22 @@ public class IssuesActivity extends AppCompatActivity implements IssuesPresenter
         }
 
         initActionBar();
-        initView(application.getCredentials());
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
         issuesPresenter.bind(this, ((HubClientApplication) getApplication()).getCredentials());
         issuesPresenter.createHeading(userLogin, repoName);
         issuesPresenter.loadIssues(userLogin, repoName);
+
+        initView(((HubClientApplication) getApplication()).getCredentials());
     }
 
     private void initView(Credentials credentials) {
+        issueStateToggleButton.setChecked(issuesPresenter.getIssuesState());
         if(!credentials.readOnly()){
             createIssueButton.setVisibility(View.VISIBLE);
         }
@@ -110,6 +116,7 @@ public class IssuesActivity extends AppCompatActivity implements IssuesPresenter
             recyclerView.setVisibility(View.VISIBLE);
         }
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -151,5 +158,10 @@ public class IssuesActivity extends AppCompatActivity implements IssuesPresenter
         intent.putExtra(Extras.ISSUE, issueModel);
         intent.putExtra(Extras.REPO_NAME, repoName);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.issuesStateButton)
+    public void toggleIssuesState(){
+        issuesPresenter.toggleIssueState(issueStateToggleButton.isChecked(), userLogin, repoName);
     }
 }

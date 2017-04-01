@@ -22,6 +22,7 @@ public class IssuesPresenterImplTest {
 
     public static final String TEST_REPO = "testRepo";
     public static final String TEST_OWNER = "testOwner";
+    public static final String ISSUES_STATE = "open";
     IssuesPresenterImpl issuesPresenter;
 
     @Mock IssuesPresenter.ViewLayer viewLayer;
@@ -54,7 +55,7 @@ public class IssuesPresenterImplTest {
         issuesPresenter.bind(viewLayer, credentials);
         issuesPresenter.loadIssues(TEST_OWNER, TEST_REPO);
 
-        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials);
+        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials, ISSUES_STATE);
     }
 
     @Test
