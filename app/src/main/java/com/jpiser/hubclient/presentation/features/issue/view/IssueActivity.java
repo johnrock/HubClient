@@ -56,6 +56,7 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
     @BindView(R.id.cancelEditIcon)    ImageView cancelEditIcon;
     @BindView(R.id.updateIssueButton) Button editIssueButton;
     @BindView(R.id.issueStateButton)  Button issueStateButton;
+    @BindView(R.id.showCreateIssueButton) Button showCreateIssueButton;
 
     private IssueModel issueModel;
     private String repoName;
@@ -78,10 +79,15 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
             finish();
         }
 
-        initView();
-
         issuePresenter.bind(this, application.getCredentials());
         issuePresenter.createHeading(userLogin, repoName);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        initView();
     }
 
     private void initView(){
@@ -90,6 +96,7 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
 
         newIssueTitle.setText("");
         newIssueBody.setText("");
+        createIssueLayout.setVisibility(GONE);
 
         ((HubClientApplication) getApplication()).getCredentials();
         if(issueModel != null){
@@ -112,14 +119,20 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
             }
         }
         else{
+            createIssueLayout.setVisibility(View.VISIBLE);
+            showCreateIssueButton.setVisibility(GONE);
             issueLayout.setVisibility(GONE);
         }
+
         if(isAuthenticated()){
-            createIssueLayout.setVisibility(View.VISIBLE);
             editIcon.setVisibility(View.VISIBLE);
             issueStateButton.setVisibility(View.VISIBLE);
+            if(issueModel != null){
+                showCreateIssueButton.setVisibility(View.VISIBLE);
+            }
         }
         else{
+            showCreateIssueButton.setVisibility(GONE);
             createIssueLayout.setVisibility(GONE);
             editIcon.setVisibility(View.GONE);
             issueStateButton.setVisibility(View.GONE);
@@ -133,6 +146,9 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
     private void setEditMode(boolean editMode){
 
         if(isAuthenticated() && editMode){
+
+            createIssueLayout.setVisibility(GONE);
+            showCreateIssueButton.setVisibility(View.VISIBLE);
 
             editIssueBody.setVisibility(View.VISIBLE);
             editIssueBody.setText(bodyTextView.getText());
@@ -229,5 +245,11 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
         if(issueModel != null){
                 issuePresenter.toggleIssueState(repoName, issueModel);
         }
+    }
+
+    @OnClick(R.id.showCreateIssueButton)
+    public void showCreateIssue(){
+        showCreateIssueButton.setVisibility(GONE);
+        createIssueLayout.setVisibility(View.VISIBLE);
     }
 }

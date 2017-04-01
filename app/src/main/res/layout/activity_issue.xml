@@ -150,7 +150,16 @@
     </RelativeLayout>
 
 
-
+    <Button
+        android:id="@+id/showCreateIssueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/feature_issues_buttonlabel_new_issue"
+        android:layout_gravity="right"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:background="@color/colorCreateButtonBackground"
+        android:layout_margin="4dp"/>
 
 
 <LinearLayout
