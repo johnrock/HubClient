@@ -116,9 +116,13 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
         }
         if(isAuthenticated()){
             createIssueLayout.setVisibility(View.VISIBLE);
+            editIcon.setVisibility(View.VISIBLE);
+            issueStateButton.setVisibility(View.VISIBLE);
         }
         else{
             createIssueLayout.setVisibility(GONE);
+            editIcon.setVisibility(View.GONE);
+            issueStateButton.setVisibility(View.GONE);
         }
     }
 
