@@ -9,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,10 +21,10 @@ import com.jpiser.hubclient.common.imaging.ImageHelper;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
 import com.jpiser.hubclient.presentation.features.issues.view.IssuesActivity;
 import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePresenter;
+import com.jpiser.hubclient.presentation.imaging.ViewHelper;
 import com.jpiser.hubclient.presentation.models.OrganizationModel;
 import com.jpiser.hubclient.presentation.models.RepoModel;
 import com.jpiser.hubclient.presentation.models.UserProfileModel;
-import com.jpiser.hubclient.presentation.imaging.ViewHelper;
 import com.jpiser.hubclient.presentation.util.Extras;
 
 import java.util.List;
@@ -50,6 +52,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     @BindView(R.id.avatar) ImageView avatarImageView;
     @BindView(R.id.organizationLayout) LinearLayout organizationLayout;
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
+    @BindView(R.id.progressBar)  ProgressBar progressBar;
 
     private String userLogin;
     private LinearLayoutManager linearLayoutManager;
@@ -90,6 +93,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     @Override
     public void displayProfile(UserProfileModel userProfileModel) {
         if(userProfileModel != null){
+            progressBar.setVisibility(View.GONE);
             imageHelper.loadImage(avatarImageView, userProfileModel.getAvatarUrl());
             nameTextView.setText(userProfileModel.getName());
             companyTextView.setText(userProfileModel.getCompany());

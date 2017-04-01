@@ -27,12 +27,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitGithubRepository implements GithubRepository {
 
-    public static final String AUTHORIZATION = "Authorization";
-
+    private static final String AUTHORIZATION = "Authorization";
+    private static final String GITHUB_BASE_URL = "https://api.github.com/";
     private final String LOGTAG = getClass().getSimpleName();
 
-    LogHelper logHelper;
-
+    private LogHelper logHelper;
     private RepositoryAccessor repositoryAccessor;
 
     public RetrofitGithubRepository(LogHelper logHelper) {
@@ -77,7 +76,7 @@ public class RetrofitGithubRepository implements GithubRepository {
     private Retrofit createRetrofit(com.jpiser.hubclient.data.models.shared.Credentials credentials){
 
       return     new Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
+                .baseUrl(GITHUB_BASE_URL)
                 .client(createHttpClient(credentials))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -101,16 +100,16 @@ public class RetrofitGithubRepository implements GithubRepository {
                 @Override
                 public void onResponse(Call<Profile> call, Response<Profile> response) {
                     int responseCode = response.code();
-                    Profile profile = response.body();
 
-                    repositoryAccessor.receiveProfile(profile);
-                    loadOrganizations(userLogin);
+                    repositoryAccessor.receiveProfile(response.body());
+                    if(responseCode == 200){
+                        loadOrganizations(userLogin);
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<Profile> call, Throwable t) {
                     logHelper.error(LOGTAG, "Error retrieving profile: " + t);
-                    //TODO: Handle failures better.
                 }
             });
         }

@@ -10,6 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.jpiser.hubclient.presentation.features.profile.view.ProfileActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
     <ImageView
         android:id="@+id/avatar"
@@ -64,13 +70,12 @@
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
         />
 
-    <ScrollView
+    <HorizontalScrollView
         android:id="@+id/organizationScrollview"
         android:layout_toRightOf="@+id/avatar"
         android:layout_below="@+id/blog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
 
         <LinearLayout
             android:id="@+id/organizationLayout"
@@ -79,7 +84,7 @@
             android:orientation="horizontal"
             android:layout_marginBottom="10dp"
             />
-    </ScrollView>
+    </HorizontalScrollView>
 
 
     <TextView
