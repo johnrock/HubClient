@@ -1,9 +1,9 @@
 package com.jpiser.hubclient.presentation.features.profile.presenter;
 
 import com.jpiser.hubclient.data.models.shared.Credentials;
-import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
-import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
-import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
+import com.jpiser.hubclient.presentation.models.OrganizationModel;
+import com.jpiser.hubclient.presentation.models.RepoModel;
+import com.jpiser.hubclient.presentation.models.UserProfileModel;
 
 import java.util.List;
 

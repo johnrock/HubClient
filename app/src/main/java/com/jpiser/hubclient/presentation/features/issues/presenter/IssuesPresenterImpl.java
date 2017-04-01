@@ -6,7 +6,7 @@ import com.jpiser.hubclient.domain.models.HubIssue;
 import com.jpiser.hubclient.domain.models.HubOrganization;
 import com.jpiser.hubclient.domain.models.HubRepo;
 import com.jpiser.hubclient.domain.models.HubUserProfile;
-import com.jpiser.hubclient.presentation.features.issues.model.IssueModelAdapter;
+import com.jpiser.hubclient.presentation.models.IssueModelAdapter;
 
 import java.util.List;
 

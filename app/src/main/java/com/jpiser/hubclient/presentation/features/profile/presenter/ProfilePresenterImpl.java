@@ -6,9 +6,9 @@ import com.jpiser.hubclient.domain.models.HubIssue;
 import com.jpiser.hubclient.domain.models.HubOrganization;
 import com.jpiser.hubclient.domain.models.HubRepo;
 import com.jpiser.hubclient.domain.models.HubUserProfile;
-import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModelAdapter;
-import com.jpiser.hubclient.presentation.features.profile.model.RepoModelAdapter;
-import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModelAdapter;
+import com.jpiser.hubclient.presentation.models.OrganizationModelAdapter;
+import com.jpiser.hubclient.presentation.models.RepoModelAdapter;
+import com.jpiser.hubclient.presentation.models.UserProfileModelAdapter;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.presentation.features.profile.model;
+package com.jpiser.hubclient.presentation.models;
 
 /**
  * @author John Piser johnpiser@yahoo.com

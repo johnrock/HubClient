@@ -3,7 +3,7 @@ package com.jpiser.hubclient.presentation.features.issue.presenter;
 import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
 import com.jpiser.hubclient.domain.models.HubIssue;
-import com.jpiser.hubclient.presentation.features.issues.model.IssueModel;
+import com.jpiser.hubclient.presentation.models.IssueModel;
 
 import org.junit.Before;
 import org.junit.Test;

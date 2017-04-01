@@ -14,8 +14,8 @@ import android.widget.Toast;
 import com.jpiser.hubclient.R;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
 import com.jpiser.hubclient.presentation.features.issue.presenter.IssuePresenter;
-import com.jpiser.hubclient.presentation.features.issues.model.IssueModel;
-import com.jpiser.hubclient.presentation.features.issues.model.IssueUserModel;
+import com.jpiser.hubclient.presentation.models.IssueModel;
+import com.jpiser.hubclient.presentation.models.IssueUserModel;
 import com.jpiser.hubclient.presentation.util.Extras;
 
 import javax.inject.Inject;

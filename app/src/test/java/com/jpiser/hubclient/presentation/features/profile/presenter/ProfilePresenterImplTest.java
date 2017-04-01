@@ -5,7 +5,7 @@ import com.jpiser.hubclient.domain.interactors.HubInteractor;
 import com.jpiser.hubclient.domain.models.HubOrganization;
 import com.jpiser.hubclient.domain.models.HubRepo;
 import com.jpiser.hubclient.domain.models.HubUserProfile;
-import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
+import com.jpiser.hubclient.presentation.models.UserProfileModel;
 
 import org.junit.Before;
 import org.junit.Test;

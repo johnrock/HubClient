@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jpiser.hubclient.R;
-import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
+import com.jpiser.hubclient.presentation.models.RepoModel;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.jpiser.hubclient.presentation.features.issue.presenter;
 
 import com.jpiser.hubclient.data.models.shared.Credentials;
-import com.jpiser.hubclient.presentation.features.issues.model.IssueModel;
+import com.jpiser.hubclient.presentation.models.IssueModel;
 
 /**
  * @author John Piser johnpiser@yahoo.com

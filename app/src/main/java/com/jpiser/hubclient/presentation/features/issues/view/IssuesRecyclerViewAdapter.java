@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jpiser.hubclient.R;
-import com.jpiser.hubclient.presentation.features.issues.model.IssueModel;
-import com.jpiser.hubclient.presentation.features.issues.model.IssueUserModel;
+import com.jpiser.hubclient.presentation.models.IssueModel;
+import com.jpiser.hubclient.presentation.models.IssueUserModel;
 
 import java.util.List;
 

@@ -16,7 +16,7 @@ import com.jpiser.hubclient.R;
 import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
 import com.jpiser.hubclient.presentation.features.issue.view.IssueActivity;
-import com.jpiser.hubclient.presentation.features.issues.model.IssueModel;
+import com.jpiser.hubclient.presentation.models.IssueModel;
 import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenter;
 import com.jpiser.hubclient.presentation.util.Extras;
 

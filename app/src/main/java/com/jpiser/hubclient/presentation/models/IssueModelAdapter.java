@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.presentation.features.issues.model;
+package com.jpiser.hubclient.presentation.models;
 
 import android.support.annotation.NonNull;
 

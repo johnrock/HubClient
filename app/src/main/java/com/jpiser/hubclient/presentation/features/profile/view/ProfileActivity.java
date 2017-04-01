@@ -19,9 +19,9 @@ import com.jpiser.hubclient.common.imaging.ImageHelper;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
 import com.jpiser.hubclient.presentation.features.issues.view.IssuesActivity;
 import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePresenter;
-import com.jpiser.hubclient.presentation.features.profile.model.OrganizationModel;
-import com.jpiser.hubclient.presentation.features.profile.model.RepoModel;
-import com.jpiser.hubclient.presentation.features.profile.model.UserProfileModel;
+import com.jpiser.hubclient.presentation.models.OrganizationModel;
+import com.jpiser.hubclient.presentation.models.RepoModel;
+import com.jpiser.hubclient.presentation.models.UserProfileModel;
 import com.jpiser.hubclient.presentation.imaging.ViewHelper;
 import com.jpiser.hubclient.presentation.util.Extras;
 
