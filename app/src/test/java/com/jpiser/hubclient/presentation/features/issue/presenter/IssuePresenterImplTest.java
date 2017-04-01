@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -29,7 +30,7 @@ public class IssuePresenterImplTest {
 
     Credentials credentials;
     @Mock HubIssue hubIssue;
-
+    @Mock IssueModel issueModel;
 
     @Before
     public void setup(){
@@ -55,6 +56,13 @@ public class IssuePresenterImplTest {
         issuePresenter.createIssue(TEST_REPO, TEST_TITLE, TEST_BODY);
 
         verify(hubInteractor).createIssue(TEST_TITLE, TEST_BODY, TEST_REPO, credentials);
+    }
+
+    @Test
+    public void shouldUpdateIssue(){
+        issuePresenter.udpateIssue(TEST_REPO, issueModel);
+
+        verify(hubInteractor).updateIssue(anyString(), any(HubIssue.class), any(Credentials.class));
     }
 
     @Test

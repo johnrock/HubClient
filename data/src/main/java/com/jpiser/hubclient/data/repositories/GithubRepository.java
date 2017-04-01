@@ -30,4 +30,6 @@ public interface GithubRepository {
     void loadIssues(String ownerName, String repoName, Credentials credentials);
 
     void createIssue(String repoName, String title, String body, Credentials credentials);
+
+    void updateIssue(String repoName, Issue issue, Credentials credentials);
 }

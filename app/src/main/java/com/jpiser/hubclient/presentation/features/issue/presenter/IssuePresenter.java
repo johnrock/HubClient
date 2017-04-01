@@ -12,12 +12,14 @@ public interface IssuePresenter {
     interface ViewLayer{
 
         void displayHeading(String heading);
+
         void displayIssue(IssueModel issueModel);
     }
     void bind(ViewLayer viewLayer, Credentials credentials);
-
     void createHeading(String userLogin, String repoName);
 
     void createIssue(String repoName, String title, String body);
+
+    void udpateIssue(String repoName, IssueModel updatedIssue);
 
 }

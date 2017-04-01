@@ -100,4 +100,20 @@ public class Issue {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setComments(int comments) {
+        this.comments = comments;
+    }
 }

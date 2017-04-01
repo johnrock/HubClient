@@ -72,7 +72,14 @@ public class IssuesActivity extends AppCompatActivity implements IssuesPresenter
         initActionBar();
         initView(application.getCredentials());
 
-        issuesPresenter.bind(this, application.getCredentials());
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        issuesPresenter.bind(this, ((HubClientApplication) getApplication()).getCredentials());
         issuesPresenter.createHeading(userLogin, repoName);
         issuesPresenter.loadIssues(userLogin, repoName);
     }

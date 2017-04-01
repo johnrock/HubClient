@@ -201,6 +201,32 @@ public class RetrofitGithubRepository implements GithubRepository {
         }
     }
 
+    @Override
+    public void updateIssue(String repoName, Issue issue, com.jpiser.hubclient.data.models.shared.Credentials credentials) {
+        if(repositoryAccessor == null){
+            logHelper.error(LOGTAG, "Error: Must call bind() before calling updateIssue");
+            return;
+        }
+        if(repoName != null && issue != null && credentials != null){
+
+            RetrofitGithubService retrofitGithubService = createRetrofit(credentials).create(RetrofitGithubService.class);
+            Call<Issue> call = retrofitGithubService.updateIssue(credentials.getUsername(), repoName, String.valueOf(issue.getNumber()), issue);
+
+            call.enqueue(new Callback<Issue>() {
+                @Override
+                public void onResponse(Call<Issue> call, Response<Issue> response) {
+                    Issue returnedIssue = response.body();
+                    repositoryAccessor.receiveIssue(returnedIssue);
+                }
+
+                @Override
+                public void onFailure(Call<Issue> call, Throwable t) {
+                    logHelper.error(LOGTAG, "Error updating issue: " + t);
+                }
+            });
+        }
+    }
+
 
     private void loadOrganizations(final String userLogin){
 

@@ -20,6 +20,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -38,6 +39,7 @@ public class GitHubInteractorTest {
     @Mock  HubInteractor.HubAccessor hubAccessor;
     @Mock List<Repo> repoList;
     @Mock Issue issue;
+    @Mock HubIssue hubIssue;
 
     Credentials credentials;
 
@@ -74,6 +76,12 @@ public class GitHubInteractorTest {
     public void shouldCreateIssue(){
         gitHubInteractor.createIssue(TEST_TITLE, TEST_BODY, TEST_REPONAME, credentials);
         verify(githubRepository).createIssue(TEST_REPONAME, TEST_TITLE, TEST_BODY, credentials);
+    }
+
+    @Test
+    public void shouldUpdateIssue(){
+        gitHubInteractor.updateIssue(TEST_REPONAME, hubIssue, credentials);
+        verify(githubRepository).updateIssue(anyString(), any(Issue.class), any(Credentials.class));
     }
 
     @Test

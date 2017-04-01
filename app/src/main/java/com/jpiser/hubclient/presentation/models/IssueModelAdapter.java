@@ -12,6 +12,7 @@ import java.util.List;
  */
 
 public class IssueModelAdapter {
+
     public List<IssueModel> adapt(List<HubIssue> hubIssues) {
         List<IssueModel> items = new ArrayList<>();
 
@@ -30,6 +31,27 @@ public class IssueModelAdapter {
             return issueModel;
         }
         return null;
+    }
+
+    public HubIssue adapt(IssueModel issueModel){
+        if(issueModel != null){
+            HubIssue hubIssue = getHubIssue(issueModel);
+            return hubIssue;
+
+        }
+        return null;
+    }
+
+    @NonNull
+    private HubIssue getHubIssue(IssueModel issueModel) {
+        HubIssue hubIssue = new HubIssue();
+        hubIssue.setHubUser(new IssueUserModelAdapter().adapt(issueModel.getIssueUserModel()));
+        hubIssue.setTitle(issueModel.getTitle());
+        hubIssue.setComments(issueModel.getComments());
+        hubIssue.setNumber(issueModel.getNumber());
+        hubIssue.setState(issueModel.getState());
+        hubIssue.setBody(issueModel.getBody());
+        return hubIssue;
     }
 
     @NonNull

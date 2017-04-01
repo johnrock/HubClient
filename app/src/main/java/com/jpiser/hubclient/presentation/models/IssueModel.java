@@ -120,6 +120,4 @@ public class IssueModel implements Parcelable{
                 '}';
     }
 
-
-
 }

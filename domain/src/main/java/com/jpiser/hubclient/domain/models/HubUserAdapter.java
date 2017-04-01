@@ -7,6 +7,15 @@ import com.jpiser.hubclient.data.models.github.User;
  */
 
 class HubUserAdapter {
+
+    public User adapt(HubUser hubUser) {
+        if(hubUser != null){
+            User user = new User();
+            user.setLogin(hubUser.getLogin());
+            return user;
+        }
+        return null;
+    }
     public HubUser adapt(User user) {
         if(user != null){
             HubUser hubUser = new HubUser();

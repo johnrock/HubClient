@@ -7,6 +7,16 @@ import com.jpiser.hubclient.domain.models.HubUser;
  */
 
 public class IssueUserModelAdapter {
+
+    public HubUser adapt(IssueUserModel issueUserModel) {
+        if(issueUserModel != null){
+            HubUser hubUser = new HubUser();
+            hubUser.setLogin(issueUserModel.getLogin());
+            return hubUser;
+        }
+        return null;
+    }
+
     public IssueUserModel adapt(HubUser hubUser) {
         if(hubUser != null){
             IssueUserModel issueUserModel = new IssueUserModel();

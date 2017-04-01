@@ -6,6 +6,7 @@ import com.jpiser.hubclient.domain.models.HubIssue;
 import com.jpiser.hubclient.domain.models.HubOrganization;
 import com.jpiser.hubclient.domain.models.HubRepo;
 import com.jpiser.hubclient.domain.models.HubUserProfile;
+import com.jpiser.hubclient.presentation.models.IssueModel;
 import com.jpiser.hubclient.presentation.models.IssueModelAdapter;
 
 import java.util.List;
@@ -51,6 +52,13 @@ public class IssuePresenterImpl implements IssuePresenter, HubInteractor.HubAcce
     public void createIssue(String repoName, String title, String body) {
         if(hubInteractor != null){
             hubInteractor.createIssue(title, body, repoName, credentials);
+        }
+    }
+
+    @Override
+    public void udpateIssue(String repoName, IssueModel updatedIssue) {
+        if(hubInteractor != null){
+            hubInteractor.updateIssue(repoName, new IssueModelAdapter().adapt(updatedIssue), credentials);
         }
     }
 

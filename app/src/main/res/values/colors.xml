@@ -4,6 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorRepoItemBackground">#d1e6ef</color>
-    <color name="colorCreateButtonBackground">#6ed74b</color>
+    <color name="colorCreateButtonBackground">#94f474</color>
     <color name="colorEditTextBackground">#edfafa</color>
 </resources>

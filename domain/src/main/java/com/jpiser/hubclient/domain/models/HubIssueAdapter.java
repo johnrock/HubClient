@@ -32,6 +32,8 @@ public class HubIssueAdapter {
         return null;
     }
 
+
+
     private HubIssue getHubIssue(Issue issue) {
         HubIssue hubIssue = new HubIssue();
         hubIssue.setHubUser(new HubUserAdapter().adapt(issue.getUser()));
@@ -41,5 +43,20 @@ public class HubIssueAdapter {
         hubIssue.setNumber(issue.getNumber());
         hubIssue.setBody(issue.getBody());
         return hubIssue;
+    }
+
+    public Issue adapt(HubIssue hubIssue) {
+        if(hubIssue != null){
+            Issue issue = new Issue();
+            issue.setUser(new HubUserAdapter().adapt(hubIssue.getHubUser()));
+            issue.setTitle(hubIssue.getTitle());
+            issue.setState(hubIssue.getState());
+            issue.setComments(hubIssue.getComments());
+            issue.setNumber(hubIssue.getNumber());
+            issue.setBody(hubIssue.getBody());
+
+            return issue;
+        }
+        return null;
     }
 }

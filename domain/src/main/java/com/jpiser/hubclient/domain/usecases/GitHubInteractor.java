@@ -7,6 +7,7 @@ import com.jpiser.hubclient.data.models.github.Organization;
 import com.jpiser.hubclient.data.models.github.Profile;
 import com.jpiser.hubclient.data.models.github.Repo;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
+import com.jpiser.hubclient.domain.models.HubIssue;
 import com.jpiser.hubclient.domain.models.HubIssueAdapter;
 import com.jpiser.hubclient.domain.models.HubOrganizationAdapter;
 import com.jpiser.hubclient.domain.models.HubRepoAdapter;
@@ -57,6 +58,14 @@ public class GitHubInteractor implements HubInteractor, GithubRepository.Reposit
             githubRepository.createIssue(repoName, title, body, credentials);
         }
     }
+
+    @Override
+    public void updateIssue(String repoName, HubIssue hubIssue, Credentials credentials) {
+        if(githubRepository !=  null){
+            githubRepository.updateIssue(repoName, new HubIssueAdapter().adapt(hubIssue) ,credentials);
+        }
+    }
+
 
     @Override
     public void receiveProfile(Profile profile) {

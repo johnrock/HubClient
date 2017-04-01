@@ -4,8 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -35,8 +39,9 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
     @Inject IssuePresenter issuePresenter;
 
     @BindView(R.id.heading)       TextView headingTextView;
-    @BindView(R.id.newIssueTitle) TextView newIssueTitle;
-    @BindView(R.id.newIssueBody)  TextView newIssueBody;
+    @BindView(R.id.newIssueTitle) EditText newIssueTitle;
+    @BindView(R.id.newIssueBody)  EditText newIssueBody;
+    @BindView(R.id.editIssueBody) EditText editIssueBody;
 
     @BindView(R.id.issueLayout)       RelativeLayout issueLayout;
     @BindView(R.id.createIssueLayout) LinearLayout createIssueLayout;
@@ -46,6 +51,9 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
     @BindView(R.id.number) TextView numberTextView;
     @BindView(R.id.name) TextView   nameTextView;
     @BindView(R.id.body) TextView   bodyTextView;
+    @BindView(R.id.editModeIcon) ImageView editIcon;
+    @BindView(R.id.cancelEditIcon)   ImageView cancelEditIcon;
+    @BindView(R.id.updateIssueButton)  Button editIssueButton;
 
     private IssueModel issueModel;
     private String repoName;
@@ -76,6 +84,7 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
 
     private void initView(){
         initActionBar();
+        setEditMode(false);
 
         newIssueTitle.setText("");
         newIssueBody.setText("");
@@ -95,11 +104,35 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
         else{
             issueLayout.setVisibility(GONE);
         }
-        if(!((HubClientApplication) getApplication()).getCredentials().readOnly()){
+        if(isAuthenticated()){
             createIssueLayout.setVisibility(View.VISIBLE);
+            editIcon.setVisibility(View.VISIBLE);
         }
         else{
             createIssueLayout.setVisibility(GONE);
+            editIcon.setVisibility(View.GONE);
+        }
+    }
+
+    private boolean isAuthenticated() {
+        return !((HubClientApplication) getApplication()).getCredentials().readOnly();
+    }
+
+    private void setEditMode(boolean editMode){
+        if(isAuthenticated() && editMode){
+            editIssueBody.setVisibility(View.VISIBLE);
+            editIssueBody.setText(bodyTextView.getText());
+            editIssueButton.setVisibility(View.VISIBLE);
+            cancelEditIcon.setVisibility(View.VISIBLE);
+            bodyTextView.setVisibility(GONE);
+            editIcon.setVisibility(GONE);
+        }
+        else{
+            bodyTextView.setVisibility(View.VISIBLE);
+            editIcon.setVisibility(View.VISIBLE);
+            editIssueBody.setVisibility(View.GONE);
+            editIssueButton.setVisibility(View.GONE);
+            cancelEditIcon.setVisibility(View.GONE);
         }
     }
 
@@ -150,6 +183,29 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
         }
         else{
             Toast.makeText(this, "Please enter a title and body for your issue", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @OnClick(R.id.editModeIcon)
+    public void activateEditMode(){
+        setEditMode(true);
+    }
+
+    @OnClick(R.id.cancelEditIcon)
+    public void cancelEditMode(){
+        setEditMode(false);
+    }
+
+    @OnClick(R.id.updateIssueButton)
+    public void updateIssue(){
+        Editable issueBody = editIssueBody.getText();
+        if(issueBody != null && issueBody.length() > 0){
+            IssueModel updatedIssue = issueModel;
+            updatedIssue.setBody(issueBody.toString());
+            issuePresenter.udpateIssue(repoName, updatedIssue);
+        }
+        else{
+            Toast.makeText(this, "Please enter body for your issue", Toast.LENGTH_SHORT).show();
         }
     }
 }

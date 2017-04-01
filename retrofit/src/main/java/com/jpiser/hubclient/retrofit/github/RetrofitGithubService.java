@@ -11,6 +11,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -38,5 +39,7 @@ public interface RetrofitGithubService {
     @POST("repos/{owner}/{reponame}/issues")
     Call<Issue> createIssue(@Path("owner") String owner, @Path("reponame") String repoName, @Body Issue issue);
 
+    @PATCH("repos/{owner}/{reponame}/issues/{number}")
+    Call<Issue> updateIssue(@Path("owner") String owner, @Path("reponame") String repoName, @Path("number") String number, @Body Issue issue);
 
 }

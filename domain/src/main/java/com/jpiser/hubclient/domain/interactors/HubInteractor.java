@@ -13,13 +13,13 @@ public interface HubInteractor {
     interface HubAccessor  {
 
         void receiveProfile(HubUserProfile hubUserProfile);
+
         void receiveOrganziations(List<HubOrganization> organizations);
         void receiveRepos(List<HubRepo> repos);
         void receiveIssues(List<HubIssue> issues);
         void receiveIssue(HubIssue hubIssue);
     }
     void bind(HubAccessor hubAccessor);
-
     void loadProfile(String UserLogin, Credentials credentials);
 
     void loadRepos(String userLogin, Credentials credentials);
@@ -27,4 +27,6 @@ public interface HubInteractor {
     void loadIssues(String ownerName, String repoName, Credentials credentials);
 
     void createIssue(String title, String body, String repoName, Credentials credentials);
+
+    void updateIssue(String repoName, HubIssue hubIssue, Credentials credentials);
 }
