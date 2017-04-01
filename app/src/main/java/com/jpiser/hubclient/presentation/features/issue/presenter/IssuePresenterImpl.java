@@ -51,7 +51,10 @@ public class IssuePresenterImpl implements IssuePresenter, HubInteractor.HubAcce
     @Override
     public void createIssue(String repoName, String title, String body) {
         if(hubInteractor != null){
-            hubInteractor.createIssue(title, body, repoName, credentials);
+            HubIssue hubIssue = new HubIssue();
+            hubIssue.setTitle(title);
+            hubIssue.setBody(body);
+            hubInteractor.createIssue(repoName, hubIssue, credentials);
         }
     }
 

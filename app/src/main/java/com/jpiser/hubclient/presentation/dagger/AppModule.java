@@ -11,6 +11,8 @@ import com.jpiser.hubclient.presentation.features.issue.presenter.IssuePresenter
 import com.jpiser.hubclient.presentation.features.issue.presenter.IssuePresenterImpl;
 import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenter;
 import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenterImpl;
+import com.jpiser.hubclient.presentation.features.main.presenter.MainPresenter;
+import com.jpiser.hubclient.presentation.features.main.presenter.MainPresenterImpl;
 import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePresenter;
 import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePresenterImpl;
 import com.jpiser.hubclient.presentation.logging.LogHelperImpl;
@@ -48,6 +50,12 @@ public class AppModule {
 
     @Provides
     @Singleton
+    MainPresenter providesMainPresenter(HubInteractor hubInteractor){
+        return new MainPresenterImpl(hubInteractor);
+    }
+
+    @Provides
+    @Singleton
     ProfilePresenter providesProfilePresenter(HubInteractor hubInteractor){
         return new ProfilePresenterImpl(hubInteractor);
     }
@@ -63,6 +71,8 @@ public class AppModule {
     IssuePresenter providesIssuePresenter(HubInteractor hubInteractor){
         return new IssuePresenterImpl(hubInteractor);
     }
+
+
 
     @Provides
     @Singleton

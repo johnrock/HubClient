@@ -20,13 +20,16 @@ public interface HubInteractor {
         void receiveIssue(HubIssue hubIssue);
     }
     void bind(HubAccessor hubAccessor);
+
+    String getName();
+
     void loadProfile(String UserLogin, Credentials credentials);
 
     void loadRepos(String userLogin, Credentials credentials);
 
     void loadIssues(String ownerName, String repoName, Credentials credentials);
 
-    void createIssue(String title, String body, String repoName, Credentials credentials);
+    void createIssue(String repoName, HubIssue hubIssue, Credentials credentials);
 
     void updateIssue(String repoName, HubIssue hubIssue, Credentials credentials);
 }

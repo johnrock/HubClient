@@ -17,6 +17,8 @@ import java.util.List;
 
 public class GitHubInteractor implements HubInteractor, GithubRepository.RepositoryAccessor {
 
+    public static final String HUB_NAME = "GitHub";
+
     HubAccessor hubAccessor;
     GithubRepository githubRepository;
 
@@ -29,6 +31,11 @@ public class GitHubInteractor implements HubInteractor, GithubRepository.Reposit
     public void bind(HubAccessor hubAccessor) {
         this.hubAccessor = hubAccessor;
         githubRepository.bind(this);
+    }
+
+    @Override
+    public String getName() {
+        return HUB_NAME;
     }
 
     @Override
@@ -53,9 +60,9 @@ public class GitHubInteractor implements HubInteractor, GithubRepository.Reposit
     }
 
     @Override
-    public void createIssue(String title, String body, String repoName, Credentials credentials) {
+    public void createIssue(String repoName, HubIssue hubIssue, Credentials credentials) {
         if(githubRepository != null){
-            githubRepository.createIssue(repoName, title, body, credentials);
+            githubRepository.createIssue(repoName, new HubIssueAdapter().adapt(hubIssue), credentials);
         }
     }
 

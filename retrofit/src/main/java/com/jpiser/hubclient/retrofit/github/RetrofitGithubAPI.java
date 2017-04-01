@@ -19,7 +19,7 @@ import retrofit2.http.Path;
  * @author John Piser johnpiser@yahoo.com
  */
 
-public interface RetrofitGithubService {
+public interface RetrofitGithubAPI {
 
     @GET("repos/{owner}/{repo}/contributors")
     Call<List<Contributor>> repoContributors(@Path("owner") String owner, @Path("repo") String repo);

@@ -5,21 +5,28 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jpiser.hubclient.R;
 import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
+import com.jpiser.hubclient.presentation.features.main.presenter.MainPresenter;
 import com.jpiser.hubclient.presentation.features.profile.view.ProfileActivity;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainPresenter.ViewLayer {
 
     @BindView(R.id.userLogin) EditText userLoginEditText;
     @BindView(R.id.password) EditText passwordEditText;
+    @BindView(R.id.hubname)  TextView hubNameTextView;
+
+    @Inject  MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +38,10 @@ public class MainActivity extends AppCompatActivity {
         application.resetCredentials();
         ButterKnife.bind(this);
 
+        mainPresenter.bind(this);
+        hubNameTextView.setText(mainPresenter.getHubName());
     }
+
 
     @OnClick(R.id.loadCredentialsButton)
     public void loadCredentials(){

@@ -12,6 +12,7 @@ import com.jpiser.hubclient.domain.models.HubUserProfile;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -74,8 +75,14 @@ public class GitHubInteractorTest {
 
     @Test
     public void shouldCreateIssue(){
-        gitHubInteractor.createIssue(TEST_TITLE, TEST_BODY, TEST_REPONAME, credentials);
-        verify(githubRepository).createIssue(TEST_REPONAME, TEST_TITLE, TEST_BODY, credentials);
+        ArgumentCaptor<Issue> issueArgument =  ArgumentCaptor.forClass(Issue.class);
+
+        gitHubInteractor.createIssue(TEST_REPONAME, hubIssue, credentials);
+        verify(githubRepository).createIssue(anyString(), issueArgument.capture(), any(Credentials.class));
+
+        Issue actual = issueArgument.getValue();
+        assertEquals(hubIssue.getTitle(), actual.getTitle());
+        assertEquals(hubIssue.getBody(), actual.getBody());
     }
 
     @Test

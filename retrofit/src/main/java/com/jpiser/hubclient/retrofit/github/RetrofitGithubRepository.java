@@ -6,80 +6,33 @@ import com.jpiser.hubclient.data.models.github.Organization;
 import com.jpiser.hubclient.data.models.github.Profile;
 import com.jpiser.hubclient.data.models.github.Repo;
 import com.jpiser.hubclient.data.repositories.GithubRepository;
+import com.jpiser.hubclient.retrofit.RetrofitRepository;
 
-import java.io.IOException;
 import java.util.List;
 
-import okhttp3.Credentials;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author John Piser johnpiser@yahoo.com
  */
 
-public class RetrofitGithubRepository implements GithubRepository {
+public class RetrofitGithubRepository extends RetrofitRepository implements GithubRepository {
 
-    private static final String AUTHORIZATION = "Authorization";
+
     private static final String GITHUB_BASE_URL = "https://api.github.com/";
     private final String LOGTAG = getClass().getSimpleName();
 
-    private LogHelper logHelper;
     private RepositoryAccessor repositoryAccessor;
 
     public RetrofitGithubRepository(LogHelper logHelper) {
-        this.logHelper = logHelper;
+        super(logHelper);
     }
 
     @Override
     public void bind(RepositoryAccessor repositoryAccessor) {
         this.repositoryAccessor = repositoryAccessor;
-    }
-
-    private OkHttpClient createHttpClient(final com.jpiser.hubclient.data.models.shared.Credentials credentials) {
-
-        OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
-
-        if(credentials != null && !credentials.readOnly()){
-
-            okHttpClientBuilder.addInterceptor(new Interceptor() {
-                @Override
-                public okhttp3.Response intercept(Chain chain) throws IOException {
-                    Request original = chain.request();
-                    Request.Builder requestBuilder = original.newBuilder()
-                            .header(AUTHORIZATION, Credentials.basic(credentials.getUsername(), credentials.getPassword()))
-                            .method(original.method(), original.body());
-                    Request request = requestBuilder.build();
-                    return chain.proceed(request);
-                }
-            });
-        }
-
-        if(logHelper.debugMode()){
-            //Add as last interceptor
-            HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            okHttpClientBuilder.addInterceptor(httpLoggingInterceptor);
-        }
-
-        return okHttpClientBuilder.build();
-    }
-
-
-    private Retrofit createRetrofit(com.jpiser.hubclient.data.models.shared.Credentials credentials){
-
-      return     new Retrofit.Builder()
-                .baseUrl(GITHUB_BASE_URL)
-                .client(createHttpClient(credentials))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
     }
 
     @Override
@@ -92,9 +45,9 @@ public class RetrofitGithubRepository implements GithubRepository {
 
         if(userLogin != null){
 
-            RetrofitGithubService retrofitGithubService = createRetrofit(credentials).create(RetrofitGithubService.class);
+            RetrofitGithubAPI retrofitGithubAPI = createRetrofit(credentials, GITHUB_BASE_URL).create(RetrofitGithubAPI.class);
 
-            final Call<Profile> call = retrofitGithubService.userProfile(userLogin);
+            final Call<Profile> call = retrofitGithubAPI.userProfile(userLogin);
 
             call.enqueue(new Callback<Profile>() {
                 @Override
@@ -125,9 +78,9 @@ public class RetrofitGithubRepository implements GithubRepository {
 
         if(userLogin != null){
 
-            RetrofitGithubService retrofitGithubService = createRetrofit(credentials).create(RetrofitGithubService.class);
+            RetrofitGithubAPI retrofitGithubAPI = createRetrofit(credentials, GITHUB_BASE_URL).create(RetrofitGithubAPI.class);
 
-            Call<List<Repo>> call = retrofitGithubService.repos(userLogin);
+            Call<List<Repo>> call = retrofitGithubAPI.repos(userLogin);
 
             call.enqueue(new Callback<List<Repo>>() {
                 @Override
@@ -152,9 +105,9 @@ public class RetrofitGithubRepository implements GithubRepository {
         }
         if(repoName != null && ownerName != null){
 
-            RetrofitGithubService retrofitGithubService = createRetrofit(credentials).create(RetrofitGithubService.class);
+            RetrofitGithubAPI retrofitGithubAPI = createRetrofit(credentials, GITHUB_BASE_URL).create(RetrofitGithubAPI.class);
 
-            Call<List<Issue>> call = retrofitGithubService.issues(ownerName, repoName);
+            Call<List<Issue>> call = retrofitGithubAPI.issues(ownerName, repoName);
             call.enqueue(new Callback<List<Issue>>() {
                 @Override
                 public void onResponse(Call<List<Issue>> call, Response<List<Issue>> response) {
@@ -171,19 +124,17 @@ public class RetrofitGithubRepository implements GithubRepository {
     }
 
     @Override
-    public void createIssue(final String repoName, String title, String body, com.jpiser.hubclient.data.models.shared.Credentials credentials) {
+    public void createIssue(final String repoName, Issue issue, com.jpiser.hubclient.data.models.shared.Credentials credentials) {
         if(repositoryAccessor == null){
             logHelper.error(LOGTAG, "Error: Must call bind() before calling createIssue");
             return;
         }
-        if(title != null && credentials != null){
+        if(issue != null && credentials != null){
 
-            RetrofitGithubService retrofitGithubService = createRetrofit(credentials).create(RetrofitGithubService.class);
-            Issue issue = new Issue();
-            issue.setTitle(title);
-            issue.setBody(body);
+            RetrofitGithubAPI retrofitGithubAPI = createRetrofit(credentials, GITHUB_BASE_URL).create(RetrofitGithubAPI.class);
 
-            Call<Issue> call = retrofitGithubService.createIssue(credentials.getUsername(), repoName, issue);
+
+            Call<Issue> call = retrofitGithubAPI.createIssue(credentials.getUsername(), repoName, issue);
             call.enqueue(new Callback<Issue>() {
                 @Override
                 public void onResponse(Call<Issue> call, Response<Issue> response) {
@@ -208,8 +159,8 @@ public class RetrofitGithubRepository implements GithubRepository {
         }
         if(repoName != null && issue != null && credentials != null){
 
-            RetrofitGithubService retrofitGithubService = createRetrofit(credentials).create(RetrofitGithubService.class);
-            Call<Issue> call = retrofitGithubService.updateIssue(credentials.getUsername(), repoName, String.valueOf(issue.getNumber()), issue);
+            RetrofitGithubAPI retrofitGithubAPI = createRetrofit(credentials, GITHUB_BASE_URL).create(RetrofitGithubAPI.class);
+            Call<Issue> call = retrofitGithubAPI.updateIssue(credentials.getUsername(), repoName, String.valueOf(issue.getNumber()), issue);
 
             call.enqueue(new Callback<Issue>() {
                 @Override
@@ -234,8 +185,8 @@ public class RetrofitGithubRepository implements GithubRepository {
             return;
         }
 
-        RetrofitGithubService retrofitGithubService = createRetrofit(null).create(RetrofitGithubService.class);
-        final Call<List<Organization>> call = retrofitGithubService.organizations(userLogin);
+        RetrofitGithubAPI retrofitGithubAPI = createRetrofit(null, GITHUB_BASE_URL).create(RetrofitGithubAPI.class);
+        final Call<List<Organization>> call = retrofitGithubAPI.organizations(userLogin);
         call.enqueue(new Callback<List<Organization>>() {
             @Override
             public void onResponse(Call<List<Organization>> call, Response<List<Organization>> response) {

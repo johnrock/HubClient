@@ -7,6 +7,7 @@ import com.jpiser.hubclient.presentation.models.IssueModel;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -53,9 +54,16 @@ public class IssuePresenterImplTest {
 
     @Test
     public void shouldCreateIssue(){
+
+        ArgumentCaptor<HubIssue> hubArgument = ArgumentCaptor.forClass(HubIssue.class);
+
         issuePresenter.createIssue(TEST_REPO, TEST_TITLE, TEST_BODY);
 
-        verify(hubInteractor).createIssue(TEST_TITLE, TEST_BODY, TEST_REPO, credentials);
+        verify(hubInteractor).createIssue(anyString(), hubArgument.capture(), any(Credentials.class));
+
+        HubIssue actual = hubArgument.getValue();
+        assertEquals(TEST_TITLE, actual.getTitle());
+        assertEquals(TEST_BODY, actual.getBody());
     }
 
     @Test
