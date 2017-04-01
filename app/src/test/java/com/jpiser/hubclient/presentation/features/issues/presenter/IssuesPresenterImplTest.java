@@ -3,6 +3,7 @@ package com.jpiser.hubclient.presentation.features.issues.presenter;
 import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
 import com.jpiser.hubclient.domain.models.HubIssue;
+import com.jpiser.hubclient.presentation.models.IssueState;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class IssuesPresenterImplTest {
 
     public static final String TEST_REPO = "testRepo";
     public static final String TEST_OWNER = "testOwner";
-    public static final String ISSUES_STATE = "open";
+
     IssuesPresenterImpl issuesPresenter;
 
     @Mock IssuesPresenter.ViewLayer viewLayer;
@@ -36,11 +37,11 @@ public class IssuesPresenterImplTest {
         MockitoAnnotations.initMocks(this);
         issuesPresenter = new IssuesPresenterImpl(hubInteractor);
         credentials = Credentials.empty();
+        issuesPresenter.bind(viewLayer, credentials);
     }
 
     @Test
     public void shouldBind(){
-        issuesPresenter.bind(viewLayer, credentials);
         assertEquals(viewLayer, issuesPresenter.viewLayer);
         verify(hubInteractor).bind(issuesPresenter);
     }
@@ -52,18 +53,33 @@ public class IssuesPresenterImplTest {
 
     @Test
     public void shouldLoadIssues(){
-        issuesPresenter.bind(viewLayer, credentials);
         issuesPresenter.loadIssues(TEST_OWNER, TEST_REPO);
 
-        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials, ISSUES_STATE);
+        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials,  IssueState.OPEN.getValue());
     }
 
     @Test
     public void shouldReceiveIssues(){
-        issuesPresenter.bind(viewLayer, credentials);
         issuesPresenter.receiveIssues(issueModels);
 
         verify(viewLayer).displayIssues(any(List.class));
+    }
+
+    @Test
+    public void shouldToggleIssueStateOpen(){
+        issuesPresenter.toggleIssueState(true, TEST_OWNER, TEST_REPO);
+
+        assertEquals(true, issuesPresenter.showOpenIssues);
+        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials, IssueState.OPEN.getValue());
+    }
+
+    @Test
+    public void shouldToggleIssueStateClosed(){
+
+        issuesPresenter.toggleIssueState(false, TEST_OWNER, TEST_REPO);
+
+        assertEquals(false, issuesPresenter.showOpenIssues);
+        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials, IssueState.CLOSED.getValue());
     }
 
 }
