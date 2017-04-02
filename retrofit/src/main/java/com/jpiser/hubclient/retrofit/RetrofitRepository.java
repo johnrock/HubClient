@@ -1,6 +1,6 @@
 package com.jpiser.hubclient.retrofit;
 
-import com.jpiser.hubclient.common.logging.LogHelper;
+import com.jpiser.hubclient.data.helpers.LogHelper;
 
 import java.io.IOException;
 

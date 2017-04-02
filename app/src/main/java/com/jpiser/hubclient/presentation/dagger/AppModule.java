@@ -3,8 +3,8 @@ package com.jpiser.hubclient.presentation.dagger;
 import android.content.Context;
 
 import com.jpiser.hubclient.BuildConfig;
-import com.jpiser.hubclient.common.imaging.ImageHelper;
-import com.jpiser.hubclient.common.logging.LogHelper;
+import com.jpiser.hubclient.domain.helpers.ImageHelper;
+import com.jpiser.hubclient.data.helpers.LogHelper;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
 import com.jpiser.hubclient.domain.usecases.GitHubInteractor;
 import com.jpiser.hubclient.presentation.features.issue.presenter.IssuePresenter;

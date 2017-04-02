@@ -8,7 +8,6 @@ test {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile project(':common')
     compile "com.google.code.gson:gson:2.8.0"
 
 }

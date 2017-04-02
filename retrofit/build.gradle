@@ -10,10 +10,7 @@ test {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-
-    //Retrofit is actually a sub layer of the data layer so it needs access to data layer
     compile project(':data')
-    compile project(':common')
 
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'

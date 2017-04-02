@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jpiser.hubclient.R;
-import com.jpiser.hubclient.common.imaging.ImageHelper;
+import com.jpiser.hubclient.domain.helpers.ImageHelper;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
 import com.jpiser.hubclient.presentation.features.issues.view.IssuesActivity;
 import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePresenter;

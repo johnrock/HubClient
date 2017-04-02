@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.common.imaging;
+package com.jpiser.hubclient.domain.helpers;
 
 /**
  * @author John Piser johnpiser@yahoo.com

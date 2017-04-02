@@ -1,6 +1,6 @@
 package com.jpiser.hubclient.retrofit.github;
 
-import com.jpiser.hubclient.common.logging.LogHelper;
+import com.jpiser.hubclient.data.helpers.LogHelper;
 import com.jpiser.hubclient.data.models.github.Issue;
 import com.jpiser.hubclient.data.models.github.Organization;
 import com.jpiser.hubclient.data.models.github.Profile;
