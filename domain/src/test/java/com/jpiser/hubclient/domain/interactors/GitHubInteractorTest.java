@@ -1,12 +1,11 @@
-package com.jpiser.hubclient.domain.usecases;
+package com.jpiser.hubclient.domain.interactors;
 
 import com.jpiser.hubclient.data.models.github.Issue;
-import com.jpiser.hubclient.data.models.shared.Credentials;
-import com.jpiser.hubclient.data.repositories.GithubRepository;
 import com.jpiser.hubclient.data.models.github.Organization;
 import com.jpiser.hubclient.data.models.github.Profile;
 import com.jpiser.hubclient.data.models.github.Repo;
-import com.jpiser.hubclient.domain.interactors.HubInteractor;
+import com.jpiser.hubclient.data.models.shared.Credentials;
+import com.jpiser.hubclient.data.repositories.GithubRepository;
 import com.jpiser.hubclient.domain.models.HubIssue;
 import com.jpiser.hubclient.domain.models.HubUserProfile;
 

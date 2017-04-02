@@ -6,7 +6,7 @@ import com.jpiser.hubclient.BuildConfig;
 import com.jpiser.hubclient.domain.helpers.ImageHelper;
 import com.jpiser.hubclient.data.helpers.LogHelper;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
-import com.jpiser.hubclient.domain.usecases.GitHubInteractor;
+import com.jpiser.hubclient.domain.interactors.GitHubInteractor;
 import com.jpiser.hubclient.presentation.features.issue.presenter.IssuePresenter;
 import com.jpiser.hubclient.presentation.features.issue.presenter.IssuePresenterImpl;
 import com.jpiser.hubclient.presentation.features.issues.presenter.IssuesPresenter;
