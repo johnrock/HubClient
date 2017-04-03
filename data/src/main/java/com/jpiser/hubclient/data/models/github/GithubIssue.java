@@ -59,13 +59,13 @@ package com.jpiser.hubclient.data.models.github;
 }
 
  */
-public class Issue {
+public class GithubIssue {
 
     private String title;
     private String body;
 
     private String state;
-    private User user;
+    private GithubUser githubUser;
     private int number;
     private int comments;
 
@@ -77,8 +77,8 @@ public class Issue {
         return state;
     }
 
-    public User getUser() {
-        return user;
+    public GithubUser getGithubUser() {
+        return githubUser;
     }
 
     public int getNumber() {
@@ -105,8 +105,8 @@ public class Issue {
         this.state = state;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setGithubUser(GithubUser githubUser) {
+        this.githubUser = githubUser;
     }
 
     public void setNumber(int number) {

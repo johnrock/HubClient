@@ -1,9 +1,9 @@
 package com.jpiser.hubclient.domain.interactors;
 
-import com.jpiser.hubclient.data.models.github.Issue;
-import com.jpiser.hubclient.data.models.github.Organization;
-import com.jpiser.hubclient.data.models.github.Profile;
-import com.jpiser.hubclient.data.models.github.Repo;
+import com.jpiser.hubclient.data.models.github.GithubIssue;
+import com.jpiser.hubclient.data.models.github.GithubOrganization;
+import com.jpiser.hubclient.data.models.github.GithubProfile;
+import com.jpiser.hubclient.data.models.github.GithubRepo;
 import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.data.repositories.GithubRepository;
 import com.jpiser.hubclient.domain.models.HubIssue;
@@ -82,37 +82,37 @@ public class GitHubInteractor implements HubInteractor, GithubRepository.Reposit
 
 
     @Override
-    public void receiveProfile(Profile profile) {
+    public void receiveProfile(GithubProfile githubProfile) {
         if(hubAccessor != null){
-            hubAccessor.receiveProfile(new HubUserProfileAdapter().adapt(profile));
+            hubAccessor.receiveProfile(new HubUserProfileAdapter().adapt(githubProfile));
         }
     }
 
     @Override
-    public void receiveOrganiztions(List<Organization> organizations) {
+    public void receiveOrganiztions(List<GithubOrganization> githubOrganizations) {
         if(hubAccessor != null){
-            hubAccessor.receiveOrganziations(new HubOrganizationAdapter().adapt(organizations));
+            hubAccessor.receiveOrganziations(new HubOrganizationAdapter().adapt(githubOrganizations));
         }
     }
 
     @Override
-    public void receiveRepos(List<Repo> repos) {
+    public void receiveRepos(List<GithubRepo> githubRepos) {
         if(hubAccessor != null){
-            hubAccessor.receiveRepos(new HubRepoAdapter().adapt(repos));
+            hubAccessor.receiveRepos(new HubRepoAdapter().adapt(githubRepos));
         }
     }
 
     @Override
-    public void receiveIssues(List<Issue> issues) {
+    public void receiveIssues(List<GithubIssue> githubIssues) {
         if(hubAccessor != null){
-            hubAccessor.receiveIssues(new HubIssueAdapter().adapt(issues));
+            hubAccessor.receiveIssues(new HubIssueAdapter().adapt(githubIssues));
         }
     }
 
     @Override
-    public void receiveIssue(Issue issue) {
+    public void receiveIssue(GithubIssue githubIssue) {
         if(hubAccessor != null){
-            hubAccessor.receiveIssue(new HubIssueAdapter().adapt(issue));
+            hubAccessor.receiveIssue(new HubIssueAdapter().adapt(githubIssue));
         }
     }
 }

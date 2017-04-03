@@ -20,7 +20,7 @@ import com.google.gson.annotations.SerializedName;
 }
  */
 
-public class Organization {
+public class GithubOrganization {
 
     @SerializedName("avatar_url")
     private String avatarUrl;

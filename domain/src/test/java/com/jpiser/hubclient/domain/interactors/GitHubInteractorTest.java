@@ -1,9 +1,9 @@
 package com.jpiser.hubclient.domain.interactors;
 
-import com.jpiser.hubclient.data.models.github.Issue;
-import com.jpiser.hubclient.data.models.github.Organization;
-import com.jpiser.hubclient.data.models.github.Profile;
-import com.jpiser.hubclient.data.models.github.Repo;
+import com.jpiser.hubclient.data.models.github.GithubIssue;
+import com.jpiser.hubclient.data.models.github.GithubOrganization;
+import com.jpiser.hubclient.data.models.github.GithubProfile;
+import com.jpiser.hubclient.data.models.github.GithubRepo;
 import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.data.repositories.GithubRepository;
 import com.jpiser.hubclient.domain.models.HubIssue;
@@ -37,8 +37,9 @@ public class GitHubInteractorTest {
 
     @Mock  GithubRepository githubRepository;
     @Mock  HubInteractor.HubAccessor hubAccessor;
-    @Mock List<Repo> repoList;
-    @Mock Issue issue;
+    @Mock List<GithubRepo> githubRepoList;
+    @Mock
+    GithubIssue githubIssue;
     @Mock HubIssue hubIssue;
 
     Credentials credentials;
@@ -74,12 +75,12 @@ public class GitHubInteractorTest {
 
     @Test
     public void shouldCreateIssue(){
-        ArgumentCaptor<Issue> issueArgument =  ArgumentCaptor.forClass(Issue.class);
+        ArgumentCaptor<GithubIssue> issueArgument =  ArgumentCaptor.forClass(GithubIssue.class);
 
         gitHubInteractor.createIssue(TEST_REPONAME, hubIssue, credentials);
         verify(githubRepository).createIssue(anyString(), issueArgument.capture(), any(Credentials.class));
 
-        Issue actual = issueArgument.getValue();
+        GithubIssue actual = issueArgument.getValue();
         assertEquals(hubIssue.getTitle(), actual.getTitle());
         assertEquals(hubIssue.getBody(), actual.getBody());
     }
@@ -87,7 +88,7 @@ public class GitHubInteractorTest {
     @Test
     public void shouldUpdateIssue(){
         gitHubInteractor.updateIssue(TEST_REPONAME, hubIssue, credentials);
-        verify(githubRepository).updateIssue(anyString(), any(Issue.class), any(Credentials.class));
+        verify(githubRepository).updateIssue(anyString(), any(GithubIssue.class), any(Credentials.class));
     }
 
     @Test
@@ -106,29 +107,29 @@ public class GitHubInteractorTest {
 
     @Test
     public void shouldReceiveRepos(){
-        gitHubInteractor.receiveRepos(repoList);
+        gitHubInteractor.receiveRepos(githubRepoList);
 
         verify(hubAccessor).receiveRepos(any(List.class));
     }
 
     @Test
     public void shouldReceiveIssue(){
-        gitHubInteractor.receiveIssue(issue);
+        gitHubInteractor.receiveIssue(githubIssue);
 
         verify(hubAccessor).receiveIssue(any(HubIssue.class));
     }
 
-    private List<Organization> createTestOrganizations() {
-        List<Organization> organizations = new ArrayList<>();
-        Organization organization = new Organization();
-        organizations.add(organization);
-        return organizations;
+    private List<GithubOrganization> createTestOrganizations() {
+        List<GithubOrganization> githubOrganizations = new ArrayList<>();
+        GithubOrganization githubOrganization = new GithubOrganization();
+        githubOrganizations.add(githubOrganization);
+        return githubOrganizations;
     }
 
 
-    private Profile testProfile() {
-        Profile profile = new Profile();
-        profile.setName("testUser");
-        return profile;
+    private GithubProfile testProfile() {
+        GithubProfile githubProfile = new GithubProfile();
+        githubProfile.setName("testUser");
+        return githubProfile;
     }
 }

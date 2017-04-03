@@ -99,7 +99,7 @@ import java.util.Date;
 
  */
 
-public class Repo {
+public class GithubRepo {
 
     private String name;
     private String description;
@@ -144,7 +144,7 @@ public class Repo {
 
     @Override
     public String toString() {
-        return "Repo{" +
+        return "GithubRepo{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", url='" + url + '\'' +

@@ -1,9 +1,9 @@
 package com.jpiser.hubclient.data.repositories;
 
-import com.jpiser.hubclient.data.models.github.Issue;
-import com.jpiser.hubclient.data.models.github.Organization;
-import com.jpiser.hubclient.data.models.github.Profile;
-import com.jpiser.hubclient.data.models.github.Repo;
+import com.jpiser.hubclient.data.models.github.GithubIssue;
+import com.jpiser.hubclient.data.models.github.GithubOrganization;
+import com.jpiser.hubclient.data.models.github.GithubProfile;
+import com.jpiser.hubclient.data.models.github.GithubRepo;
 import com.jpiser.hubclient.data.models.shared.Credentials;
 
 import java.util.List;
@@ -15,11 +15,11 @@ public interface GithubRepository {
 
     interface RepositoryAccessor {
 
-        void receiveProfile(Profile profile);
-        void receiveOrganiztions(List<Organization> organizations);
-        void receiveRepos(List<Repo> repos);
-        void receiveIssues(List<Issue> issues);
-        void receiveIssue(Issue issue);
+        void receiveProfile(GithubProfile githubProfile);
+        void receiveOrganiztions(List<GithubOrganization> githubOrganizations);
+        void receiveRepos(List<GithubRepo> githubRepos);
+        void receiveIssues(List<GithubIssue> githubIssues);
+        void receiveIssue(GithubIssue githubIssue);
     }
     void bind(RepositoryAccessor repositoryAccessor);
 
@@ -31,7 +31,7 @@ public interface GithubRepository {
 
     void loadIssues(String ownerName, String repoName, Credentials credentials, String state);
 
-    void createIssue(String repoName, Issue issue, Credentials credentials);
+    void createIssue(String repoName, GithubIssue githubIssue, Credentials credentials);
 
-    void updateIssue(String repoName, Issue issue, Credentials credentials);
+    void updateIssue(String repoName, GithubIssue githubIssue, Credentials credentials);
 }

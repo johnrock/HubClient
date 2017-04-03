@@ -4,7 +4,7 @@ package com.jpiser.hubclient.data.models.github;
  * @author John Piser johnpiser@yahoo.com
  */
 
-public class User {
+public class GithubUser {
 
     private String login;
 

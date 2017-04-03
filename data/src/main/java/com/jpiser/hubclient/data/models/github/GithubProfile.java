@@ -42,7 +42,7 @@ import java.util.Date;
 v
  */
 
-public class Profile {
+public class GithubProfile {
 
     private String login;
     private int id;
@@ -170,7 +170,7 @@ public class Profile {
 
     @Override
     public String toString() {
-        return "Profile{" +
+        return "GithubProfile{" +
                 "name='" + name + '\'' +
                 ", login='" + login + '\'' +
                 '}';

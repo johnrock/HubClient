@@ -1,6 +1,6 @@
 package com.jpiser.hubclient.domain.models;
 
-import com.jpiser.hubclient.data.models.github.Issue;
+import com.jpiser.hubclient.data.models.github.GithubIssue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,22 +11,22 @@ import java.util.List;
 
 public class HubIssueAdapter {
 
-    public List<HubIssue> adapt(List<Issue> issues) {
+    public List<HubIssue> adapt(List<GithubIssue> githubIssues) {
 
         List<HubIssue> items = new ArrayList<>();
-        if(issues != null){
-            for (Issue issue : issues) {
-                HubIssue hubIssue = getHubIssue(issue);
+        if(githubIssues != null){
+            for (GithubIssue githubIssue : githubIssues) {
+                HubIssue hubIssue = getHubIssue(githubIssue);
                 items.add(hubIssue);
             }
         }
         return items;
     }
 
-    public HubIssue adapt(Issue issue){
+    public HubIssue adapt(GithubIssue githubIssue){
 
-        if(issue != null){
-            HubIssue hubIssue = getHubIssue(issue);
+        if(githubIssue != null){
+            HubIssue hubIssue = getHubIssue(githubIssue);
             return hubIssue;
         }
         return null;
@@ -34,28 +34,28 @@ public class HubIssueAdapter {
 
 
 
-    private HubIssue getHubIssue(Issue issue) {
+    private HubIssue getHubIssue(GithubIssue githubIssue) {
         HubIssue hubIssue = new HubIssue();
-        hubIssue.setHubUser(new HubUserAdapter().adapt(issue.getUser()));
-        hubIssue.setTitle(issue.getTitle());
-        hubIssue.setState(issue.getState());
-        hubIssue.setComments(issue.getComments());
-        hubIssue.setNumber(issue.getNumber());
-        hubIssue.setBody(issue.getBody());
+        hubIssue.setHubUser(new HubUserAdapter().adapt(githubIssue.getGithubUser()));
+        hubIssue.setTitle(githubIssue.getTitle());
+        hubIssue.setState(githubIssue.getState());
+        hubIssue.setComments(githubIssue.getComments());
+        hubIssue.setNumber(githubIssue.getNumber());
+        hubIssue.setBody(githubIssue.getBody());
         return hubIssue;
     }
 
-    public Issue adapt(HubIssue hubIssue) {
+    public GithubIssue adapt(HubIssue hubIssue) {
         if(hubIssue != null){
-            Issue issue = new Issue();
-            issue.setUser(new HubUserAdapter().adapt(hubIssue.getHubUser()));
-            issue.setTitle(hubIssue.getTitle());
-            issue.setState(hubIssue.getState());
-            issue.setComments(hubIssue.getComments());
-            issue.setNumber(hubIssue.getNumber());
-            issue.setBody(hubIssue.getBody());
+            GithubIssue githubIssue = new GithubIssue();
+            githubIssue.setGithubUser(new HubUserAdapter().adapt(hubIssue.getHubUser()));
+            githubIssue.setTitle(hubIssue.getTitle());
+            githubIssue.setState(hubIssue.getState());
+            githubIssue.setComments(hubIssue.getComments());
+            githubIssue.setNumber(hubIssue.getNumber());
+            githubIssue.setBody(hubIssue.getBody());
 
-            return issue;
+            return githubIssue;
         }
         return null;
     }

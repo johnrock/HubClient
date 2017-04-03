@@ -1,35 +1,35 @@
 package com.jpiser.hubclient.domain.models;
 
-import com.jpiser.hubclient.data.models.github.Profile;
+import com.jpiser.hubclient.data.models.github.GithubProfile;
 
 /**
  * @author John Piser johnpiser@yahoo.com
  */
 public class HubUserProfileAdapter {
 
-    public HubUserProfile adapt(Profile profile) {
-        if(profile != null){
+    public HubUserProfile adapt(GithubProfile githubProfile) {
+        if(githubProfile != null){
             HubUserProfile hubUserProfile = new HubUserProfile();
-            hubUserProfile.setLogin(profile.getLogin());
-            hubUserProfile.setId(profile.getId());
-            hubUserProfile.setAvatarUrl(profile.getAvatarUrl());
-            hubUserProfile.setUrl(profile.getUrl());
-            hubUserProfile.setHtmlUrl(profile.getHtmlUrl());
-            hubUserProfile.setReposUrl(profile.getReposUrl());
-            hubUserProfile.setOrganizationsUrl(profile.getOrganizationsUrl());
-            hubUserProfile.setName(profile.getName());
-            hubUserProfile.setSiteAdmin(profile.isSiteAdmin());
-            hubUserProfile.setCompany(profile.getCompany());
-            hubUserProfile.setBlog(profile.getBlog());
-            hubUserProfile.setLocation(profile.getLocation());
-            hubUserProfile.setEmail(profile.getEmail());
-            hubUserProfile.setBio(profile.getBio());
-            hubUserProfile.setPublicRepos(profile.getPublicRepos());
-            hubUserProfile.setPublicGists(profile.getPublicGists());
-            hubUserProfile.setFollowers(profile.getFollowers());
-            hubUserProfile.setFollowing(profile.getFollowing());
-            hubUserProfile.setCreatedAt(profile.getCreatedAt());
-            hubUserProfile.setUpdatedAt(profile.getUpdatedAt());
+            hubUserProfile.setLogin(githubProfile.getLogin());
+            hubUserProfile.setId(githubProfile.getId());
+            hubUserProfile.setAvatarUrl(githubProfile.getAvatarUrl());
+            hubUserProfile.setUrl(githubProfile.getUrl());
+            hubUserProfile.setHtmlUrl(githubProfile.getHtmlUrl());
+            hubUserProfile.setReposUrl(githubProfile.getReposUrl());
+            hubUserProfile.setOrganizationsUrl(githubProfile.getOrganizationsUrl());
+            hubUserProfile.setName(githubProfile.getName());
+            hubUserProfile.setSiteAdmin(githubProfile.isSiteAdmin());
+            hubUserProfile.setCompany(githubProfile.getCompany());
+            hubUserProfile.setBlog(githubProfile.getBlog());
+            hubUserProfile.setLocation(githubProfile.getLocation());
+            hubUserProfile.setEmail(githubProfile.getEmail());
+            hubUserProfile.setBio(githubProfile.getBio());
+            hubUserProfile.setPublicRepos(githubProfile.getPublicRepos());
+            hubUserProfile.setPublicGists(githubProfile.getPublicGists());
+            hubUserProfile.setFollowers(githubProfile.getFollowers());
+            hubUserProfile.setFollowing(githubProfile.getFollowing());
+            hubUserProfile.setCreatedAt(githubProfile.getCreatedAt());
+            hubUserProfile.setUpdatedAt(githubProfile.getUpdatedAt());
 
             return hubUserProfile;
         }

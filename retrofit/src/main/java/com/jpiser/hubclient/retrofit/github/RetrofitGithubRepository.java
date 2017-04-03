@@ -1,10 +1,10 @@
 package com.jpiser.hubclient.retrofit.github;
 
 import com.jpiser.hubclient.data.helpers.LogHelper;
-import com.jpiser.hubclient.data.models.github.Issue;
-import com.jpiser.hubclient.data.models.github.Organization;
-import com.jpiser.hubclient.data.models.github.Profile;
-import com.jpiser.hubclient.data.models.github.Repo;
+import com.jpiser.hubclient.data.models.github.GithubIssue;
+import com.jpiser.hubclient.data.models.github.GithubOrganization;
+import com.jpiser.hubclient.data.models.github.GithubProfile;
+import com.jpiser.hubclient.data.models.github.GithubRepo;
 import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.data.repositories.GithubRepository;
 import com.jpiser.hubclient.retrofit.RetrofitRepository;
@@ -48,17 +48,17 @@ public class RetrofitGithubRepository extends RetrofitRepository implements Gith
 
             RetrofitGithubAPI retrofitGithubAPI = createRetrofit(credentials, GITHUB_BASE_URL).create(RetrofitGithubAPI.class);
 
-            final Call<Profile> call = retrofitGithubAPI.userProfile(userLogin);
+            final Call<GithubProfile> call = retrofitGithubAPI.userProfile(userLogin);
 
-            call.enqueue(new Callback<Profile>() {
+            call.enqueue(new Callback<GithubProfile>() {
                 @Override
-                public void onResponse(Call<Profile> call, Response<Profile> response) {
+                public void onResponse(Call<GithubProfile> call, Response<GithubProfile> response) {
                     int responseCode = response.code();
                     repositoryAccessor.receiveProfile(response.body());
                 }
 
                 @Override
-                public void onFailure(Call<Profile> call, Throwable t) {
+                public void onFailure(Call<GithubProfile> call, Throwable t) {
                     logHelper.error(LOGTAG, "Error retrieving profile: " + t);
                 }
             });
@@ -77,16 +77,16 @@ public class RetrofitGithubRepository extends RetrofitRepository implements Gith
 
             RetrofitGithubAPI retrofitGithubAPI = createRetrofit(credentials, GITHUB_BASE_URL).create(RetrofitGithubAPI.class);
 
-            Call<List<Repo>> call = retrofitGithubAPI.repos(userLogin);
+            Call<List<GithubRepo>> call = retrofitGithubAPI.repos(userLogin);
 
-            call.enqueue(new Callback<List<Repo>>() {
+            call.enqueue(new Callback<List<GithubRepo>>() {
                 @Override
-                public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
+                public void onResponse(Call<List<GithubRepo>> call, Response<List<GithubRepo>> response) {
                     repositoryAccessor.receiveRepos(response.body());
                 }
 
                 @Override
-                public void onFailure(Call<List<Repo>> call, Throwable t) {
+                public void onFailure(Call<List<GithubRepo>> call, Throwable t) {
                     logHelper.error(LOGTAG, "Error retrieving repos: " + t);
                 }
             });
@@ -104,15 +104,15 @@ public class RetrofitGithubRepository extends RetrofitRepository implements Gith
 
             RetrofitGithubAPI retrofitGithubAPI = createRetrofit(credentials, GITHUB_BASE_URL).create(RetrofitGithubAPI.class);
 
-            Call<List<Issue>> call = retrofitGithubAPI.issues(ownerName, repoName, state);
-            call.enqueue(new Callback<List<Issue>>() {
+            Call<List<GithubIssue>> call = retrofitGithubAPI.issues(ownerName, repoName, state);
+            call.enqueue(new Callback<List<GithubIssue>>() {
                 @Override
-                public void onResponse(Call<List<Issue>> call, Response<List<Issue>> response) {
+                public void onResponse(Call<List<GithubIssue>> call, Response<List<GithubIssue>> response) {
                     repositoryAccessor.receiveIssues(response.body());
                 }
 
                 @Override
-                public void onFailure(Call<List<Issue>> call, Throwable t) {
+                public void onFailure(Call<List<GithubIssue>> call, Throwable t) {
                     logHelper.error(LOGTAG, "Error retrieving issues: " + t);
                 }
             });
@@ -121,54 +121,54 @@ public class RetrofitGithubRepository extends RetrofitRepository implements Gith
     }
 
     @Override
-    public void createIssue(final String repoName, Issue issue, com.jpiser.hubclient.data.models.shared.Credentials credentials) {
+    public void createIssue(final String repoName, GithubIssue githubIssue, com.jpiser.hubclient.data.models.shared.Credentials credentials) {
         if(repositoryAccessor == null){
             logHelper.error(LOGTAG, "Error: Must call bind() before calling createIssue");
             return;
         }
-        if(issue != null && credentials != null){
+        if(githubIssue != null && credentials != null){
 
             RetrofitGithubAPI retrofitGithubAPI = createRetrofit(credentials, GITHUB_BASE_URL).create(RetrofitGithubAPI.class);
 
 
-            Call<Issue> call = retrofitGithubAPI.createIssue(credentials.getUsername(), repoName, issue);
-            call.enqueue(new Callback<Issue>() {
+            Call<GithubIssue> call = retrofitGithubAPI.createIssue(credentials.getUsername(), repoName, githubIssue);
+            call.enqueue(new Callback<GithubIssue>() {
                 @Override
-                public void onResponse(Call<Issue> call, Response<Issue> response) {
+                public void onResponse(Call<GithubIssue> call, Response<GithubIssue> response) {
                     //success = : Status: 201 Created
-                    Issue returnedIssue = response.body();
-                    repositoryAccessor.receiveIssue(returnedIssue);
+                    GithubIssue returnedGithubIssue = response.body();
+                    repositoryAccessor.receiveIssue(returnedGithubIssue);
                 }
 
                 @Override
-                public void onFailure(Call<Issue> call, Throwable t) {
-                    logHelper.error(LOGTAG, "Error creating issue: " + t);
+                public void onFailure(Call<GithubIssue> call, Throwable t) {
+                    logHelper.error(LOGTAG, "Error creating githubIssue: " + t);
                 }
             });
         }
     }
 
     @Override
-    public void updateIssue(String repoName, Issue issue, com.jpiser.hubclient.data.models.shared.Credentials credentials) {
+    public void updateIssue(String repoName, GithubIssue githubIssue, com.jpiser.hubclient.data.models.shared.Credentials credentials) {
         if(repositoryAccessor == null){
             logHelper.error(LOGTAG, "Error: Must call bind() before calling updateIssue");
             return;
         }
-        if(repoName != null && issue != null && credentials != null){
+        if(repoName != null && githubIssue != null && credentials != null){
 
             RetrofitGithubAPI retrofitGithubAPI = createRetrofit(credentials, GITHUB_BASE_URL).create(RetrofitGithubAPI.class);
-            Call<Issue> call = retrofitGithubAPI.updateIssue(credentials.getUsername(), repoName, String.valueOf(issue.getNumber()), issue);
+            Call<GithubIssue> call = retrofitGithubAPI.updateIssue(credentials.getUsername(), repoName, String.valueOf(githubIssue.getNumber()), githubIssue);
 
-            call.enqueue(new Callback<Issue>() {
+            call.enqueue(new Callback<GithubIssue>() {
                 @Override
-                public void onResponse(Call<Issue> call, Response<Issue> response) {
-                    Issue returnedIssue = response.body();
-                    repositoryAccessor.receiveIssue(returnedIssue);
+                public void onResponse(Call<GithubIssue> call, Response<GithubIssue> response) {
+                    GithubIssue returnedGithubIssue = response.body();
+                    repositoryAccessor.receiveIssue(returnedGithubIssue);
                 }
 
                 @Override
-                public void onFailure(Call<Issue> call, Throwable t) {
-                    logHelper.error(LOGTAG, "Error updating issue: " + t);
+                public void onFailure(Call<GithubIssue> call, Throwable t) {
+                    logHelper.error(LOGTAG, "Error updating githubIssue: " + t);
                 }
             });
         }
@@ -183,15 +183,15 @@ public class RetrofitGithubRepository extends RetrofitRepository implements Gith
         }
 
         RetrofitGithubAPI retrofitGithubAPI = createRetrofit(null, GITHUB_BASE_URL).create(RetrofitGithubAPI.class);
-        final Call<List<Organization>> call = retrofitGithubAPI.organizations(userLogin);
-        call.enqueue(new Callback<List<Organization>>() {
+        final Call<List<GithubOrganization>> call = retrofitGithubAPI.organizations(userLogin);
+        call.enqueue(new Callback<List<GithubOrganization>>() {
             @Override
-            public void onResponse(Call<List<Organization>> call, Response<List<Organization>> response) {
+            public void onResponse(Call<List<GithubOrganization>> call, Response<List<GithubOrganization>> response) {
                 repositoryAccessor.receiveOrganiztions(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<Organization>> call, Throwable t) {
+            public void onFailure(Call<List<GithubOrganization>> call, Throwable t) {
                 logHelper.error(LOGTAG, "Error retrieving profile: " + t);
             }
         });

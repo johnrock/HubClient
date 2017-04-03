@@ -1,10 +1,10 @@
 package com.jpiser.hubclient.retrofit.github;
 
-import com.jpiser.hubclient.data.models.github.Contributor;
-import com.jpiser.hubclient.data.models.github.Issue;
-import com.jpiser.hubclient.data.models.github.Organization;
-import com.jpiser.hubclient.data.models.github.Profile;
-import com.jpiser.hubclient.data.models.github.Repo;
+import com.jpiser.hubclient.data.models.github.GithubContributor;
+import com.jpiser.hubclient.data.models.github.GithubIssue;
+import com.jpiser.hubclient.data.models.github.GithubOrganization;
+import com.jpiser.hubclient.data.models.github.GithubProfile;
+import com.jpiser.hubclient.data.models.github.GithubRepo;
 
 import java.util.List;
 
@@ -23,24 +23,24 @@ import retrofit2.http.Query;
 public interface RetrofitGithubAPI {
 
     @GET("repos/{owner}/{repo}/contributors")
-    Call<List<Contributor>> repoContributors(@Path("owner") String owner, @Path("repo") String repo);
+    Call<List<GithubContributor>> repoContributors(@Path("owner") String owner, @Path("repo") String repo);
 
     @GET("users/{userLogin}")
-    Call<Profile> userProfile(@Path("userLogin") String userLogin);
+    Call<GithubProfile> userProfile(@Path("userLogin") String userLogin);
 
     @GET("users/{userLogin}/orgs")
-    Call<List<Organization>> organizations(@Path("userLogin") String userLogin);
+    Call<List<GithubOrganization>> organizations(@Path("userLogin") String userLogin);
 
     @GET("users/{userLogin}/repos")
-    Call<List<Repo>> repos(@Path("userLogin") String userLogin);
+    Call<List<GithubRepo>> repos(@Path("userLogin") String userLogin);
 
     @GET("repos/{owner}/{reponame}/issues")
-    Call<List<Issue>> issues(@Path("owner") String owner, @Path("reponame") String repoName, @Query("state") String state);
+    Call<List<GithubIssue>> issues(@Path("owner") String owner, @Path("reponame") String repoName, @Query("state") String state);
 
     @POST("repos/{owner}/{reponame}/issues")
-    Call<Issue> createIssue(@Path("owner") String owner, @Path("reponame") String repoName, @Body Issue issue);
+    Call<GithubIssue> createIssue(@Path("owner") String owner, @Path("reponame") String repoName, @Body GithubIssue githubIssue);
 
     @PATCH("repos/{owner}/{reponame}/issues/{number}")
-    Call<Issue> updateIssue(@Path("owner") String owner, @Path("reponame") String repoName, @Path("number") String number, @Body Issue issue);
+    Call<GithubIssue> updateIssue(@Path("owner") String owner, @Path("reponame") String repoName, @Path("number") String number, @Body GithubIssue githubIssue);
 
 }

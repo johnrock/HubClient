@@ -1,6 +1,6 @@
 package com.jpiser.hubclient.domain.models;
 
-import com.jpiser.hubclient.data.models.github.User;
+import com.jpiser.hubclient.data.models.github.GithubUser;
 
 /**
  * @author John Piser johnpiser@yahoo.com
@@ -8,18 +8,18 @@ import com.jpiser.hubclient.data.models.github.User;
 
 class HubUserAdapter {
 
-    public User adapt(HubUser hubUser) {
+    public GithubUser adapt(HubUser hubUser) {
         if(hubUser != null){
-            User user = new User();
-            user.setLogin(hubUser.getLogin());
-            return user;
+            GithubUser githubUser = new GithubUser();
+            githubUser.setLogin(hubUser.getLogin());
+            return githubUser;
         }
         return null;
     }
-    public HubUser adapt(User user) {
-        if(user != null){
+    public HubUser adapt(GithubUser githubUser) {
+        if(githubUser != null){
             HubUser hubUser = new HubUser();
-            hubUser.setLogin(user.getLogin());
+            hubUser.setLogin(githubUser.getLogin());
             return hubUser;
         }
         return null;
