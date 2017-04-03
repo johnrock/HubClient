@@ -54,11 +54,7 @@ public class RetrofitGithubRepository extends RetrofitRepository implements Gith
                 @Override
                 public void onResponse(Call<Profile> call, Response<Profile> response) {
                     int responseCode = response.code();
-
                     repositoryAccessor.receiveProfile(response.body());
-                    if(responseCode == 200){
-                        loadOrganizations(userLogin);
-                    }
                 }
 
                 @Override
@@ -178,8 +174,8 @@ public class RetrofitGithubRepository extends RetrofitRepository implements Gith
         }
     }
 
-
-    private void loadOrganizations(final String userLogin){
+    @Override
+    public void loadOrganizations(final String userLogin){
 
         if(repositoryAccessor == null){
             logHelper.error(LOGTAG, "Error: Must call bind() before calling loadOrganizations");

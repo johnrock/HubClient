@@ -20,10 +20,11 @@ public interface HubInteractor {
         void receiveIssue(HubIssue hubIssue);
     }
     void bind(HubAccessor hubAccessor);
-
     String getName();
 
     void loadProfile(String UserLogin, Credentials credentials);
+
+    void loadOrganizations(String userLogin);
 
     void loadRepos(String userLogin, Credentials credentials);
 

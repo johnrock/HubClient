@@ -46,6 +46,9 @@ public class ProfilePresenterImpl implements ProfilePresenter, HubInteractor.Hub
 
     @Override
     public void receiveProfile(HubUserProfile hubUserProfile) {
+        if(hubUserProfile != null){
+            hubInteractor.loadOrganizations(hubUserProfile.getLogin());
+        }
         if(viewLayer != null){
             viewLayer.displayProfile(new UserProfileModelAdapter().adapt(hubUserProfile));
         }

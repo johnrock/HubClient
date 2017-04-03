@@ -45,6 +45,14 @@ public class GitHubInteractor implements HubInteractor, GithubRepository.Reposit
     }
 
     @Override
+    public void loadOrganizations(String userLogin) {
+        if(githubRepository != null){
+            githubRepository.loadOrganizations(userLogin);
+        }
+    }
+
+
+    @Override
     public void loadRepos(String userLogin, Credentials credentials) {
         if(githubRepository != null){
             githubRepository.loadRepos(userLogin, credentials);

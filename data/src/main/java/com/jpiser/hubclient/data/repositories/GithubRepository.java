@@ -25,6 +25,8 @@ public interface GithubRepository {
 
     void loadProfile(String userLogin, Credentials credentials);
 
+    void loadOrganizations(String userLogin);
+
     void loadRepos(String userLogin, Credentials credentials);
 
     void loadIssues(String ownerName, String repoName, Credentials credentials, String state);

@@ -17,6 +17,7 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author John Piser johnpiser@yahoo.com
@@ -69,9 +70,13 @@ public class ProfilePresenterImplTest {
     }
 
     @Test
-    public void shouldReceiveProfile(){
+    public void shouldReceiveProfileAndLoadOrganizations(){
+
+        when(hubUserProfile.getLogin()).thenReturn(TEST_USER_LOGIN);
+
         profilePresenter.receiveProfile(hubUserProfile);
         verify(viewLayer).displayProfile(any(UserProfileModel.class));
+        verify(hubInteractor).loadOrganizations(TEST_USER_LOGIN);
     }
 
     @Test
