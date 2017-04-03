@@ -15,7 +15,7 @@ import com.jpiser.hubclient.presentation.features.main.presenter.MainPresenter;
 import com.jpiser.hubclient.presentation.features.main.presenter.MainPresenterImpl;
 import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePresenter;
 import com.jpiser.hubclient.presentation.features.profile.presenter.ProfilePresenterImpl;
-import com.jpiser.hubclient.presentation.logging.LogHelperImpl;
+import com.jpiser.hubclient.presentation.helpers.LogHelperImpl;
 import com.jpiser.hubclient.retrofit.github.RetrofitGithubRepository;
 import com.jpiser.picasso.PicassoImageHelper;
 

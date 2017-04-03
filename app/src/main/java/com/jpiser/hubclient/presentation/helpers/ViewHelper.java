@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.presentation.imaging;
+package com.jpiser.hubclient.presentation.helpers;
 
 import android.content.Context;
 import android.content.res.Resources;

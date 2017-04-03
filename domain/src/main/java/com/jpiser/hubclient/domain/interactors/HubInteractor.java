@@ -19,7 +19,9 @@ public interface HubInteractor {
         void receiveIssues(List<HubIssue> issues);
         void receiveIssue(HubIssue hubIssue);
     }
+
     void bind(HubAccessor hubAccessor);
+
     String getName();
 
     void loadProfile(String UserLogin, Credentials credentials);

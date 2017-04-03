@@ -1,4 +1,4 @@
-package com.jpiser.hubclient.presentation.logging;
+package com.jpiser.hubclient.presentation.helpers;
 
 import android.util.Log;
 
