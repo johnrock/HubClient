@@ -20,7 +20,7 @@ import com.jpiser.hubclient.presentation.application.HubClientApplication;
 import com.jpiser.hubclient.presentation.features.issue.presenter.IssuePresenter;
 import com.jpiser.hubclient.presentation.models.IssueModel;
 import com.jpiser.hubclient.presentation.models.IssueState;
-import com.jpiser.hubclient.presentation.models.IssueUserModel;
+import com.jpiser.hubclient.presentation.models.UserModel;
 import com.jpiser.hubclient.presentation.util.Extras;
 
 import javax.inject.Inject;
@@ -104,9 +104,9 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
             titleTextView.setText(issueModel.getTitle());
             stateTextView.setText(issueModel.getState());
             numberTextView.setText(" " + issueModel.getNumberForDisplay());
-            IssueUserModel issueUserModel = issueModel.getIssueUserModel();
-            if(issueUserModel != null){
-                nameTextView.setText(issueUserModel.getLogin());
+            UserModel userModel = issueModel.getUserModel();
+            if(userModel != null){
+                nameTextView.setText(userModel.getLogin());
             }
             bodyTextView.setText(issueModel.getBody());
             if(IssueState.OPEN.getValue().equals(issueModel.getState())){

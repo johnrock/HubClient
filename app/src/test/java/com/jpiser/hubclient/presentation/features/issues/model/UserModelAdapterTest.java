@@ -5,9 +5,9 @@ import org.junit.Test;
 /**
  * @author John Piser johnpiser@yahoo.com
  */
-public class IssueUserModelAdapterTest {
+public class UserModelAdapterTest {
 
-    //TODO: Write tests for IssueUserModelAdapter
+    //TODO: Write tests for UserModelAdapter
 
     @Test
     public void dummyTest(){

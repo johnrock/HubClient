@@ -16,7 +16,7 @@ public class IssueModel implements Parcelable{
 
 
     protected IssueModel(Parcel in) {
-        issueUserModel = in.readParcelable(IssueUserModel.class.getClassLoader());
+        userModel = in.readParcelable(UserModel.class.getClassLoader());
         title = in.readString();
         comments = in.readInt();
         number = in.readInt();
@@ -43,7 +43,7 @@ public class IssueModel implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(issueUserModel, flags);
+        dest.writeParcelable(userModel, flags);
         dest.writeString(title);
         dest.writeInt(comments);
         dest.writeInt(number);
@@ -51,19 +51,19 @@ public class IssueModel implements Parcelable{
         dest.writeString(body);
     }
 
-    private IssueUserModel issueUserModel;
+    private UserModel userModel;
     private String title;
     private int comments;
     private int number;
     private String state;
     private String body;
 
-    public IssueUserModel getIssueUserModel() {
-        return issueUserModel;
+    public UserModel getUserModel() {
+        return userModel;
     }
 
-    public void setIssueUserModel(IssueUserModel issueUserModel) {
-        this.issueUserModel = issueUserModel;
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
     }
 
     public void setTitle(String title) {
@@ -113,7 +113,7 @@ public class IssueModel implements Parcelable{
     @Override
     public String toString() {
         return "IssueModel{" +
-                "issueUserModel=" + issueUserModel +
+                "userModel=" + userModel +
                 ", title='" + title + '\'' +
                 ", comments=" + comments +
                 ", number=" + number +

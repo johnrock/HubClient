@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.jpiser.hubclient.R;
 import com.jpiser.hubclient.presentation.models.IssueModel;
-import com.jpiser.hubclient.presentation.models.IssueUserModel;
+import com.jpiser.hubclient.presentation.models.UserModel;
 
 import java.util.List;
 
@@ -77,9 +77,9 @@ public class IssuesRecyclerViewAdapter extends RecyclerView.Adapter<IssuesRecycl
             titleTextView.setText(issueModel.getTitle());
             stateTextView.setText(issueModel.getState());
             numberTextView.setText("#" + issueModel.getNumber());
-            IssueUserModel issueUserModel = issueModel.getIssueUserModel();
-            if(issueUserModel != null){
-                nameTextView.setText(issueUserModel.getLogin());
+            UserModel userModel = issueModel.getUserModel();
+            if(userModel != null){
+                nameTextView.setText(userModel.getLogin());
             }
         }
     }

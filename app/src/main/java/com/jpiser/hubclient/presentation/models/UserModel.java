@@ -7,24 +7,24 @@ import android.os.Parcelable;
  * @author John Piser johnpiser@yahoo.com
  */
 
-public class IssueUserModel implements Parcelable {
+public class UserModel implements Parcelable {
 
-    public IssueUserModel() {
+    public UserModel() {
     }
 
-    protected IssueUserModel(Parcel in) {
+    protected UserModel(Parcel in) {
         login = in.readString();
     }
 
-    public static final Creator<IssueUserModel> CREATOR = new Creator<IssueUserModel>() {
+    public static final Creator<UserModel> CREATOR = new Creator<UserModel>() {
         @Override
-        public IssueUserModel createFromParcel(Parcel in) {
-            return new IssueUserModel(in);
+        public UserModel createFromParcel(Parcel in) {
+            return new UserModel(in);
         }
 
         @Override
-        public IssueUserModel[] newArray(int size) {
-            return new IssueUserModel[size];
+        public UserModel[] newArray(int size) {
+            return new UserModel[size];
         }
     };
 
@@ -50,7 +50,7 @@ public class IssueUserModel implements Parcelable {
 
     @Override
     public String toString() {
-        return "IssueUserModel{" +
+        return "UserModel{" +
                 "login='" + login + '\'' +
                 '}';
     }

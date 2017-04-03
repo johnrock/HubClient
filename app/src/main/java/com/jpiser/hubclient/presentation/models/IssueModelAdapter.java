@@ -45,7 +45,7 @@ public class IssueModelAdapter {
     @NonNull
     private HubIssue getHubIssue(IssueModel issueModel) {
         HubIssue hubIssue = new HubIssue();
-        hubIssue.setHubUser(new IssueUserModelAdapter().adapt(issueModel.getIssueUserModel()));
+        hubIssue.setHubUser(new UserModelAdapter().adapt(issueModel.getUserModel()));
         hubIssue.setTitle(issueModel.getTitle());
         hubIssue.setComments(issueModel.getComments());
         hubIssue.setNumber(issueModel.getNumber());
@@ -57,7 +57,7 @@ public class IssueModelAdapter {
     @NonNull
     private IssueModel getIssueModel(HubIssue hubIssue) {
         IssueModel issueModel = new IssueModel();
-        issueModel.setIssueUserModel(new IssueUserModelAdapter().adapt(hubIssue.getHubUser()));
+        issueModel.setUserModel(new UserModelAdapter().adapt(hubIssue.getHubUser()));
         issueModel.setTitle(hubIssue.getTitle());
         issueModel.setComments(hubIssue.getComments());
         issueModel.setNumber(hubIssue.getNumber());
