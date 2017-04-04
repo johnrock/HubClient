@@ -13,11 +13,8 @@ public interface HubInteractor {
     interface HubAccessor  {
 
         void receiveProfile(HubUserProfile hubUserProfile);
-
         void receiveOrganziations(List<HubOrganization> organizations);
-
         void receiveRepos(List<HubRepo> repos);
-
         void receiveIssues(List<HubIssue> issues);
         void receiveIssue(HubIssue hubIssue);
     }
