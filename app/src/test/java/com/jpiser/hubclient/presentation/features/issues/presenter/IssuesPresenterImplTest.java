@@ -3,7 +3,6 @@ package com.jpiser.hubclient.presentation.features.issues.presenter;
 import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
 import com.jpiser.hubclient.domain.models.HubIssue;
-import com.jpiser.hubclient.presentation.models.IssueState;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +54,7 @@ public class IssuesPresenterImplTest {
     public void shouldLoadIssues(){
         issuesPresenter.loadIssues(TEST_OWNER, TEST_REPO);
 
-        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials,  IssueState.OPEN.getValue());
+        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials, true);
     }
 
     @Test
@@ -70,7 +69,7 @@ public class IssuesPresenterImplTest {
         issuesPresenter.toggleIssueState(true, TEST_OWNER, TEST_REPO);
 
         assertEquals(true, issuesPresenter.showOpenIssues);
-        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials, IssueState.OPEN.getValue());
+        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials, true);
     }
 
     @Test
@@ -79,7 +78,7 @@ public class IssuesPresenterImplTest {
         issuesPresenter.toggleIssueState(false, TEST_OWNER, TEST_REPO);
 
         assertEquals(false, issuesPresenter.showOpenIssues);
-        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials, IssueState.CLOSED.getValue());
+        verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials, false);
     }
 
 }

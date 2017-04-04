@@ -15,7 +15,9 @@ public interface HubInteractor {
         void receiveProfile(HubUserProfile hubUserProfile);
 
         void receiveOrganziations(List<HubOrganization> organizations);
+
         void receiveRepos(List<HubRepo> repos);
+
         void receiveIssues(List<HubIssue> issues);
         void receiveIssue(HubIssue hubIssue);
     }
@@ -30,9 +32,13 @@ public interface HubInteractor {
 
     void loadRepos(String userLogin, Credentials credentials);
 
-    void loadIssues(String ownerName, String repoName, Credentials credentials, String state);
+    void loadIssues(String ownerName, String repoName, Credentials credentials, boolean showOpenIssues);
+
+    boolean issueIsOpen(HubIssue hubIssue);
 
     void createIssue(String repoName, HubIssue hubIssue, Credentials credentials);
 
     void updateIssue(String repoName, HubIssue hubIssue, Credentials credentials);
+
+    void toggleIssueState(String repoName, HubIssue hubIssue, Credentials credentials);
 }

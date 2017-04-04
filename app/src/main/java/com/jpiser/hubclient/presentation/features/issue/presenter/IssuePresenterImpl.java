@@ -8,7 +8,6 @@ import com.jpiser.hubclient.domain.models.HubRepo;
 import com.jpiser.hubclient.domain.models.HubUserProfile;
 import com.jpiser.hubclient.presentation.models.IssueModel;
 import com.jpiser.hubclient.presentation.models.IssueModelAdapter;
-import com.jpiser.hubclient.presentation.models.IssueState;
 
 import java.util.List;
 
@@ -79,24 +78,16 @@ public class IssuePresenterImpl implements IssuePresenter, HubInteractor.HubAcce
 
             //TODO: Handle error messaging and  refresh of the view if toggleIssueState fails
             /**
-             * If the update fails then the view must be refreshed
+             * If toggleIssueState fails then the view must be refreshed
              * because the issueModel it is holding is dirty from the failed update
              */
-            IssueModel updatedIssue = issueModel;
-            boolean updated = false;
-            if(IssueState.OPEN.getValue().equals(updatedIssue.getState())){
-                updatedIssue.setState(IssueState.CLOSED.getValue());
-                updated = true;
-            }
-            else if(IssueState.CLOSED.getValue().equals(updatedIssue.getState())){
-                updatedIssue.setState(IssueState.OPEN.getValue());
-                updated = true;
-            }
-
-            if(updated){
-                updateIssue(repoName, updatedIssue);
-            }
+            hubInteractor.toggleIssueState(repoName, new IssueModelAdapter().adapt(issueModel), credentials);
         }
+    }
+
+    @Override
+    public void resolveIssueStateButton(IssueModel issueModel) {
+        viewLayer.updateIssueStateButton(hubInteractor.issueIsOpen(new IssueModelAdapter().adapt(issueModel)));
     }
 
 

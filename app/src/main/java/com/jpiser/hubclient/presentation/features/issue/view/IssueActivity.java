@@ -19,7 +19,6 @@ import com.jpiser.hubclient.R;
 import com.jpiser.hubclient.presentation.application.HubClientApplication;
 import com.jpiser.hubclient.presentation.features.issue.presenter.IssuePresenter;
 import com.jpiser.hubclient.presentation.models.IssueModel;
-import com.jpiser.hubclient.presentation.models.IssueState;
 import com.jpiser.hubclient.presentation.models.UserModel;
 import com.jpiser.hubclient.presentation.util.Extras;
 
@@ -88,11 +87,14 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
         super.onResume();
 
         initView();
+
     }
 
     private void initView(){
         initActionBar();
         setEditMode(false);
+
+        issuePresenter.resolveIssueStateButton(issueModel);
 
         newIssueTitle.setText("");
         newIssueBody.setText("");
@@ -109,14 +111,6 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
                 nameTextView.setText(userModel.getLogin());
             }
             bodyTextView.setText(issueModel.getBody());
-            if(IssueState.OPEN.getValue().equals(issueModel.getState())){
-                issueStateButton.setBackgroundColor(getResources().getColor(R.color.colorClosedIssue));
-                issueStateButton.setText(R.string.feature_issues_buttonlabel_close_issue);
-            }
-            else{
-                issueStateButton.setBackgroundColor(getResources().getColor(R.color.colorOpenIssue));
-                issueStateButton.setText(R.string.feature_issues_buttonlabel_open_issue);
-            }
         }
         else{
             createIssueLayout.setVisibility(View.VISIBLE);
@@ -136,6 +130,18 @@ public class IssueActivity extends AppCompatActivity implements IssuePresenter.V
             createIssueLayout.setVisibility(GONE);
             editIcon.setVisibility(View.GONE);
             issueStateButton.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void updateIssueStateButton(boolean issueIsOpen) {
+        if(issueIsOpen){
+            issueStateButton.setBackgroundColor(getResources().getColor(R.color.colorClosedIssue));
+            issueStateButton.setText(R.string.feature_issues_buttonlabel_close_issue);
+        }
+        else{
+            issueStateButton.setBackgroundColor(getResources().getColor(R.color.colorOpenIssue));
+            issueStateButton.setText(R.string.feature_issues_buttonlabel_open_issue);
         }
     }
 

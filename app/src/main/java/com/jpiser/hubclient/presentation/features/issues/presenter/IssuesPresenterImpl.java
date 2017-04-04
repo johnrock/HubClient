@@ -7,7 +7,6 @@ import com.jpiser.hubclient.domain.models.HubOrganization;
 import com.jpiser.hubclient.domain.models.HubRepo;
 import com.jpiser.hubclient.domain.models.HubUserProfile;
 import com.jpiser.hubclient.presentation.models.IssueModelAdapter;
-import com.jpiser.hubclient.presentation.models.IssueState;
 
 import java.util.List;
 
@@ -51,8 +50,7 @@ public class IssuesPresenterImpl implements IssuesPresenter, HubInteractor.HubAc
     @Override
     public void loadIssues(String ownerName, String repoName) {
         if(hubInteractor != null){
-            String state = showOpenIssues ? IssueState.OPEN.getValue() : IssueState.CLOSED.getValue();
-            hubInteractor.loadIssues(ownerName, repoName, credentials, state);
+            hubInteractor.loadIssues(ownerName, repoName, credentials, showOpenIssues);
         }
     }
 

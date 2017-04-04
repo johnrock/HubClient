@@ -32,14 +32,15 @@ public class GitHubInteractorTest {
     public static final String TEST_TITLE = "testTitle";
     public static final String TEST_BODY = "testBody";
     public static final String TEST_REPONAME = "testReponame";
+    public static final String STATE_OPEN = "open";
+    public static final String STATE_CLOSED = "closed";
 
     GitHubInteractor gitHubInteractor;
 
-    @Mock  GithubRepository githubRepository;
-    @Mock  HubInteractor.HubAccessor hubAccessor;
+    @Mock GithubRepository githubRepository;
+    @Mock HubInteractor.HubAccessor hubAccessor;
     @Mock List<GithubRepo> githubRepoList;
-    @Mock
-    GithubIssue githubIssue;
+    @Mock GithubIssue githubIssue;
     @Mock HubIssue hubIssue;
 
     Credentials credentials;
@@ -89,6 +90,36 @@ public class GitHubInteractorTest {
     public void shouldUpdateIssue(){
         gitHubInteractor.updateIssue(TEST_REPONAME, hubIssue, credentials);
         verify(githubRepository).updateIssue(anyString(), any(GithubIssue.class), any(Credentials.class));
+    }
+
+    @Test
+    public void shouldToggleIssueStateClosed(){
+        HubIssue hubIssue = new HubIssue();
+        hubIssue.setState(STATE_OPEN);
+
+        ArgumentCaptor<GithubIssue> argumentCaptor = ArgumentCaptor.forClass(GithubIssue.class);
+
+        gitHubInteractor.toggleIssueState(TEST_REPONAME, hubIssue, credentials);
+
+        verify(githubRepository).updateIssue(anyString(), argumentCaptor.capture(), any(Credentials.class));
+
+        GithubIssue actual = argumentCaptor.getValue();
+        assertEquals(STATE_CLOSED, actual.getState());
+    }
+
+    @Test
+    public void shouldToggleIssueStateOpen(){
+        HubIssue hubIssue = new HubIssue();
+        hubIssue.setState(STATE_CLOSED);
+
+        ArgumentCaptor<GithubIssue> argumentCaptor = ArgumentCaptor.forClass(GithubIssue.class);
+
+        gitHubInteractor.toggleIssueState(TEST_REPONAME, hubIssue, credentials);
+
+        verify(githubRepository).updateIssue(anyString(), argumentCaptor.capture(), any(Credentials.class));
+
+        GithubIssue actual = argumentCaptor.getValue();
+        assertEquals(STATE_OPEN, actual.getState());
     }
 
     @Test
