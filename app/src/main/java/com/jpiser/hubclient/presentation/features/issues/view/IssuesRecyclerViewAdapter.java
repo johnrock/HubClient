@@ -76,7 +76,7 @@ public class IssuesRecyclerViewAdapter extends RecyclerView.Adapter<IssuesRecycl
             this.issueModel = issueModel;
             titleTextView.setText(issueModel.getTitle());
             stateTextView.setText(issueModel.getState());
-            numberTextView.setText("#" + issueModel.getNumber());
+            numberTextView.setText(issueModel.getNumberForDisplay());
             UserModel userModel = issueModel.getUserModel();
             if(userModel != null){
                 nameTextView.setText(userModel.getLogin());

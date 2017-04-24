@@ -9,11 +9,8 @@ import android.os.Parcelable;
 
 public class IssueModel implements Parcelable{
 
-    public static final String NUMBER_SIGN = "#";
-
     public IssueModel() {
     }
-
 
     protected IssueModel(Parcel in) {
         userModel = in.readParcelable(UserModel.class.getClassLoader());
@@ -22,6 +19,7 @@ public class IssueModel implements Parcelable{
         number = in.readInt();
         state = in.readString();
         body = in.readString();
+        numberForDisplay = in.readString();
     }
 
     public static final Creator<IssueModel> CREATOR = new Creator<IssueModel>() {
@@ -49,6 +47,7 @@ public class IssueModel implements Parcelable{
         dest.writeInt(number);
         dest.writeString(state);
         dest.writeString(body);
+        dest.writeString(numberForDisplay);
     }
 
     private UserModel userModel;
@@ -57,6 +56,7 @@ public class IssueModel implements Parcelable{
     private int number;
     private String state;
     private String body;
+    private String numberForDisplay;
 
     public UserModel getUserModel() {
         return userModel;
@@ -95,7 +95,11 @@ public class IssueModel implements Parcelable{
     }
 
     public String getNumberForDisplay(){
-        return NUMBER_SIGN + number;
+        return numberForDisplay;
+    }
+
+    public void setNumberForDisplay(String numberForDisplay) {
+        this.numberForDisplay = numberForDisplay;
     }
 
     public String getState() {

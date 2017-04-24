@@ -6,6 +6,7 @@ import com.jpiser.hubclient.domain.models.HubIssue;
 import com.jpiser.hubclient.domain.models.HubOrganization;
 import com.jpiser.hubclient.domain.models.HubRepo;
 import com.jpiser.hubclient.domain.models.HubUserProfile;
+import com.jpiser.hubclient.presentation.models.IssueModel;
 import com.jpiser.hubclient.presentation.models.IssueModelAdapter;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import javax.inject.Inject;
 public class IssuesPresenterImpl implements IssuesPresenter, HubInteractor.HubAccessor {
 
     public static final String SLASH = "/";
+    public static final String NUMBER_SIGN = "#";
 
     ViewLayer viewLayer;
     private Credentials credentials;
@@ -68,7 +70,17 @@ public class IssuesPresenterImpl implements IssuesPresenter, HubInteractor.HubAc
     @Override
     public void receiveIssues(List<HubIssue> issues) {
         if(viewLayer != null){
-           viewLayer.displayIssues(new IssueModelAdapter().adapt(issues));
+            List<IssueModel> issueModels = new IssueModelAdapter().adapt(issues);
+            prepareIssueModelsForDisplay(issueModels);
+            viewLayer.displayIssues(issueModels);
+        }
+    }
+
+    private void prepareIssueModelsForDisplay(List<IssueModel> issueModels) {
+        if(issueModels != null){
+            for (IssueModel issueModel : issueModels) {
+                issueModel.setNumberForDisplay(NUMBER_SIGN + issueModel.getNumber());
+            }
         }
     }
 

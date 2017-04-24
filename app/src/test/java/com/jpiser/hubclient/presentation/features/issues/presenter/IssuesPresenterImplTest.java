@@ -3,12 +3,15 @@ package com.jpiser.hubclient.presentation.features.issues.presenter;
 import com.jpiser.hubclient.data.models.shared.Credentials;
 import com.jpiser.hubclient.domain.interactors.HubInteractor;
 import com.jpiser.hubclient.domain.models.HubIssue;
+import com.jpiser.hubclient.presentation.models.IssueModel;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
@@ -57,11 +60,27 @@ public class IssuesPresenterImplTest {
         verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials, true);
     }
 
+
     @Test
-    public void shouldReceiveIssues(){
+    public void shouldDisplayIssuesInViewLayerAfterReceivingIssues(){
         issuesPresenter.receiveIssues(issueModels);
 
         verify(viewLayer).displayIssues(any(List.class));
+    }
+
+    @Test
+    public void shouldPrepareIssueModelsForDisplayAfterReceivingIssues(){
+        ArgumentCaptor<List<IssueModel>> issuesModelArgumentCaptor = ArgumentCaptor.forClass(List.class);
+
+        issuesPresenter.receiveIssues(listOfHubIssues());
+
+        verify(viewLayer).displayIssues(issuesModelArgumentCaptor.capture());
+
+        List<IssueModel> issueModelList = issuesModelArgumentCaptor.getValue();
+        for(int i=0; i<10; i++){
+            String actual = issueModelList.get(i).getNumberForDisplay();
+            assertEquals("#" + i, actual);
+        }
     }
 
     @Test
@@ -79,6 +98,16 @@ public class IssuesPresenterImplTest {
 
         assertEquals(false, issuesPresenter.showOpenIssues);
         verify(hubInteractor).loadIssues(TEST_OWNER, TEST_REPO, credentials, false);
+    }
+
+    private List<HubIssue> listOfHubIssues() {
+        List<HubIssue> hubIssues = new ArrayList<>();
+        for(int i=0; i< 10; i++){
+            HubIssue hubIssue = new HubIssue();
+            hubIssue.setNumber(i);
+            hubIssues.add(hubIssue);
+        }
+        return hubIssues;
     }
 
 }
